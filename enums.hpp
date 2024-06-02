@@ -110,6 +110,7 @@ namespace lce {
     }
 
 
+    // test
     static bool consoleIsBigEndian(const CONSOLE console) {
         switch (console) {
             case CONSOLE::NONE:
