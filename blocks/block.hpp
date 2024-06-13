@@ -39,23 +39,23 @@ namespace lce::blocks {
     public:
 
         /// id, dataTag, identifier
-        Block(const uint16_t id, uint8_t dataTag, std::string identifier)
-            : id(id), dataTag(dataTag), identifier(std::move(identifier)),
+        Block(const uint16_t id, uint8_t dataTag, const std::string& identifier)
+            : id(id), dataTag(dataTag), identifier(identifier),
               mapColor(MapColor::NONE) {
             REGISTRY.registerValue(id, identifier, this);
         }
 
         /// id, dataTag, identifier, item
         Block(const uint16_t id, uint8_t dataTag,
-              std::string identifier, const lce::items::Item* item)
-            : id(id), dataTag(dataTag), identifier(std::move(identifier)), item(item) {
+              const std::string& identifier, const lce::items::Item* item)
+            : id(id), dataTag(dataTag), identifier(identifier), item(item) {
             REGISTRY.registerValue(id, identifier, this);
         }
 
         /// id, dataTag, identifier, item, mapColor
-        Block(const uint16_t id, uint8_t dataTag, std::string identifier,
+        Block(const uint16_t id, uint8_t dataTag, const std::string& identifier,
               const lce::items::Item* item, MapColor mapColor) : id(id), dataTag(dataTag),
-             identifier(std::move(identifier)), item(item), mapColor(mapColor) {
+             identifier(identifier), item(item), mapColor(mapColor) {
             REGISTRY.registerValue(id, identifier, this);
         }
 

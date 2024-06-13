@@ -54,7 +54,8 @@ public:
         if (idRegistry.count(id) > 0 || identifierRegistry.count(identifier) > 0) {
             if (getObjectById(id) != getObjectByIdentifier(identifier)) {
                 throw std::invalid_argument(
-                        "Separate objects own the id and identifier passed. They must be unique.");
+                        "Separate objects own the id and identifier passed. They must be unique."
+                        "id: " + std::to_string(id) + ", identifier: " + identifier);
             }
 
         }

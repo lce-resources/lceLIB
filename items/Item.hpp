@@ -8,8 +8,6 @@
 #endif
 
 #include "enums.hpp"
-#include "lce/blocks/mapcolors.hpp"
-#include "types.hpp"
 
 #include "lce/processor.hpp"
 
