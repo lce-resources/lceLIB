@@ -13,11 +13,16 @@
 
 #include "lce/include/RegistryNamespaced.hpp"
 
+
+
 namespace lce::blocks {
+
+    class Block;
+    static RegistryNamespaced<Block> REGISTRY;
+
 
     class Block {
 
-        static RegistryNamespaced<Block> REGISTRY;
 
         const uint16_t id{};
         const uint8_t dataTag{};
@@ -41,22 +46,25 @@ namespace lce::blocks {
         /// id, dataTag, identifier
         Block(const uint16_t id, uint8_t dataTag, const std::string& identifier)
             : id(id), dataTag(dataTag), identifier(identifier),
-              mapColor(MapColor::NONE) {
-            REGISTRY.registerValue(id, identifier, this);
+              item(nullptr), mapColor(MapColor::NONE) {
+            if (dataTag == 0) { REGISTRY.registerValue(id, identifier, this);
+            }
         }
 
         /// id, dataTag, identifier, item
         Block(const uint16_t id, uint8_t dataTag,
               const std::string& identifier, const lce::items::Item* item)
             : id(id), dataTag(dataTag), identifier(identifier), item(item) {
-            REGISTRY.registerValue(id, identifier, this);
+            if (dataTag == 0) { REGISTRY.registerValue(id, identifier, this);
+            }
         }
 
         /// id, dataTag, identifier, item, mapColor
         Block(const uint16_t id, uint8_t dataTag, const std::string& identifier,
               const lce::items::Item* item, MapColor mapColor) : id(id), dataTag(dataTag),
              identifier(identifier), item(item), mapColor(mapColor) {
-            REGISTRY.registerValue(id, identifier, this);
+            if (dataTag == 0) { REGISTRY.registerValue(id, identifier, this);
+            }
         }
 
         MU ND uint16_t getID() const { return id; }

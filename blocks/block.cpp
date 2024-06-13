@@ -1,9 +1,5 @@
 #include "Block.hpp"
 
-namespace lce {
-    namespace blocks {
+namespace lce::blocks {
 
-        RegistryNamespaced<Block> Block::REGISTRY;
-
-    }
 }

@@ -1,16 +1,18 @@
 #pragma once
 
 #include <cstddef>
-#include <string>
 #include <cstring>
+#include <iostream>
+#include <string>
 
-#include "lce/processor.hpp"
 #include "lce/include/picture.hpp"
+#include "lce/processor.hpp"
 
 
 class Picture {
+    uint32_t myAllocatedSize = 0;
 public:
-    uint32_t myRGBSize = 3;
+    uint32_t myRGBSize = 4;
     uint32_t myWidth = 0;
     uint32_t myHeight = 0;
 
@@ -20,14 +22,20 @@ public:
     void allocate(const uint32_t rgbSize) {
         delete[] myData;
         myRGBSize = rgbSize;
-        myData = new uint8_t[static_cast<size_t>(myWidth * myHeight * myRGBSize)];
+        myAllocatedSize = myWidth * myHeight * myRGBSize;
+        myData = new uint8_t[static_cast<size_t>(myAllocatedSize)];
 
-        memset(myData, 0, myWidth * myHeight * myRGBSize);
+        memset(myData, 0, myAllocatedSize);
     }
 
     Picture(const uint32_t width, const uint32_t height) : myWidth(width), myHeight(height) {
         myData = nullptr;
-        allocate(3);
+        allocate(4);
+    }
+
+    Picture(const uint32_t width, const uint32_t height, const uint32_t rgbSize) : Picture(width, height) {
+        myData = nullptr;
+        allocate(rgbSize);
     }
 
     MU explicit Picture(const int size) : Picture(size, size) {}
@@ -62,6 +70,9 @@ public:
             myData[index] = red;
             myData[index + 1] = green;
             myData[index + 2] = blue;
+            if (myRGBSize == 4) {
+                myData[index + 3] = 255;
+            }
         }
 
         const uint32_t rowSize = (endX - startX) * myRGBSize;
@@ -79,6 +90,9 @@ public:
             myData[index] = red;
             myData[index + 1] = green;
             myData[index + 2] = blue;
+            if (myRGBSize == 4) {
+                myData[index + 3] = 255;
+            }
         }
 
         const uint32_t rowSize = (myWidth) * myRGBSize;
@@ -114,24 +128,26 @@ public:
      * @param startX
      * @param startY
      */
-    MU void placeSubImage(Picture& picToPlace, const uint32_t startX, const uint32_t startY) const {
-        if (!isValid() || startX > myWidth || startY > myHeight) {
+    MU void placeSubImage(Picture const* picToPlace, const uint32_t startX, const uint32_t startY) const {
+        if (!isValid() || startX >= myWidth || startY >= myHeight) {
             return;
         }
 
-        const uint32_t widthToUse = std::min(picToPlace.myWidth, myWidth - startX);
-        const uint32_t heightToUse = std::min(picToPlace.myHeight, myHeight - startY);
-        const uint32_t rowSize = widthToUse * myRGBSize;
-        for (uint32_t yIter = 0; yIter < heightToUse; yIter++) {
-            const uint32_t indexIn = yIter * myWidth * myRGBSize;
-            const uint32_t indexOut = (startX + (startY + yIter) * picToPlace.myWidth) * picToPlace.myRGBSize;
-            memcpy(&picToPlace.myData[indexOut], &this->myData[indexIn], rowSize);
+        const uint32_t widthInput = std::min(picToPlace->myWidth, myWidth - startX);
+        const uint32_t heightInput = std::min(picToPlace->myHeight, myHeight - startY);
+        const uint32_t rowSizeInput = widthInput * myRGBSize;
+
+        for (uint32_t yIter = 0; yIter < heightInput; yIter++) {
+            const uint32_t indexOut = ((startY + yIter) * this->myWidth + startX) * myRGBSize;
+            const uint32_t indexIn = (yIter * picToPlace->myWidth) * myRGBSize;
+
+            memcpy(&this->myData[indexOut],
+                   &picToPlace->myData[indexIn],
+                   rowSizeInput);
         }
     }
 
 
     void loadFromFile(const char* filename);
     void saveWithName(std::string filename, const std::string& directory) const;
-
-
 };
