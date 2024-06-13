@@ -2,14 +2,10 @@
 
 #include <cstddef>
 #include <string>
+#include <cstring>
 
 #include "lce/processor.hpp"
-
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include "stb_image_write.h"
-
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
+#include "lce/include/picture.hpp"
 
 
 class Picture {
@@ -25,6 +21,7 @@ public:
         delete[] myData;
         myRGBSize = rgbSize;
         myData = new uint8_t[static_cast<size_t>(myWidth * myHeight * myRGBSize)];
+
         memset(myData, 0, myWidth * myHeight * myRGBSize);
     }
 
@@ -92,16 +89,6 @@ public:
     }
 
 
-    void loadFromFile(const char* filename) {
-        int x,y,n;
-        delete[] myData;
-        myData = stbi_load(filename, &x, &y, &n, 0);
-        myWidth = x;
-        myHeight = y;
-        myRGBSize = n;
-    }
-
-
     /**
      * IMPORTANT: both images will have the same RGB size!
      * @param picture
@@ -109,9 +96,7 @@ public:
      * @param startY
      */
     MU void getSubImage(Picture& picture, const uint32_t startX, const uint32_t startY) const {
-        if (!isValid() || startX > myWidth || startY > myHeight) {
-            return;
-        }
+        if (!isValid() || startX > myWidth || startY > myHeight) { return; }
 
         picture.allocate(myRGBSize);
         const uint32_t rowSize = picture.myWidth * myRGBSize;
@@ -145,15 +130,8 @@ public:
     }
 
 
-    void saveWithName(std::string filename, const std::string& directory) const {
-        filename = directory + filename;
-        stbi_write_png(filename.c_str(),
-            static_cast<int>(myWidth),
-            static_cast<int>(myHeight),
-            static_cast<int>(myRGBSize), myData,
-            static_cast<int>(myWidth * myRGBSize)
-       );
-    }
+    void loadFromFile(const char* filename);
+    void saveWithName(std::string filename, const std::string& directory) const;
 
 
 };

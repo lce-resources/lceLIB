@@ -11,6 +11,7 @@
 #include "lce/blocks/mapcolors.hpp"
 #include "types.hpp"
 
+#include "lce/processor.hpp"
 
 namespace lce::items {
 

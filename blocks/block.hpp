@@ -7,10 +7,11 @@
 #include <QDebug>
 #endif
 
-#include "lce/processor.hpp"
 #include "lce/blocks/mapcolors.hpp"
-#include "lce/include/RegistryNamespaced.hpp"
+#include "lce/items/Item.hpp"
+#include "lce/processor.hpp"
 
+#include "lce/include/RegistryNamespaced.hpp"
 
 namespace lce::blocks {
 
@@ -18,9 +19,12 @@ namespace lce::blocks {
 
         static RegistryNamespaced<Block> REGISTRY;
 
-        const std::string identifier;
         const uint16_t id{};
+        const uint8_t dataTag{};
         const MapColor mapColor{};
+
+        const std::string identifier;
+        const lce::items::Item* item;
         /*
          const int lightOpacity;
          const bool translucent;
@@ -34,18 +38,30 @@ namespace lce::blocks {
 
     public:
 
-        Block(const uint16_t id, std::string identifier) : id(id),
-             identifier(std::move(identifier)), mapColor(MapColor::NONE) {
+        /// id, dataTag, identifier
+        Block(const uint16_t id, uint8_t dataTag, std::string identifier)
+            : id(id), dataTag(dataTag), identifier(std::move(identifier)),
+              mapColor(MapColor::NONE) {
             REGISTRY.registerValue(id, identifier, this);
         }
 
-        Block(const uint16_t id, std::string identifier, MapColor mapColor) : id(id),
-            identifier(std::move(identifier)), mapColor(mapColor) {
+        /// id, dataTag, identifier, item
+        Block(const uint16_t id, uint8_t dataTag,
+              std::string identifier, const lce::items::Item* item)
+            : id(id), dataTag(dataTag), identifier(std::move(identifier)), item(item) {
+            REGISTRY.registerValue(id, identifier, this);
+        }
+
+        /// id, dataTag, identifier, item, mapColor
+        Block(const uint16_t id, uint8_t dataTag, std::string identifier,
+              const lce::items::Item* item, MapColor mapColor) : id(id), dataTag(dataTag),
+             identifier(std::move(identifier)), item(item), mapColor(mapColor) {
             REGISTRY.registerValue(id, identifier, this);
         }
 
         MU ND uint16_t getID() const { return id; }
         MU ND std::string getIdentifier() const { return identifier; }
+        MU ND lce::items::Item const* getItem() const { return item; }
         MU ND MapColor getMapColor() const { return mapColor; }
     };
 

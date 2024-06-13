@@ -301,12 +301,12 @@ namespace lce::blocks::ids {
         SPRUCE_BUTTON = 310,
         DOUBLE_PRISMARINE_SLAB = 311, // data=1: brick, data=2:dark, else: regular
         PRISMARINE_SLAB = 312, // top = data & 8, data&7=1:brick, data&7=2:dark, data&7else:reg
-        SPRUCE_WOOD = 313,
-        BIRCH_WOOD = 314,
-        JUNGLE_WOOD = 315,
-        ACACIA_WOOD = 316,
-        DARK_OAK_WOOD = 317,
-        OAK_WOOD = 318,
+        SPRUCE_WOOD_2 = 313, // added "_2"
+        BIRCH_WOOD_2 = 314, // added "_2"
+        JUNGLE_WOOD_2 = 315, // added "_2"
+        ACACIA_WOOD_2 = 316, // added "_2"
+        DARK_OAK_WOOD_2 = 317, // added "_2"
+        OAK_WOOD_2 = 318, // added "_2"
     };
 
 }
