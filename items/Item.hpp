@@ -8,9 +8,8 @@
 #endif
 
 #include "enums.hpp"
-#include "mapcolors.hpp"
-#include "types.hpp"
 
+#include "lce/processor.hpp"
 
 namespace lce::items {
 
@@ -23,43 +22,40 @@ namespace lce::items {
         const int8_t enchantability = 1;
         const ItemType type{};
         const bool damageable{};
-        const MAP_RGB mapColor{};
 
     public:
         Item() = default;
         Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
              std::string identifier, const bool damageable, EntityEquipSlot const armorType,
-             const int8_t enchantability, const MAP_RGB mapColor)
+             const int8_t enchantability)
             : id(id), dataTag(dataTag), type(type), name(std::move(itemName)), identifier(std::move(identifier)),
-              damageable(damageable), armorType(armorType), enchantability(enchantability), mapColor(mapColor) {}
+              damageable(damageable), armorType(armorType), enchantability(enchantability) {}
 
         Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
              std::string identifier, const bool damageable = false)
-            : Item(id, dataTag, type, std::move(itemName), std::move(identifier), damageable, EntityEquipSlot::NONE, 1,
-                   MAP_RGB::NONE) {}
+            : Item(id, dataTag, type, std::move(itemName), std::move(identifier), damageable,
+                   EntityEquipSlot::NONE, 1) {}
         Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
              std::string identifier, const bool damageable, const int8_t enchantability)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), damageable, EntityEquipSlot::NONE,
-                   enchantability, MAP_RGB::NONE) {}
+                   enchantability) {}
         Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
              std::string identifier, const int8_t enchantability)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), false, EntityEquipSlot::NONE,
-                   enchantability, MAP_RGB::NONE) {}
+                   enchantability) {}
         Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
              std::string identifier, const EntityEquipSlot armorType, const int8_t enchantability)
-            : Item(id, dataTag, type, std::move(itemName), std::move(identifier), false, armorType, enchantability,
-                   MAP_RGB::NONE) {}
-        Item(const uint16_t id, const uint8_t dataTag, std::string itemName, std::string identifier,
-             const MAP_RGB mapColor = MAP_RGB::NONE)
+            : Item(id, dataTag, type, std::move(itemName), std::move(identifier), false, armorType, enchantability) {}
+        Item(const uint16_t id, const uint8_t dataTag, std::string itemName, std::string identifier)
             : Item(id, dataTag, ItemType::ItemBlock, std::move(itemName), std::move(identifier), false,
-                   EntityEquipSlot::NONE, 1, mapColor) {}
+                   EntityEquipSlot::NONE, 1) {}
 
 
         ND uint16_t getID() const { return id; }
         ND uint8_t getDataTag() const { return dataTag; }
         ND ItemType getItemType() const { return type; }
         ND std::string getName() const { return name; }
-        ND std::string getIdentifier() const { return "minecraft:" + identifier; }
+        ND std::string getIdentifier() const { return identifier; }
         ND bool isDamageable() const { return damageable; }
         ND EntityEquipSlot getArmorType() const { return armorType; }
         ND int8_t getCost() const { return enchantability; }

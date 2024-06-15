@@ -32,12 +32,12 @@ namespace lce::blocks::ids {
         DISPENSER_ID = 23,
         SANDSTONE_ID = 24,
         NOTE_BLOCK_ID = 25,
-        BED_ID = 26,
+        BED_BLOCK_ID = 26,
         POWERED_RAIL_ID = 27,
         DETECTOR_RAIL_ID = 28,
         STICKY_PISTON_ID = 29,
         COBWEB_ID = 30,
-        DEAD_SHRUB_ID = 31,
+        TALL_GRASS_SHRUB_ID = 31,
         DEAD_BUSH_ID = 32,
         PISTON_ID = 33,
         PISTON_HEAD_ID = 34,
@@ -120,10 +120,10 @@ namespace lce::blocks::ids {
         NETHER_BRICK_BLOCK_ID = 112,
         NETHER_BRICK_FENCE_ID = 113,
         NETHER_BRICK_STAIRS_ID = 114,
-        BLOCK_NETHER_WART_ID = 115,
+        NETHER_WART_ID = 115,
         ENCHANTMENT_TABLE_ID = 116,
-        BLOCK_BREWING_STAND_ID = 117,
-        BLOCK_CAULDRON_ITEM_ID = 118,
+        BREWING_STAND_ID = 117,
+        CAULDRON_ID = 118,
         END_PORTAL_ID = 119,
         END_PORTAL_FRAME_ID = 120,
         END_STONE_ID = 121,
@@ -274,39 +274,39 @@ namespace lce::blocks::ids {
         SEAPICKLE_ID = 271,     // waterlogged=data&8, count=data&3+1
         BUBBLE_COLUMN_ID = 272, // waterlogged = !(data * 8)
         BLUE_ICE_ID = 273,
-        SPRUCE_TRAPDOOR = 274,
-        BIRCH_TRAPDOOR = 275,
-        JUNGLE_TRAPDOOR = 276,
-        ACACIA_TRAPDOOR = 277,
-        DARK_OAK_TRAPDOOR = 278,
-        TURTLE_EGG_ID = 279, // eggs = (data & 3) + 1, hatch = data >> 2
-        PRISMARINE_STAIRS = 291,
-        PRISMARINE_BRICK_STAIRS = 292,
-        DARK_PRISMARINE_STAIRS = 293,
-        STRIPPED_SPRUCE_LOG = 295,
-        STRIPPED_BIRCH_LOG = 296,
-        STRIPPED_JUNGLE_LOG = 297,
-        STRIPPED_ACACIA_LOG = 298,
-        STRIPPED_DARK_0AK_LOG = 299,
-        STRIPPED_OAK_LOG = 300,
-        ACACIA_PRESSURE_PLATE = 301,   // powered = data & 1
-        BIRCH_PRESSURE_PLATE = 302,    // powered = data & 1
-        DARK_OAK_PRESSURE_PLATE = 303, // powered = data & 1
-        JUNGLE_PRESSURE_PLATE = 304,   // powered = data & 1
-        SPRUCE_PRESSURE_PLATE = 305,   // powered = data & 1
-        ACACIA_BUTTON = 306,
-        BIRCH_BUTTON = 307,
-        DARK_OAK_BUTTON = 308,
-        JUNGLE_BUTTON = 309,
-        SPRUCE_BUTTON = 310,
-        DOUBLE_PRISMARINE_SLAB = 311, // data=1: brick, data=2:dark, else: regular
-        PRISMARINE_SLAB = 312, // top = data & 8, data&7=1:brick, data&7=2:dark, data&7else:reg
-        SPRUCE_WOOD = 313,
-        BIRCH_WOOD = 314,
-        JUNGLE_WOOD = 315,
-        ACACIA_WOOD = 316,
-        DARK_OAK_WOOD = 317,
-        OAK_WOOD = 318,
+        SPRUCE_TRAPDOOR_ID = 274,
+        BIRCH_TRAPDOOR_ID = 275,
+        JUNGLE_TRAPDOOR_ID = 276,
+        ACACIA_TRAPDOOR_ID = 277,
+        DARK_OAK_TRAPDOOR_ID = 278,
+        TURTLE_EGG_ID_ID = 279, // eggs = (data & 3) + 1, hatch = data >> 2
+        PRISMARINE_STAIRS_ID = 291,
+        PRISMARINE_BRICK_STAIRS_ID = 292,
+        DARK_PRISMARINE_STAIRS_ID = 293,
+        STRIPPED_SPRUCE_LOG_ID = 295,
+        STRIPPED_BIRCH_LOG_ID = 296,
+        STRIPPED_JUNGLE_LOG_ID = 297,
+        STRIPPED_ACACIA_LOG_ID = 298,
+        STRIPPED_DARK_0AK_LOG_ID = 299,
+        STRIPPED_OAK_LOG_ID = 300,
+        ACACIA_PRESSURE_PLATE_ID = 301,   // powered = data & 1
+        BIRCH_PRESSURE_PLATE_ID = 302,    // powered = data & 1
+        DARK_OAK_PRESSURE_PLATE_ID = 303, // powered = data & 1
+        JUNGLE_PRESSURE_PLATE_ID = 304,   // powered = data & 1
+        SPRUCE_PRESSURE_PLATE_ID = 305,   // powered = data & 1
+        ACACIA_BUTTON_ID = 306,
+        BIRCH_BUTTON_ID = 307,
+        DARK_OAK_BUTTON_ID = 308,
+        JUNGLE_BUTTON_ID = 309,
+        SPRUCE_BUTTON_ID = 310,
+        DOUBLE_PRISMARINE_SLAB_ID = 311, // data=1: brick, data=2:dark, else: regular
+        PRISMARINE_SLAB_ID = 312, // top = data & 8, data&7=1:brick, data&7=2:dark, data&7else:reg
+        SPRUCE_WOOD_2_ID = 313, // added "_2"
+        BIRCH_WOOD_2_ID = 314, // added "_2"
+        JUNGLE_WOOD_2_ID = 315, // added "_2"
+        ACACIA_WOOD_2_ID = 316, // added "_2"
+        DARK_OAK_WOOD_2_ID = 317, // added "_2"
+        OAK_WOOD_2_ID = 318, // added "_2"
     };
 
 }

@@ -4,9 +4,9 @@
 #include <vector>
 
 
-namespace lce::items {
+namespace lce::blocks {
 
-    enum class MAP_RGB : uint8_t {
+    enum class MapColor : uint16_t {
         NONE,
         GRASS,
         SAND,

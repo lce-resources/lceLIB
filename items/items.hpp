@@ -1,8 +1,7 @@
 #pragma once
 
 #include "lce/processor.hpp"
-
-#include "types.hpp"
+#include "lce/items/types.hpp"
 
 
 namespace lce::items {
@@ -252,10 +251,10 @@ namespace lce::items {
     MU const Item NETHER_BRICK_BLOCK = Item(112, 0, "Nether Brick", "nether_brick");
     MU const Item NETHER_BRICK_FENCE = Item(113, 0, "Nether Brick Fence", "nether_brick_fence");
     MU const Item NETHER_BRICK_STAIRS = Item(114, 0, "Nether Brick Stairs", "nether_brick_stairs");
-    MU const Item NETHER_WART = Item(115, 0, "Nether Wart", "nether_wart");
+    // MU const Item NETHER_WART = Item(115, 0, "Nether Wart", "nether_wart");
     MU const Item ENCHANTMENT_TABLE = Item(116, 0, "Enchantment Table", "enchanting_table");
-    MU const Item BREWING_STAND = Item(117, 0, "Brewing Stand", "brewing_stand");
-    MU const Item CAULDRON = Item(118, 0, "Cauldron", "cauldron");
+    // MU const Item BREWING_STAND = Item(117, 0, "Brewing Stand", "brewing_stand");
+    // MU const Item CAULDRON = Item(118, 0, "Cauldron", "cauldron");
     MU const Item END_PORTAL = Item(119, 0, "End Portal", "end_portal");
     MU const Item END_PORTAL_FRAME = Item(120, 0, "End Portal Frame", "end_portal_frame");
     MU const Item END_STONE = Item(121, 0, "End Stone", "end_stone");
@@ -299,7 +298,7 @@ namespace lce::items {
     MU const Item COBBLESTONE_WALL = Item(139, 0, "Cobblestone Wall", "cobblestone_wall");
     MU const Item MOSSY_COBBLESTONE_WALL = Item(139, 1, "Mossy Cobblestone Wall", "cobblestone_wall");
 
-    MU const Item FLOWER_POT = Item(140, 0, "Flower Pot", "flower_pot");
+    // MU const Item FLOWER_POT = Item(140, 0, "Flower Pot", "flower_pot");
     MU const Item CARROTS = Item(141, 0, "Carrots", "carrots");
     MU const Item POTATOES = Item(142, 0, "Potatoes", "potatoes");
     MU const Item WOODEN_BUTTON = Item(143, 0, "Wooden Button", "wooden_button");
@@ -744,7 +743,7 @@ namespace lce::items {
     MU const Item GHAST_TEAR = Item(370, 0, "Ghast Tear", "ghast_tear");
     MU const Item GOLD_NUGGET = Item(371, 0, "Gold Nugget", "gold_nugget");
 
-    // Item NETHER_WART = Item(372, "Nether Wart", "nether_wart");
+    MU const Item NETHER_WART = Item(372, 0, "Nether Wart", "nether_wart");
 
     MU const Item POTION = Item(373, 0, "Potion", "potion");
     MU const Item POTION_AWKWARD = Item(373, 0, "Awkward", "potion");
@@ -789,8 +788,8 @@ namespace lce::items {
     MU const Item FERMENTED_SPIDER_EYE = Item(376, 0, "Fermented Spider Eye", "fermented_spider_eye");
     MU const Item BLAZE_POWDER = Item(377, 0, "Blaze Powder", "blaze_powder");
     MU const Item MAGMA_CREAM = Item(378, 0, "Magma Cream", "magma_cream");
-    // Item BREWING_STAND = Item(379, 0, "Brewing Stand", "brewing_stand");
-    // Item CAULDRON = Item(380, 0, "Cauldron", "cauldron");
+    MU const Item BREWING_STAND = Item(379, 0, "Brewing Stand", "brewing_stand");
+    MU const Item CAULDRON = Item(380, 0, "Cauldron", "cauldron");
     MU const Item EYE_OF_ENDER = Item(381, 0, "Eye of Ender", "ender_eye");
     MU const Item GLISTERING_MELON = Item(382, 0, "Glistering Melon", "speckled_melon");
 
@@ -803,7 +802,7 @@ namespace lce::items {
     MU const Item WRITTEN_BOOK = Item(387, 0, "Written Book", "written_book");
     MU const Item EMERALD = Item(388, 0, "Emerald", "emerald");
     MU const Item ITEM_FRAME = Item(389, 0, "Item Frame", "item_frame");
-    // Item FLOWER_POT = Item(390, 0, "Flower Pot", "flower_pot");
+    MU const Item FLOWER_POT = Item(390, 0, "Flower Pot", "flower_pot");
     MU const Item CARROT = Item(391, 0, "Carrot", "carrot");
     MU const Item POTATO = Item(392, 0, "Potato", "potato");
     MU const Item BAKED_POTATO = Item(393, 0, "Baked Potato", "baked_potato");
