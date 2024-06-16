@@ -19,37 +19,37 @@ namespace lce::blocks {
 
 
     class Block {
-        const uint16_t id{};
-        const uint8_t dataTag{};
+        c_u16 id{};
+        c_u8 dataTag{};
         const MapColor mapColor{};
 
         const std::string identifier;
         const lce::items::Item* item;
         /*
-         const int lightOpacity;
-         const bool translucent;
-         const int lightValue;
+         c_int lightOpacity;
+         c_bool translucent;
+         c_int lightValue;
 
          const float blockHardness{};
-         const bool needsRandomTick;
-         const bool isBlockContainer;
+         c_bool needsRandomTick;
+         c_bool isBlockContainer;
          const Material blockMaterial;
          */
 
     public:
 
         /// id, dataTag, identifier
-        Block(const uint16_t id, uint8_t dataTag, std::string identifier)
+        Block(c_u16 id, u8 dataTag, std::string identifier)
             : id(id), dataTag(dataTag), identifier(std::move(identifier)),
               item(nullptr), mapColor(MapColor::NONE) {}
 
         /// id, dataTag, identifier, item
-        Block(const uint16_t id, uint8_t dataTag,
+        Block(c_u16 id, u8 dataTag,
               std::string identifier, const lce::items::Item* item)
             : id(id), dataTag(dataTag), identifier(std::move(identifier)), item(item) {}
 
         /// id, dataTag, identifier, item, mapColor
-        Block(const uint16_t id, uint8_t dataTag, std::string identifier,
+        Block(c_u16 id, u8 dataTag, std::string identifier,
               const lce::items::Item* item, MapColor mapColor) : id(id), dataTag(dataTag),
              identifier(std::move(identifier)), item(item), mapColor(mapColor) {}
 

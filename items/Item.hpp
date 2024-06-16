@@ -16,37 +16,37 @@ namespace lce::items {
     class Item {
         const std::string name;
         const std::string identifier;
-        const uint16_t id{};
-        const uint8_t dataTag{};
+        c_u16 id{};
+        c_u8 dataTag{};
         const EntityEquipSlot armorType = EntityEquipSlot::NONE;
-        const int8_t enchantability = 1;
+        c_i8 enchantability = 1;
         const ItemType type{};
-        const bool damageable{};
+        c_bool damageable{};
 
     public:
         Item() = default;
-        Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
-             std::string identifier, const bool damageable, EntityEquipSlot const armorType,
+        Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
+             std::string identifier, c_bool damageable, EntityEquipSlot const armorType,
              const int8_t enchantability)
             : id(id), dataTag(dataTag), type(type), name(std::move(itemName)), identifier(std::move(identifier)),
               damageable(damageable), armorType(armorType), enchantability(enchantability) {}
 
-        Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
-             std::string identifier, const bool damageable = false)
+        Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
+             std::string identifier, c_bool damageable = false)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), damageable,
                    EntityEquipSlot::NONE, 1) {}
-        Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
-             std::string identifier, const bool damageable, const int8_t enchantability)
+        Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
+             std::string identifier, c_bool damageable, const int8_t enchantability)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), damageable, EntityEquipSlot::NONE,
                    enchantability) {}
-        Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
+        Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
              std::string identifier, const int8_t enchantability)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), false, EntityEquipSlot::NONE,
                    enchantability) {}
-        Item(const uint16_t id, const uint8_t dataTag, const ItemType type, std::string itemName,
+        Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
              std::string identifier, const EntityEquipSlot armorType, const int8_t enchantability)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), false, armorType, enchantability) {}
-        Item(const uint16_t id, const uint8_t dataTag, std::string itemName, std::string identifier)
+        Item(c_u16 id, c_u8 dataTag, std::string itemName, std::string identifier)
             : Item(id, dataTag, ItemType::ItemBlock, std::move(itemName), std::move(identifier), false,
                    EntityEquipSlot::NONE, 1) {}
 
