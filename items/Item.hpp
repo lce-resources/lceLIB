@@ -27,7 +27,7 @@ namespace lce::items {
         Item() = default;
         Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
              std::string identifier, c_bool damageable, EntityEquipSlot const armorType,
-             const int8_t enchantability)
+             c_i8 enchantability)
             : id(id), dataTag(dataTag), type(type), name(std::move(itemName)), identifier(std::move(identifier)),
               damageable(damageable), armorType(armorType), enchantability(enchantability) {}
 
@@ -36,15 +36,15 @@ namespace lce::items {
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), damageable,
                    EntityEquipSlot::NONE, 1) {}
         Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
-             std::string identifier, c_bool damageable, const int8_t enchantability)
+             std::string identifier, c_bool damageable, c_i8 enchantability)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), damageable, EntityEquipSlot::NONE,
                    enchantability) {}
         Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
-             std::string identifier, const int8_t enchantability)
+             std::string identifier, c_i8 enchantability)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), false, EntityEquipSlot::NONE,
                    enchantability) {}
         Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
-             std::string identifier, const EntityEquipSlot armorType, const int8_t enchantability)
+             std::string identifier, const EntityEquipSlot armorType, c_i8 enchantability)
             : Item(id, dataTag, type, std::move(itemName), std::move(identifier), false, armorType, enchantability) {}
         Item(c_u16 id, c_u8 dataTag, std::string itemName, std::string identifier)
             : Item(id, dataTag, ItemType::ItemBlock, std::move(itemName), std::move(identifier), false,

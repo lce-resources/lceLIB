@@ -26,9 +26,15 @@
 #define ND [[nodiscard]]
 #define MU [[maybe_unused]]
 
+// LOL
+#define const const
+#define override override
+
 #define c_int const int
 #define c_bool const bool
 #define c_auto const auto
+#define c_float const float
+#define c_double const double
 #define c_string_ref const std::string&
 
 #define i8 int8_t
