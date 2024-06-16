@@ -17,16 +17,16 @@ class RegistryNamespaced {
     class ResourceLocation {
     public:
         int id;
-        std::string identifier;
+        std::string name;
         const T* object;
 
-        ResourceLocation(int id, std::string identifier, const T* object)
-            : id(id), identifier(std::move(identifier)), object(object) {}
+        ResourceLocation(int id, std::string name, const T* object)
+            : id(id), name(std::move(name)), object(object) {}
 
         ~ResourceLocation() = default;
 
-        ND std::string toString() const {
-            std::string str = "ResourceLocation{" + std::to_string(id) + ", \"" + identifier + "\", ";
+        MU ND std::string toString() const {
+            std::string str = "ResourceLocation{" + std::to_string(id) + ", \"" + name + "\", ";
             if (object == nullptr) {
                 str += "nullptr";
             } else {
@@ -37,8 +37,11 @@ class RegistryNamespaced {
         }
     };
 
+    mutable std::string myName;
     std::vector<ResourceLocation*> allValues;
-
+    std::unordered_map<int, ResourceLocation*> idRegistry;
+    std::unordered_map<std::string, ResourceLocation*> nameRegistry;
+    /*
     /// function to get a reference to the static idRegistry map
     static std::unordered_map<int, ResourceLocation*>& getIdRegistry() {
         static std::unordered_map<int, ResourceLocation*> idRegistry;
@@ -50,10 +53,24 @@ class RegistryNamespaced {
         static std::unordered_map<std::string, ResourceLocation*> identifierRegistry;
         return identifierRegistry;
     }
+     */
+
 
 public:
     RegistryNamespaced() = default;
-    ~RegistryNamespaced() { clear(); }
+    explicit RegistryNamespaced(std::string nameIn) : myName(std::move(nameIn)) {}
+
+    ~RegistryNamespaced() {
+        clear();
+    }
+
+    void setName(std::string nameIn) {
+        myName = std::move(nameIn);
+    }
+
+    std::string getName() {
+        return myName;
+    }
 
     void registerValue(int id, const std::string& identifier, const T* object) {
         if (object == nullptr) {
@@ -71,12 +88,11 @@ public:
         }
 
         allValues[id] = pResourceLocation;
-        getIdRegistry()[id] = pResourceLocation;
-        getIdentifierRegistry()[identifier] = pResourceLocation;
+        idRegistry[id] = pResourceLocation;
+        nameRegistry[identifier] = pResourceLocation;
     }
 
-    T const* getObjectById(int id) const {
-        auto& idRegistry = getIdRegistry();
+    T const* getObjFromId(int id) const {
         if (idRegistry.count(id) == 0) {
             return nullptr;
         }
@@ -84,11 +100,10 @@ public:
     }
 
     T const* getObjFromName(const std::string& identifier) const {
-        auto& identifierRegistry = getIdentifierRegistry();
-        if (identifierRegistry.count(identifier) == 0) {
+        if (nameRegistry.count(identifier) == 0) {
             return nullptr;
         }
-        return identifierRegistry.at(identifier)->object;
+        return nameRegistry.at(identifier)->object;
     }
 
     T const* operator[](int index) const {
@@ -102,12 +117,22 @@ public:
 
     MU ND int size() const { return allValues.size(); }
 
-    void clear() {
-        std::unordered_set<ResourceLocation*> deletedValues;
-        for (auto& value : allValues) { delete value; }
+    void clear(bool alsoDeleteObjPtrs = false) {
+        myName = "";
+
+        for (int i = 0; i < allValues.size(); i++) {
+            if (allValues[i] != NULL && allValues[i] != nullptr) {
+                if (alsoDeleteObjPtrs) {
+                    delete allValues[i]->object;
+                }
+                allValues[i]->object = nullptr;
+                delete allValues[i];
+                allValues[i] = nullptr;
+            }
+        }
 
         allValues.clear();
-        getIdRegistry().clear();
-        getIdentifierRegistry().clear();
+        idRegistry.clear();
+        nameRegistry.clear();
     }
 };
