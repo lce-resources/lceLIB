@@ -9,7 +9,7 @@ namespace lce::items {
     public:
         Armor(const int id, const std::string& itemName, const std::string& ident, const EntityEquipSlot slot,
               const int8_t materialEnchantability)
-            : Item(id, 0, ItemType::ItemArmor, itemName, ident, slot, materialEnchantability) {}
+            : Item(id, 0, ItemType::ItemArmor, itemName, ident, true, slot, materialEnchantability) {}
     };
 
     class Skull : public Item {
@@ -33,7 +33,7 @@ namespace lce::items {
     class Trident : public Item {
     public:
         Trident(const int id, const int dataTag, std::string itemName, std::string ident)
-            : Item(id, dataTag, ItemType::ItemTrident, std::move(itemName), std::move(ident)) {}
+            : Item(id, dataTag, ItemType::ItemTrident, std::move(itemName), std::move(ident), true) {}
     };
 
 }
