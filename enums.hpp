@@ -17,6 +17,7 @@ namespace lce {
         SWITCH = 5,
         PS4 = 6,
         XBOX1 = 7,
+        PS4_OR_NSX = 8, // used exclusively for [legacyEditor]
     };
 
 
