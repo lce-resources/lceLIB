@@ -33,7 +33,7 @@ namespace lce::items {
         ARMOR_CHAIN = 12,
         ARMOR_IRON = 9,
         ARMOR_GOLD = 25,
-        ARMOR_DIAMOND = 1,
+        ARMOR_DIAMOND = 10,
     };
 
     /// represents enchantability for a specific material
