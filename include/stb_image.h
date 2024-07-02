@@ -1233,9 +1233,9 @@ static void stbi__vertical_flip(void *image, int w, int h, int bytes_per_pixel)
       size_t bytes_left = bytes_per_row;
       while (bytes_left) {
          size_t bytes_copy = (bytes_left < sizeof(temp)) ? bytes_left : sizeof(temp);
-         memcpy(temp, row0, bytes_copy);
-         memcpy(row0, row1, bytes_copy);
-         memcpy(row1, temp, bytes_copy);
+         std::memcpy(temp, row0, bytes_copy);
+         std::memcpy(row0, row1, bytes_copy);
+         std::memcpy(row1, temp, bytes_copy);
          row0 += bytes_copy;
          row1 += bytes_copy;
          bytes_left -= bytes_copy;
@@ -1670,7 +1670,7 @@ static int stbi__getn(stbi__context *s, stbi_uc *buffer, int n)
       if (blen < n) {
          int res, count;
 
-         memcpy(buffer, s->img_buffer, blen);
+         std::memcpy(buffer, s->img_buffer, blen);
 
          count = (s->io.read)(s->io_user_data, (char*) buffer + blen, n - blen);
          res = (count == (n-blen));
@@ -1680,7 +1680,7 @@ static int stbi__getn(stbi__context *s, stbi_uc *buffer, int n)
    }
 
    if (s->img_buffer+n <= s->img_buffer_end) {
-      memcpy(buffer, s->img_buffer, n);
+      std::memcpy(buffer, s->img_buffer, n);
       s->img_buffer += n;
       return 1;
    } else
@@ -4429,7 +4429,7 @@ static int stbi__parse_uncompressed_block(stbi__zbuf *a)
    if (a->zbuffer + len > a->zbuffer_end) return stbi__err("read past buffer","Corrupt PNG");
    if (a->zout + len > a->zout_end)
       if (!stbi__zexpand(a, a->zout, len)) return 0;
-   memcpy(a->zout, a->zbuffer, len);
+   std::memcpy(a->zout, a->zbuffer, len);
    a->zbuffer += len;
    a->zout += len;
    return 1;
@@ -4754,10 +4754,10 @@ static int stbi__create_png_image_raw(stbi__png *a, stbi_uc *raw, stbi__uint32 r
       // perform actual filtering
       switch (filter) {
       case STBI__F_none:
-         memcpy(cur, raw, nk);
+         std::memcpy(cur, raw, nk);
          break;
       case STBI__F_sub:
-         memcpy(cur, raw, filter_bytes);
+         std::memcpy(cur, raw, filter_bytes);
          for (k = filter_bytes; k < nk; ++k)
             cur[k] = STBI__BYTECAST(raw[k] + cur[k-filter_bytes]);
          break;
@@ -4778,7 +4778,7 @@ static int stbi__create_png_image_raw(stbi__png *a, stbi_uc *raw, stbi__uint32 r
             cur[k] = STBI__BYTECAST(raw[k] + stbi__paeth(cur[k-filter_bytes], prior[k], prior[k-filter_bytes]));
          break;
       case STBI__F_avg_first:
-         memcpy(cur, raw, filter_bytes);
+         std::memcpy(cur, raw, filter_bytes);
          for (k = filter_bytes; k < nk; ++k)
             cur[k] = STBI__BYTECAST(raw[k] + (cur[k-filter_bytes] >> 1));
          break;
@@ -4821,7 +4821,7 @@ static int stbi__create_png_image_raw(stbi__png *a, stbi_uc *raw, stbi__uint32 r
             stbi__create_png_alpha_expand8(dest, dest, x, img_n);
       } else if (depth == 8) {
          if (img_n == out_n)
-            memcpy(dest, cur, x*img_n);
+            std::memcpy(dest, cur, x*img_n);
          else
             stbi__create_png_alpha_expand8(dest, cur, x, img_n);
       } else if (depth == 16) {
@@ -4889,7 +4889,7 @@ static int stbi__create_png_image(stbi__png *a, stbi_uc *image_data, stbi__uint3
             for (i=0; i < x; ++i) {
                int out_y = j*yspc[p]+yorig[p];
                int out_x = i*xspc[p]+xorig[p];
-               memcpy(final + out_y*a->s->img_x*out_bytes + out_x*out_bytes,
+               std::memcpy(final + out_y*a->s->img_x*out_bytes + out_x*out_bytes,
                       a->out + (j*x+i)*out_bytes, out_bytes);
             }
          }
@@ -6815,14 +6815,14 @@ static stbi_uc *stbi__gif_load_next(stbi__context *s, stbi__gif *g, int *comp, i
       if (dispose == 3) { // use previous graphic
          for (pi = 0; pi < pcount; ++pi) {
             if (g->history[pi]) {
-               memcpy( &g->out[pi * 4], &two_back[pi * 4], 4 );
+               std::memcpy( &g->out[pi * 4], &two_back[pi * 4], 4 );
             }
          }
       } else if (dispose == 2) {
          // restore what was changed last frame to background before that frame;
          for (pi = 0; pi < pcount; ++pi) {
             if (g->history[pi]) {
-               memcpy( &g->out[pi * 4], &g->background[pi * 4], 4 );
+               std::memcpy( &g->out[pi * 4], &g->background[pi * 4], 4 );
             }
          }
       } else {
@@ -6833,7 +6833,7 @@ static stbi_uc *stbi__gif_load_next(stbi__context *s, stbi__gif *g, int *comp, i
       }
 
       // background is what out is after the undoing of the previou frame;
-      memcpy( g->background, g->out, 4 * g->w * g->h );
+      std::memcpy( g->background, g->out, 4 * g->w * g->h );
    }
 
    // clear my history;
@@ -6897,7 +6897,7 @@ static stbi_uc *stbi__gif_load_next(stbi__context *s, stbi__gif *g, int *comp, i
                for (pi = 0; pi < pcount; ++pi) {
                   if (g->history[pi] == 0) {
                      g->pal[g->bgindex][3] = 255; // just in case it was made transparent, undo that; It will be reset next frame if need be;
-                     memcpy( &g->out[pi * 4], &g->pal[g->bgindex], 4 );
+                     std::memcpy( &g->out[pi * 4], &g->pal[g->bgindex], 4 );
                   }
                }
             }
@@ -7018,7 +7018,7 @@ static void *stbi__load_gif_main(stbi__context *s, int **delays, int *x, int *y,
                   delays_size = layers * sizeof(int);
                }
             }
-            memcpy( out + ((layers - 1) * stride), u, stride );
+            std::memcpy( out + ((layers - 1) * stride), u, stride );
             if (layers >= 2) {
                two_back = out - 2 * stride;
             }

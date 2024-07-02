@@ -20,7 +20,7 @@ namespace lce::blocks {
 
     class Block {
         c_u16 id{};
-        c_u8 dataTag{};
+        c_u8 dataTag;
         const MapColor mapColor{};
 
         const std::string identifier;
@@ -40,8 +40,8 @@ namespace lce::blocks {
 
         /// id, dataTag, identifier
         Block(c_u16 id, u8 dataTag, std::string identifier)
-            : id(id), dataTag(dataTag), identifier(std::move(identifier)),
-              item(nullptr), mapColor(MapColor::NONE) {}
+            : id(id), dataTag(dataTag), mapColor(MapColor::NONE),
+              identifier(std::move(identifier)), item(nullptr) {}
 
         /// id, dataTag, identifier, item
         Block(c_u16 id, u8 dataTag,
@@ -51,7 +51,7 @@ namespace lce::blocks {
         /// id, dataTag, identifier, item, mapColor
         Block(c_u16 id, u8 dataTag, std::string identifier,
               const lce::items::Item* item, MapColor mapColor) : id(id), dataTag(dataTag),
-             identifier(std::move(identifier)), item(item), mapColor(mapColor) {}
+                 mapColor(mapColor), identifier(std::move(identifier)), item(item) {}
 
         MU ND uint16_t getID() const { return id; }
         MU ND std::string getName() const { return identifier; }

@@ -54,7 +54,7 @@ public:
 
     MU void drawPixel(const unsigned char* rgb, c_u32 xIn, c_u32 yIn) const {
         c_u32 index = getIndex(xIn, yIn);
-        memcpy(&myData[static_cast<size_t>(index * myRGBSize)], rgb, myRGBSize);
+        std::memcpy(&myData[static_cast<size_t>(index * myRGBSize)], rgb, myRGBSize);
     }
 
     MU ND bool drawBox(c_u32 startX, c_u32 startY,
@@ -79,7 +79,7 @@ public:
         c_u32 firstRowIndex = getIndex(startX, startY) * myRGBSize;
         for (uint32_t yIter = startY + 1; yIter < endY; yIter++) {
             c_u32 index = getIndex(startX, yIter) * myRGBSize;
-            memcpy(&myData[index], &myData[firstRowIndex], rowSize);
+            std::memcpy(&myData[index], &myData[firstRowIndex], rowSize);
         }
         return true;
     }
@@ -98,7 +98,7 @@ public:
         c_u32 rowSize = (myWidth) * myRGBSize;
         for (uint32_t yIter = 0; yIter < myHeight; yIter++) {
             c_u32 index = getIndex(0, yIter) * myRGBSize;
-            memcpy(&myData[index], &myData[0], rowSize);
+            std::memcpy(&myData[index], &myData[0], rowSize);
         }
     }
 
@@ -117,7 +117,7 @@ public:
         for (uint32_t yIter = 0; yIter < picture.myHeight; yIter++) {
             c_u32 indexIn = (startX + (startY + yIter) * myWidth) * myRGBSize;
             c_u32 indexOut = yIter * picture.myWidth * picture.myRGBSize;
-            memcpy(&picture.myData[indexOut], &this->myData[indexIn], rowSize);
+            std::memcpy(&picture.myData[indexOut], &this->myData[indexIn], rowSize);
         }
     }
 
@@ -141,7 +141,7 @@ public:
             c_u32 indexOut = ((startY + yIter) * this->myWidth + startX) * myRGBSize;
             c_u32 indexIn = (yIter * picToPlace->myWidth) * myRGBSize;
 
-            memcpy(&this->myData[indexOut],
+            std::memcpy(&this->myData[indexOut],
                    &picToPlace->myData[indexIn],
                    rowSizeInput);
         }

@@ -3,8 +3,8 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "lce/include/stb_image_write.h"
 #include "lce/include/stb_image.h"
+#include "lce/include/stb_image_write.h"
 
 
 void Picture::loadFromFile(const char* filename) {
@@ -26,4 +26,3 @@ void Picture::saveWithName(std::string filename, const std::string& directory) c
                    static_cast<int>(myWidth * myRGBSize)
     );
 }
-

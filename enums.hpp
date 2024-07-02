@@ -1,8 +1,8 @@
 #pragma once
 
+#include <algorithm>
 #include <cstdint>
 #include <string>
-#include <algorithm>
 
 
 namespace lce {
@@ -46,7 +46,7 @@ namespace lce {
     };
 
 
-    static std::string consoleToStr(const CONSOLE console) {
+    [[maybe_unused]] static std::string consoleToStr(const CONSOLE console) {
         switch (console) {
             case CONSOLE::XBOX360:
                 return "xbox360";
@@ -71,7 +71,7 @@ namespace lce {
     }
 
 
-    static CONSOLE strToConsole(const std::string& inputStr) {
+    [[maybe_unused]] static CONSOLE strToConsole(const std::string& inputStr) {
         std::string str = inputStr;
         std::transform(str.begin(), str.end(), str.begin(),
                        [](unsigned char c){ return std::tolower(c); });
@@ -98,7 +98,7 @@ namespace lce {
     }
 
 
-    static lce::DIMENSION intToDim(const char number) {
+    [[maybe_unused]] static lce::DIMENSION intToDim(const char number) {
         switch(number) {
             case 0:
                 return lce::DIMENSION::NETHER;
@@ -113,7 +113,7 @@ namespace lce {
 
 
     // test
-    static bool consoleIsBigEndian(const CONSOLE console) {
+    [[maybe_unused]] static bool consoleIsBigEndian(const CONSOLE console) {
         switch (console) {
             case CONSOLE::NONE:
             case CONSOLE::XBOX360:
@@ -130,7 +130,7 @@ namespace lce {
     }
 
 
-    static int getChunkWorldBounds(const WORLDSIZE worldSize) {
+    [[maybe_unused]] static int getChunkWorldBounds(const WORLDSIZE worldSize) {
         switch (worldSize) {
             case WORLDSIZE::CLASSIC:
             default:
@@ -145,7 +145,7 @@ namespace lce {
     }
 
 
-    static std::string worldSizeToString(const WORLDSIZE worldSize) {
+    [[maybe_unused]] static std::string worldSizeToString(const WORLDSIZE worldSize) {
         switch (worldSize) {
             case WORLDSIZE::CLASSIC:
             default:
@@ -160,7 +160,7 @@ namespace lce {
     }
 
 
-    static std::string biomeScaleToString(const BIOMESCALE biomeScale) {
+    [[maybe_unused]] static std::string biomeScaleToString(const BIOMESCALE biomeScale) {
         switch (biomeScale) {
             case BIOMESCALE::SMALL:
                 return "SMALL";

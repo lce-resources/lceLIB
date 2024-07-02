@@ -72,7 +72,7 @@ public:
         return myName;
     }
 
-    void registerValue(int id, const std::string& identifier, const T* object) {
+    void registerValue(size_t id, const std::string& identifier, const T* object) {
         if (object == nullptr) {
             throw std::invalid_argument("Object cannot be null.");
         }
@@ -120,7 +120,7 @@ public:
     void clear(bool alsoDeleteObjPtrs = false) {
         myName = "";
 
-        for (int i = 0; i < allValues.size(); i++) {
+        for (size_t i = 0; i < allValues.size(); i++) {
             if (allValues[i] != NULL && allValues[i] != nullptr) {
                 if (alsoDeleteObjPtrs) {
                     delete allValues[i]->object;

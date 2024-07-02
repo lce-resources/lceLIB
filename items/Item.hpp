@@ -7,9 +7,9 @@
 #include <QDebug>
 #endif
 
-#include "enums.hpp"
-
 #include "lce/processor.hpp"
+#include "lce/items/enums.hpp"
+
 
 namespace lce::items {
 
@@ -28,8 +28,8 @@ namespace lce::items {
         Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
              std::string identifier, c_bool damageable, EntityEquipSlot const armorType,
              c_i8 enchantability)
-            : id(id), dataTag(dataTag), type(type), name(std::move(itemName)), identifier(std::move(identifier)),
-              damageable(damageable), armorType(armorType), enchantability(enchantability) {}
+            : name(std::move(itemName)), identifier(std::move(identifier)), id(id), dataTag(dataTag),
+              armorType(armorType), enchantability(enchantability), type(type), damageable(damageable) {}
 
         Item(c_u16 id, c_u8 dataTag, const ItemType type, std::string itemName,
              std::string identifier, c_bool damageable = false)

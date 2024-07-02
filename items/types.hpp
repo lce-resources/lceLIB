@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Item.hpp"
+#include "lce/items/Item.hpp"
 
 
 namespace lce::items {
