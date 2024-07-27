@@ -6,7 +6,7 @@
 
 namespace lce::registry {
 
-    class TextureRegistry {
+    class MU TextureRegistry {
         static bool isSetup;
 
         static const std::string BLOCK_TEXTURE_FILE;
@@ -23,7 +23,7 @@ namespace lce::registry {
         MU ND Picture const* getBlockFromID(int id);
         MU ND Picture const* getBlockFromName(const std::string& name);
 
-        void setup();
+        MU void setup();
         MU void deallocate();
     };
 

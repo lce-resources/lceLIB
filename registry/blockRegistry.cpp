@@ -4,12 +4,12 @@
 namespace lce::registry {
 
 
-    lce::blocks::Block const* BlockRegistry::getBlockFromID(int id) {
+    MU lce::blocks::Block const* BlockRegistry::getBlockFromID(int id) {
         return REGISTRY.getObjFromId(id);
     }
 
 
-    lce::blocks::Block const* BlockRegistry::getBlockFromName(const std::string& name) {
+    MU lce::blocks::Block const* BlockRegistry::getBlockFromName(const std::string& name) {
         return REGISTRY.getObjFromName(name);
     }
 
@@ -19,7 +19,7 @@ namespace lce::registry {
     }
 
 
-    void BlockRegistry::setup() {
+    MU void BlockRegistry::setup() {
         if (isSetup) { return; }
         setUpBlocks();
         isSetup = true;

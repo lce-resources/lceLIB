@@ -1130,7 +1130,10 @@ STBIWDEF unsigned char *stbi_write_png_to_mem(const unsigned char *pixels, int s
    int force_filter = stbi_write_force_png_filter;
    int ctype[5] = { -1, 0, 4, 2, 6 };
    unsigned char sig[8] = { 137,80,78,71,13,10,26,10 };
-   unsigned char *out,*o, *filt, *zlib;
+   unsigned char *out = nullptr;
+   unsigned char *o = nullptr;
+   unsigned char *filt = nullptr;
+   unsigned char *zlib = nullptr;
    signed char *line_buffer;
    int j,zlen;
 
@@ -1141,8 +1144,19 @@ STBIWDEF unsigned char *stbi_write_png_to_mem(const unsigned char *pixels, int s
       force_filter = -1;
    }
 
-   filt = (unsigned char *) STBIW_MALLOC((x*n+1) * y); if (!filt) return 0;
-   line_buffer = (signed char *) STBIW_MALLOC(x * n); if (!line_buffer) { STBIW_FREE(filt); return 0; }
+
+   int size = (x*n+1) * y;
+   filt = (unsigned char *) STBIW_MALLOC(size);
+   if (!filt) {
+       // Handle memory allocation failure
+       std::cerr << "Memory allocation for filt failed!" << std::endl;
+       return nullptr;
+   }
+   line_buffer = (signed char *) STBIW_MALLOC(x * n);
+   if (!line_buffer) {
+       STBIW_FREE(filt);
+       return nullptr;
+   }
    for (j=0; j < y; ++j) {
       int filter_type;
       if (force_filter > -1) {

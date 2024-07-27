@@ -19,6 +19,19 @@ public:
     /// goes left to right, top to bottom I think
     uint8_t* myData = nullptr;
 
+    void allocate(u32 width, u32 height, c_u32 rgbSize) {
+        delete[] myData;
+
+        myWidth = width;
+        myHeight = height;
+        myRGBSize = rgbSize;
+        myAllocatedSize = myWidth * myHeight * myRGBSize;
+        myData = new uint8_t[static_cast<size_t>(myAllocatedSize)];
+
+        memset(myData, 0, myAllocatedSize);
+    }
+
+
     void allocate(c_u32 rgbSize) {
         delete[] myData;
         myRGBSize = rgbSize;
@@ -42,7 +55,9 @@ public:
 
     MU Picture() = default;
 
-    ~Picture() { delete[] myData; }
+    ~Picture() {
+        delete[] myData;
+    }
 
     MU ND uint32_t getWidth() const { return myWidth; }
     MU ND uint32_t getHeight() const { return myHeight; }
@@ -97,8 +112,8 @@ public:
 
         c_u32 rowSize = (myWidth) * myRGBSize;
         for (uint32_t yIter = 0; yIter < myHeight; yIter++) {
-            c_u32 index = getIndex(0, yIter) * myRGBSize;
-            std::memcpy(&myData[index], &myData[0], rowSize);
+            // c_u32 index = getIndex(0, yIter) * myRGBSize;
+            std::memcpy(&myData[rowSize * yIter], &myData[0], rowSize);
         }
     }
 
@@ -148,6 +163,10 @@ public:
     }
 
 
+    void placeAndStretchSubImage(Picture const* picToPlace, c_u32 startX, c_u32 startY, c_u32 targetWidth, c_u32 targetHeight) const;
+
+
+
     void loadFromFile(const char* filename);
-    void saveWithName(std::string filename, const std::string& directory) const;
+    void saveWithName(const std::string& filename) const;
 };

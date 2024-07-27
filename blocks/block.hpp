@@ -20,7 +20,7 @@ namespace lce::blocks {
 
     class Block {
         c_u16 id{};
-        c_u8 dataTag;
+        MU c_u8 dataTag;
         const MapColor mapColor{};
 
         const std::string identifier;

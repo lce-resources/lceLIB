@@ -79,20 +79,10 @@
 
 
 /// printf, but returns -1.
-MU static int printf_err(const char* format, ...) {
+MU static int printf_err(int return_code, const char* format, ...) {
     va_list args;
     va_start(args, format);
     vprintf(format, args);
     va_end(args);
-    return -1;
-}
-
-
-/// printf, but returns -1.
-MU static int printf_err(const std::string& format, ...) {
-    va_list args;
-    va_start(args, format);
-    vprintf(format.c_str(), args);
-    va_end(args);
-    return -1;
+    return return_code;
 }

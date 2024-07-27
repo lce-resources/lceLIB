@@ -8,16 +8,15 @@
 namespace lce {
 
     enum class CONSOLE : int8_t {
-        NONE = -1,
-        XBOX360 = 0,
-        PS3 = 1,
-        WIIU = 2,
-        VITA = 3,
+        NONE = 0,
+        XBOX360 = 1,
+        XBOX1 = 2,
+        PS3 = 3,
         RPCS3 = 4,
-        SWITCH = 5,
+        VITA = 5,
         PS4 = 6,
-        XBOX1 = 7,
-        PS4_OR_NSX = 8, // used exclusively for [legacyEditor]
+        WIIU = 7,
+        SWITCH = 8,
     };
 
 
@@ -46,6 +45,29 @@ namespace lce {
     };
 
 
+    enum class FILETYPE : uint8_t {
+        NONE,             // NONE
+        STRUCTURE,        // data/
+        VILLAGE,          // data/
+        DATA_MAPPING,     // data/
+        MAP,              // data/
+        REGION_NETHER,    // ...
+        REGION_OVERWORLD, // ...
+        REGION_END,       // ...
+        PLAYER,           // ...
+        LEVEL,            // ...
+        GRF,              // ...
+        ENTITY_NETHER,    // ...
+        ENTITY_OVERWORLD, // ...
+        ENTITY_END,       // ...
+
+        // PS_PARAM_SFO,
+        // PS_PARAM_PFD,
+        // PS_ICON0_PNG,
+        // PS_KEYSTONE,
+    };
+
+
     [[maybe_unused]] static std::string consoleToStr(const CONSOLE console) {
         switch (console) {
             case CONSOLE::XBOX360:
@@ -68,6 +90,20 @@ namespace lce {
             default:
                 return "NONE";
         }
+    }
+
+
+    [[maybe_unused]] static const char* consoleToCStr(const CONSOLE console) {
+        static std::string str;
+        str = consoleToStr(console);
+        return str.c_str();
+    }
+
+
+    [[maybe_unused]] static bool isConsoleNewGen(const CONSOLE console) {
+        return console == CONSOLE::PS4 ||
+               console == CONSOLE::SWITCH ||
+               console == CONSOLE::XBOX1;
     }
 
 
@@ -112,7 +148,6 @@ namespace lce {
     }
 
 
-    // test
     [[maybe_unused]] static bool consoleIsBigEndian(const CONSOLE console) {
         switch (console) {
             case CONSOLE::NONE:
@@ -168,6 +203,41 @@ namespace lce {
                 return "MEDIUM";
             case BIOMESCALE::LARGE:
                 return "LARGE";
+            default:
+                return "NONE";
+        }
+    }
+
+
+    [[maybe_unused]] static std::string fileTypeToString(const FILETYPE type) {
+        switch (type) {
+            case FILETYPE::STRUCTURE:
+                return "STRUCTURE";
+            case FILETYPE::VILLAGE:
+                return "VILLAGE";
+            case FILETYPE::DATA_MAPPING:
+                return "DATA_MAPPING";
+            case FILETYPE::MAP:
+                return "MAP";
+            case FILETYPE::REGION_NETHER:
+                return "REGION_NETHER";
+            case FILETYPE::REGION_OVERWORLD:
+                return "REGION_OVERWORLD";
+            case FILETYPE::REGION_END:
+                return "REGION_END";
+            case FILETYPE::PLAYER:
+                return "PLAYER";
+            case FILETYPE::LEVEL:
+                return "LEVEL";
+            case FILETYPE::GRF:
+                return "GRF";
+            case FILETYPE::ENTITY_NETHER:
+                return "ENTITY_NETHER";
+            case FILETYPE::ENTITY_OVERWORLD:
+                return "ENTITY_OVERWORLD";
+            case FILETYPE::ENTITY_END:
+                return "ENTITY_END";
+            case FILETYPE::NONE:
             default:
                 return "NONE";
         }

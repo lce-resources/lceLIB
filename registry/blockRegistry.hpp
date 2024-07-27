@@ -7,7 +7,7 @@
 
 namespace lce::registry {
 
-    class BlockRegistry {
+    class MU BlockRegistry {
         RegistryNamespaced<lce::blocks::Block> REGISTRY;
         bool isSetup;
 
@@ -15,7 +15,7 @@ namespace lce::registry {
         void setUpBlocks();
 
     public:
-        void setup();
+        MU void setup();
 
         MU lce::blocks::Block const* getBlockFromID(int id);
         MU lce::blocks::Block const* getBlockFromName(const std::string& name);

@@ -7,21 +7,21 @@
 namespace lce::registry {
 
 
-    const std::string TextureRegistry::BLOCK_TEXTURE_FILE = "lce/assets/terrain.png";
+    const std::string TextureRegistry::BLOCK_TEXTURE_FILE = "assets/lce/terrain.png";
     bool TextureRegistry::isSetup = false;
 
 
-    Picture const* TextureRegistry::getBlockFromID(int id) {
+    MU Picture const* TextureRegistry::getBlockFromID(int id) {
         return textureRegistry.getObjFromId(id);
     }
 
 
-    Picture const* TextureRegistry::getBlockFromName(const std::string& name) {
+    MU Picture const* TextureRegistry::getBlockFromName(const std::string& name) {
         return textureRegistry.getObjFromName(name);
     }
 
 
-    void TextureRegistry::setup() {
+    MU void TextureRegistry::setup() {
         if (isSetup) { return; }
 
         textureRegistry.setName("BLOCK_TEXTURES");
@@ -358,7 +358,7 @@ namespace lce::registry {
     }
 
 
-    // const std::string TextureRegistry::ITEM_TEXTURE_FILE = "lce/assets/items.png";
+    // const std::string TextureRegistry::ITEM_TEXTURE_FILE = "assets/lce/items.png";
     /*
     Picture const* TextureMap::getItemByID(int id) {
         return itemRegistry.getObjectById(id);
