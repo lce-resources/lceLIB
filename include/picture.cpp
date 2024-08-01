@@ -76,6 +76,7 @@ void Picture::loadFromFile(const char* filename) {
 }
 
 
+// TODO: make it create folders
 void Picture::saveWithName(const std::string& filename) const {
     stbi_write_png(filename.c_str(),
                    static_cast<int>(myWidth),
