@@ -1,6 +1,5 @@
 #include "lce/blocks/block_ids.hpp"
 #include "lce/blocks/blocks.hpp"
-#include "lce/items/item_ids.hpp"
 #include "textureRegistry.hpp"
 
 
