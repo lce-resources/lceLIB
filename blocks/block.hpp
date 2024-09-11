@@ -57,6 +57,7 @@ namespace lce::blocks {
         MU ND std::string getName() const { return identifier; }
         MU ND lce::items::Item const* getItem() const { return item; }
         MU ND MapColor getMapColor() const { return mapColor; }
+        MU ND uint8_t getDataTag() const { return dataTag; }
     };
 
 
