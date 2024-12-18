@@ -53,6 +53,10 @@ namespace lce::blocks {
               const lce::items::Item* item, MapColor mapColor) : id(id), dataTag(dataTag),
                  mapColor(mapColor), identifier(std::move(identifier)), item(item) {}
 
+        bool operator==(const Block &other) const {
+            return id == other.id && dataTag == other.dataTag;
+        }
+
         MU ND uint16_t getID() const { return id; }
         MU ND std::string getName() const { return identifier; }
         MU ND lce::items::Item const* getItem() const { return item; }
