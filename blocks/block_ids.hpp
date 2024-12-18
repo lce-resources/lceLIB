@@ -1,5 +1,6 @@
 #pragma once
 
+#include "lce/processor.hpp"
 #include <cstdint>
 
 
@@ -41,7 +42,7 @@ namespace lce::blocks::ids {
         DEAD_BUSH_ID = 32,
         PISTON_ID = 33,
         PISTON_HEAD_ID = 34,
-        WHITE_WOOL_ID = 35,
+        WOOL_ID = 35,
         DANDELION_ID = 37,
         POPPY_ID = 38,
         BROWN_MUSHROOM_ID = 39,
@@ -91,7 +92,7 @@ namespace lce::blocks::ids {
         SUGAR_CANES_ID = 83,
         JUKEBOX_ID = 84,
         OAK_FENCE_ID = 85,
-        PUMPKIN_ID = 86,
+        CARVED_PUMPKIN_ID = 86,
         NETHERRACK_ID = 87,
         SOUL_SAND_ID = 88,
         GLOWSTONE_ID = 89,
@@ -100,7 +101,7 @@ namespace lce::blocks::ids {
         CAKE_BLOCK_ID = 92,
         OFF_REDSTONE_REPEATER_BLOCK_ID = 93,
         ON_REDSTONE_REPEATER_BLOCK_ID = 94,
-        WHITE_STAINED_GLASS_ID = 95,
+        STAINED_GLASS_ID = 95,
         WOODEN_TRAPDOOR_ID = 96,
         STONE_MONSTER_EGG_ID = 97,
         STONE_BRICKS_ID = 98,
@@ -164,8 +165,8 @@ namespace lce::blocks::ids {
         QUARTZ_STAIRS_ID = 156,
         ACTIVATOR_RAIL_ID = 157,
         DROPPER_ID = 158,
-        WHITE_HARDENED_CLAY_ID = 159,
-        WHITE_STAINED_GLASS_PANE_ID = 160,
+        STAINED_HARDENED_CLAY_ID = 159,
+        STAINED_GLASS_PANE_ID = 160,
         ACACIA_LEAVES_ID = 161,
         ACACIA_WOOD_ID = 162,
         ACACIA_WOOD_STAIRS_ID = 163,
@@ -176,11 +177,11 @@ namespace lce::blocks::ids {
         PRISMARINE_ID = 168,
         SEA_LANTERN_ID = 169,
         HAY_BALE_ID = 170,
-        WHITE_CARPET_ID = 171,
+        CARPET_ID = 171,
         HARDENED_CLAY_ID = 172,
         BLOCK_OF_COAL_ID = 173,
         PACKED_ICE_ID = 174,
-        SUNFLOWER_ID = 175,
+        DOUBLE_PLANT_ID = 175,
         FREE_STANDING_BANNER_ID = 176,
         WALL_MOUNTED_BANNER_ID = 177,
         INVERTED_DAYLIGHT_SENSOR_ID = 178,
@@ -256,11 +257,11 @@ namespace lce::blocks::ids {
         GREEN_GLAZED_TERRACOTTA_ID = 248,
         RED_GLAZED_TERRACOTTA_ID = 249,
         BLACK_GLAZED_TERRACOTTA_ID = 250,
-        WHITE_CONCRETE_ID = 251,
-        WHITE_CONCRETE_POWDER_ID = 252,
+        CONCRETE_ID = 251,
+        CONCRETE_POWDER_ID = 252,
         STRUCTURE_BLOCK_ID = 255,
         CONDUIT_ID = 256,
-        UNKNOWN_PUMPKIN = 257,
+        PUMPKIN_ID = 257,
         KELP_ID = 258,            // has data
         CORAL_BLOCK_ID = 259,     // 0-4 + 8-12
         CORAL_ID = 263,           // 0-4 + 8-12
@@ -308,5 +309,254 @@ namespace lce::blocks::ids {
         DARK_OAK_WOOD_2_ID = 317, // added "_2"
         OAK_WOOD_2_ID = 318, // added "_2"
     };
+
+    ND static bool isLiquidBlock(c_int id) {
+        return id == STILL_WATER_ID || id == STILL_LAVA_ID ||
+               id == FLOWING_WATER_ID || id == FLOWING_LAVA_ID;
+    }
+
+    ND static bool isWaterMaterial(c_int id) {
+        return id == STILL_WATER_ID || id == STILL_LAVA_ID;
+    }
+
+    ND static bool isSolidBlock(c_int id) {
+        switch (id) {
+            case AIR_ID:
+            case OAK_SAPLING_ID:
+            case FLOWING_WATER_ID:
+            case STILL_WATER_ID:
+            case FLOWING_LAVA_ID:
+            case STILL_LAVA_ID:
+            case POWERED_RAIL_ID:
+            case DETECTOR_RAIL_ID:
+            case TALL_GRASS_SHRUB_ID:
+            case DEAD_BUSH_ID:
+            case DANDELION_ID:
+            case POPPY_ID:
+            case BROWN_MUSHROOM_ID:
+            case RED_MUSHROOM_ID:
+            case TORCH_ID:
+            case FIRE_ID:
+            case REDSTONE_WIRE_ID:
+            case WHEAT_CROPS_ID:
+            case LADDER_ID:
+            case RAIL_ID:
+            case LEVER_ID:
+            case OFF_REDSTONE_TORCH_ID:
+            case ON_REDSTONE_TORCH_ID:
+            case STONE_BUTTON_ID:
+            case SNOW_ID:
+            case SUGAR_CANES_ID:
+            case NETHER_PORTAL_ID:
+            case OFF_REDSTONE_REPEATER_BLOCK_ID:
+            case ON_REDSTONE_REPEATER_BLOCK_ID:
+            case PUMPKIN_STEM_ID:
+            case MELON_STEM_ID:
+            case VINES_ID:
+            case LILY_PAD_ID:
+            case NETHER_WART_ID:
+            case END_PORTAL_ID:
+            case COCOA_ID:
+            case TRIPWIRE_HOOK_ID:
+            case TRIPWIRE_ID:
+            case FLOWER_POT_ID:
+            case CARROTS_ID:
+            case POTATOES_ID:
+            case WOODEN_BUTTON_ID:
+            case MOB_HEAD_ID:
+            case INACTIVE_REDSTONE_COMPARATOR_ID:
+            case ACTIVE_REDSTONE_COMPARATOR_ID:
+            case ACTIVATOR_RAIL_ID:
+            case CARPET_ID:
+            case DOUBLE_PLANT_ID:
+            case END_ROD_ID:
+            case CHORUS_PLANT_ID:
+            case CHORUS_FLOWER_ID:
+            case BEETROOT_BLOCK_ID:
+            case END_GATEWAY_ID:
+            case STRUCTURE_VOID_ID:
+            case KELP_ID:
+            case BUBBLE_COLUMN_ID:
+            case ACACIA_BUTTON_ID:
+            case BIRCH_BUTTON_ID:
+            case DARK_OAK_BUTTON_ID:
+            case JUNGLE_BUTTON_ID:
+            case SPRUCE_BUTTON_ID:
+                return false;
+
+            default:
+                return true;
+        }
+    }
+
+    [[gnu::noinline]] ND static bool isFullBlock(c_int id) {
+        switch (id) {
+            case STONE_ID:
+            case GRASS_ID:
+            case DIRT_ID:
+            case COBBLESTONE_ID:
+            case OAK_WOOD_PLANK_ID:
+            case BEDROCK_ID:
+            case SAND_ID:
+            case GRAVEL_ID:
+            case GOLD_ORE_ID:
+            case IRON_ORE_ID:
+            case COAL_ORE_ID:
+            case OAK_WOOD_ID:
+            case OAK_LEAVES_ID:
+            case SPONGE_ID:
+            case LAPIS_LAZULI_ORE_ID:
+            case LAPIS_LAZULI_BLOCK_ID:
+            case DISPENSER_ID:
+            case SANDSTONE_ID:
+            case NOTE_BLOCK_ID:
+            case WOOL_ID:
+            case GOLD_BLOCK_ID:
+            case IRON_BLOCK_ID:
+            case DOUBLE_STONE_SLAB_ID:
+            case BRICKS_ID:
+            case TNT_ID:
+            case BOOKSHELF_ID:
+            case MOSS_STONE_ID:
+            case OBSIDIAN_ID:
+            case DIAMOND_ORE_ID:
+            case DIAMOND_BLOCK_ID:
+            case CRAFTING_TABLE_ID:
+            case FURNACE_ID:
+            case BURNING_FURNACE_ID:
+            case REDSTONE_ORE_ID:
+            case GLOWING_REDSTONE_ORE_ID:
+            case SNOW_BLOCK_ID:
+            case CLAY_BLOCK_ID:
+            case JUKEBOX_ID:
+            case CARVED_PUMPKIN_ID:
+            case NETHERRACK_ID:
+            case SOUL_SAND_ID:
+            case GLOWSTONE_ID:
+            case JACK_O_LANTERN_ID:
+            case STONE_MONSTER_EGG_ID:
+            case STONE_BRICKS_ID:
+            case BROWN_MUSHROOM_BLOCK_ID:
+            case RED_MUSHROOM_BLOCK_ID:
+            case MELON_BLOCK_ID:
+            case MYCELIUM_ID:
+            case NETHER_BRICK_BLOCK_ID:
+            case END_STONE_ID:
+            case INACTIVE_REDSTONE_LAMP_ID:
+            case ACTIVE_REDSTONE_LAMP_ID:
+            case DOUBLE_OAK_WOOD_SLAB_ID:
+            case EMERALD_ORE_ID:
+            case EMERALD_BLOCK_ID:
+            case COMMAND_BLOCK_ID:
+            case REDSTONE_BLOCK_ID:
+            case NETHER_QUARTZ_ORE_ID:
+            case QUARTZ_BLOCK_ID:
+            case DROPPER_ID:
+            case STAINED_HARDENED_CLAY_ID:
+            case ACACIA_LEAVES_ID:
+            case ACACIA_WOOD_ID:
+            case PRISMARINE_ID:
+            case SEA_LANTERN_ID:
+            case HAY_BALE_ID:
+            case HARDENED_CLAY_ID:
+            case BLOCK_OF_COAL_ID:
+            case PACKED_ICE_ID:
+            case RED_SANDSTONE_ID:
+            case DOUBLE_RED_SANDSTONE_SLAB_ID:
+            case PURPUR_BLOCK_ID:
+            case PURPUR_PILLAR_ID:
+            case PURPUR_DOUBLE_SLAB_ID:
+            case END_STONE_BRICKS_ID:
+            case REPEATING_COMMAND_BLOCK_ID:
+            case CHAIN_COMMAND_BLOCK_ID:
+            case MAGMA_BLOCK_ID:
+            case NETHER_WART_BLOCK_ID:
+            case RED_NETHER_BRICK_ID:
+            case BONE_BLOCK_ID:
+            case OBSERVER_ID:
+            case WHITE_GLAZED_TERRACOTTA_ID:
+            case ORANGE_GLAZED_TERRACOTTA_ID:
+            case MAGENTA_GLAZED_TERRACOTTA_ID:
+            case LIGHT_BLUE_GLAZED_TERRACOTTA_ID:
+            case YELLOW_GLAZED_TERRACOTTA_ID:
+            case LIME_GLAZED_TERRACOTTA_ID:
+            case PINK_GLAZED_TERRACOTTA_ID:
+            case GRAY_GLAZED_TERRACOTTA_ID:
+            case LIGHT_GRAY_GLAZED_TERRACOTTA_ID:
+            case CYAN_GLAZED_TERRACOTTA_ID:
+            case PURPLE_GLAZED_TERRACOTTA_ID:
+            case BLUE_GLAZED_TERRACOTTA_ID:
+            case BROWN_GLAZED_TERRACOTTA_ID:
+            case GREEN_GLAZED_TERRACOTTA_ID:
+            case RED_GLAZED_TERRACOTTA_ID:
+            case BLACK_GLAZED_TERRACOTTA_ID:
+            case CONCRETE_ID:
+            case CONCRETE_POWDER_ID:
+            case STRUCTURE_BLOCK_ID:
+
+            case BLUE_ICE_ID:
+            case DRIED_KELP_BLOCK_ID:
+            case STRIPPED_SPRUCE_LOG_ID:
+            case STRIPPED_BIRCH_LOG_ID:
+            case STRIPPED_JUNGLE_LOG_ID:
+            case STRIPPED_ACACIA_LOG_ID:
+            case STRIPPED_DARK_0AK_LOG_ID:
+            case STRIPPED_OAK_LOG_ID:
+            case DOUBLE_PRISMARINE_SLAB_ID:
+            case SPRUCE_WOOD_2_ID:
+            case BIRCH_WOOD_2_ID:
+            case JUNGLE_WOOD_2_ID:
+            case ACACIA_WOOD_2_ID:
+            case DARK_OAK_WOOD_2_ID:
+            case OAK_WOOD_2_ID:
+                return true;
+
+            default:
+                return false;
+        }
+    }
+
+    [[gnu::noinline]] ND static bool isFullyOpaqueBlock(c_int id) {
+        switch(id) {
+            case OAK_LEAVES_ID:
+            case TNT_ID:
+            case GLOWSTONE_ID:
+            case ACACIA_LEAVES_ID:
+            case SEA_LANTERN_ID:
+                return false;
+
+            case STICKY_PISTON_ID:
+            case PISTON_ID:
+            case MONSTER_SPAWNER_ID:
+            case HOPPER_ID:
+            case SLIME_BLOCK_ID:
+            case BARRIER_ID:
+                return true;
+
+            default:
+                return isFullBlock(id);
+        }
+    }
+
+    ND static bool isLeavesBlock(c_int id) {
+        return id == OAK_LEAVES_ID || id == ACACIA_LEAVES_ID;
+    }
+
+    ND static bool isReplaceableBlock(c_int id) {
+        switch (id) {
+            case AIR_ID:
+            case TALL_GRASS_SHRUB_ID:
+            case DEAD_BUSH_ID:
+            case FIRE_ID:
+            case SNOW_ID:
+            case VINES_ID:
+            case DOUBLE_PLANT_ID:
+            case STRUCTURE_VOID_ID:
+                return true;
+
+            default:
+                return isLiquidBlock(id);
+        }
+    }
 
 }

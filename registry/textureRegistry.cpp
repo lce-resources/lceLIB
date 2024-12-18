@@ -88,7 +88,7 @@ namespace lce::registry {
         addBlock(ids_t_b::DEAD_BUSH_ID, lce::blocks::DEAD_BUSH.getName(), 0, 0);
         addBlock(ids_t_b::PISTON_ID, lce::blocks::PISTON.getName(), 0, 0);
         addBlock(ids_t_b::PISTON_HEAD_ID, lce::blocks::PISTON_HEAD.getName(), 0, 0);
-        addBlock(ids_t_b::WHITE_WOOL_ID, lce::blocks::WHITE_WOOL.getName(), 0, 0);
+        addBlock(ids_t_b::WOOL_ID, lce::blocks::WHITE_WOOL.getName(), 0, 0);
         addBlock(ids_t_b::DANDELION_ID, lce::blocks::DANDELION.getName(), 13, 0);
         addBlock(ids_t_b::POPPY_ID, lce::blocks::POPPY.getName(), 12, 0);
         addBlock(ids_t_b::BROWN_MUSHROOM_ID, lce::blocks::BROWN_MUSHROOM.getName(), 13, 1);
@@ -138,7 +138,7 @@ namespace lce::registry {
         addBlock(ids_t_b::SUGAR_CANES_ID, lce::blocks::SUGAR_CANES.getName(), 0, 0);
         addBlock(ids_t_b::JUKEBOX_ID, lce::blocks::JUKEBOX.getName(), 0, 0);
         addBlock(ids_t_b::OAK_FENCE_ID, lce::blocks::OAK_FENCE.getName(), 0, 0);
-        addBlock(ids_t_b::PUMPKIN_ID, lce::blocks::PUMPKIN.getName(), 0, 0);
+        addBlock(ids_t_b::CARVED_PUMPKIN_ID, lce::blocks::PUMPKIN.getName(), 0, 0);
         addBlock(ids_t_b::NETHERRACK_ID, lce::blocks::NETHERRACK.getName(), 7, 6);
         addBlock(ids_t_b::SOUL_SAND_ID, lce::blocks::SOUL_SAND.getName(), 8, 6);
         addBlock(ids_t_b::GLOWSTONE_ID, lce::blocks::GLOWSTONE.getName(), 9, 6);
@@ -147,7 +147,7 @@ namespace lce::registry {
         addBlock(ids_t_b::CAKE_BLOCK_ID, lce::blocks::CAKE_BLOCK.getName(), 0, 0);
         addBlock(ids_t_b::OFF_REDSTONE_REPEATER_BLOCK_ID, lce::blocks::OFF_REDSTONE_REPEATER_BLOCK.getName(), 0, 0);
         addBlock(ids_t_b::ON_REDSTONE_REPEATER_BLOCK_ID, lce::blocks::ON_REDSTONE_REPEATER_BLOCK.getName(), 0, 0);
-        addBlock(ids_t_b::WHITE_STAINED_GLASS_ID, lce::blocks::WHITE_STAINED_GLASS.getName(), 0, 0);
+        addBlock(ids_t_b::STAINED_GLASS_ID, lce::blocks::WHITE_STAINED_GLASS.getName(), 0, 0);
         addBlock(ids_t_b::WOODEN_TRAPDOOR_ID, lce::blocks::WOODEN_TRAPDOOR.getName(), 0, 0);
         addBlock(ids_t_b::STONE_MONSTER_EGG_ID, lce::blocks::STONE_MONSTER_EGG.getName(), 0, 0);
         addBlock(ids_t_b::STONE_BRICKS_ID, lce::blocks::STONE_BRICKS.getName(), 0, 0);
@@ -211,8 +211,8 @@ namespace lce::registry {
         addBlock(ids_t_b::QUARTZ_STAIRS_ID, lce::blocks::QUARTZ_STAIRS.getName(), 0, 0);
         addBlock(ids_t_b::ACTIVATOR_RAIL_ID, lce::blocks::ACTIVATOR_RAIL.getName(), 0, 0);
         addBlock(ids_t_b::DROPPER_ID, lce::blocks::DROPPER.getName(), 0, 0);
-        addBlock(ids_t_b::WHITE_HARDENED_CLAY_ID, lce::blocks::WHITE_HARDENED_CLAY.getName(), 0, 0);
-        addBlock(ids_t_b::WHITE_STAINED_GLASS_PANE_ID, lce::blocks::WHITE_STAINED_GLASS_PANE.getName(), 0, 0);
+        addBlock(ids_t_b::STAINED_HARDENED_CLAY_ID, lce::blocks::WHITE_HARDENED_CLAY.getName(), 0, 0);
+        addBlock(ids_t_b::STAINED_GLASS_PANE_ID, lce::blocks::WHITE_STAINED_GLASS_PANE.getName(), 0, 0);
         addBlock(ids_t_b::ACACIA_LEAVES_ID, lce::blocks::ACACIA_LEAVES.getName(), 0, 0);
         addBlock(ids_t_b::ACACIA_WOOD_ID, lce::blocks::ACACIA_WOOD.getName(), 0, 0);
         addBlock(ids_t_b::ACACIA_WOOD_STAIRS_ID, lce::blocks::ACACIA_WOOD_STAIRS.getName(), 0, 0);
@@ -223,11 +223,11 @@ namespace lce::registry {
         addBlock(ids_t_b::PRISMARINE_ID, lce::blocks::PRISMARINE.getName(), 0, 0);
         addBlock(ids_t_b::SEA_LANTERN_ID, lce::blocks::SEA_LANTERN.getName(), 0, 0);
         addBlock(ids_t_b::HAY_BALE_ID, lce::blocks::HAY_BALE.getName(), 10, 15); // (13,15)
-        addBlock(ids_t_b::WHITE_CARPET_ID, lce::blocks::WHITE_CARPET.getName(), 0, 0);
+        addBlock(ids_t_b::CARPET_ID, lce::blocks::WHITE_CARPET.getName(), 0, 0);
         addBlock(ids_t_b::HARDENED_CLAY_ID, lce::blocks::HARDENED_CLAY.getName(), 0, 0);
         addBlock(ids_t_b::BLOCK_OF_COAL_ID, lce::blocks::BLOCK_OF_COAL.getName(), 0, 16);
         addBlock(ids_t_b::PACKED_ICE_ID, lce::blocks::PACKED_ICE.getName(), 0, 0);
-        addBlock(ids_t_b::SUNFLOWER_ID, lce::blocks::SUNFLOWER.getName(), 0, 0);
+        addBlock(ids_t_b::DOUBLE_PLANT_ID, lce::blocks::SUNFLOWER.getName(), 0, 0);
         addBlock(ids_t_b::FREE_STANDING_BANNER_ID, lce::blocks::FREE_STANDING_BANNER.getName(), 0, 0);
         addBlock(ids_t_b::WALL_MOUNTED_BANNER_ID, lce::blocks::WALL_MOUNTED_BANNER.getName(), 0, 0);
         addBlock(ids_t_b::INVERTED_DAYLIGHT_SENSOR_ID, lce::blocks::INVERTED_DAYLIGHT_SENSOR.getName(), 0, 0);
@@ -303,11 +303,11 @@ namespace lce::registry {
         addBlock(ids_t_b::GREEN_GLAZED_TERRACOTTA_ID, lce::blocks::GREEN_GLAZED_TERRACOTTA.getName(), 0, 0);
         addBlock(ids_t_b::RED_GLAZED_TERRACOTTA_ID, lce::blocks::RED_GLAZED_TERRACOTTA.getName(), 0, 0);
         addBlock(ids_t_b::BLACK_GLAZED_TERRACOTTA_ID, lce::blocks::BLACK_GLAZED_TERRACOTTA.getName(), 0, 0);
-        addBlock(ids_t_b::WHITE_CONCRETE_ID, lce::blocks::WHITE_CONCRETE.getName(), 0, 0);
-        addBlock(ids_t_b::WHITE_CONCRETE_POWDER_ID, lce::blocks::WHITE_CONCRETE_POWDER.getName(), 0, 0);
+        addBlock(ids_t_b::CONCRETE_ID, lce::blocks::WHITE_CONCRETE.getName(), 0, 0);
+        addBlock(ids_t_b::CONCRETE_POWDER_ID, lce::blocks::WHITE_CONCRETE_POWDER.getName(), 0, 0);
         addBlock(ids_t_b::STRUCTURE_BLOCK_ID, lce::blocks::STRUCTURE_BLOCK.getName(), 13, 26); // (11-15,26)
         addBlock(ids_t_b::CONDUIT_ID, lce::blocks::CONDUIT.getName(), 0, 0);
-        addBlock(ids_t_b::UNKNOWN_PUMPKIN, lce::blocks::UNKNOWN_PUMP.getName(), 0, 0);
+        addBlock(ids_t_b::PUMPKIN_ID, lce::blocks::UNKNOWN_PUMP.getName(), 0, 0);
         addBlock(ids_t_b::KELP_ID, lce::blocks::KELP.getName(), 0, 0);
         addBlock(ids_t_b::CORAL_BLOCK_ID, lce::blocks::CORAL_BLOCK.getName(), 0, 0);
         addBlock(ids_t_b::CORAL_ID, lce::blocks::CORAL.getName(), 0, 0);
