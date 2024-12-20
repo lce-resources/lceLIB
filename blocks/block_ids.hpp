@@ -316,7 +316,7 @@ namespace lce::blocks::ids {
     }
 
     ND static bool isWaterMaterial(c_int id) {
-        return id == STILL_WATER_ID || id == STILL_LAVA_ID;
+        return id == STILL_WATER_ID || id == FLOWING_WATER_ID;
     }
 
     ND static bool isSolidBlock(c_int id) {

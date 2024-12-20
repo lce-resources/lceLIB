@@ -8,17 +8,32 @@
 namespace lce::registry {
 
     class MU BlockRegistry {
-        RegistryNamespaced<lce::blocks::Block> REGISTRY;
-        bool isSetup;
-
-        void addBlock(const lce::blocks::Block& blockIn);
-        void setUpBlocks();
-
     public:
+        BlockRegistry();
+
+    private:
+
+        RegistryNamespaced<lce::blocks::Block> REGISTRY;
+        std::unordered_multimap<int, const lce::blocks::Block*> idToBlock;
+        bool isSetup = false;
+
+        void addBlock(const lce::blocks::Block* blockIn);
+        void setUpBlocks();
         MU void setup();
 
-        MU lce::blocks::Block const* getBlockFromID(int id);
-        MU lce::blocks::Block const* getBlockFromName(const std::string& name);
+        lce::blocks::Block const* p_getBlock(int id, int data) const;
+        lce::blocks::Block const* p_getBlockFromID(int id) const;
+        lce::blocks::Block const* p_getBlockFromName(const std::string& name) const;
+
+        static BlockRegistry& getInstance() {
+            static BlockRegistry instance;
+            return instance;
+        }
+
+    public:
+        MU static lce::blocks::Block const* getBlock(int id, int data);
+        MU static lce::blocks::Block const* getBlockFromID(int id);
+        MU static lce::blocks::Block const* getBlockFromName(const std::string& name);
     };
 
 
