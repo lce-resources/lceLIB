@@ -79,15 +79,7 @@ public:
 
         auto* pResourceLocation = new ResourceLocation(id, identifier, object);
 
-        if (id >= allValues.size()) {
-            allValues.resize(id + 1, nullptr);
-        }
-
-        if (allValues[id] != nullptr) {
-            delete allValues[id];
-        }
-
-        allValues[id] = pResourceLocation;
+        allValues.push_back(pResourceLocation);
         idRegistry[id] = pResourceLocation;
         nameRegistry[identifier] = pResourceLocation;
     }
