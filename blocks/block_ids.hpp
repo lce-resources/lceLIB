@@ -319,6 +319,10 @@ namespace lce::blocks::ids {
         return id == STILL_WATER_ID || id == FLOWING_WATER_ID;
     }
 
+    ND static bool isLavaMaterial(c_int id) {
+        return id == STILL_LAVA_ID || id == FLOWING_LAVA_ID;
+    }
+
     ND static bool isSolidBlock(c_int id) {
         switch (id) {
             case AIR_ID:
