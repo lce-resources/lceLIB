@@ -5,7 +5,6 @@
 
 
 namespace lce::blocks::ids {
-
     enum BlockID : uint16_t {
         AIR_ID = 0,
         STONE_ID = 1,
@@ -319,6 +318,10 @@ namespace lce::blocks::ids {
         return id == STILL_WATER_ID || id == FLOWING_WATER_ID;
     }
 
+    ND static bool isLavaMaterial(c_int id) {
+        return id == STILL_LAVA_ID || id == FLOWING_LAVA_ID;
+    }
+
     ND static bool isSolidBlock(c_int id) {
         switch (id) {
             case AIR_ID:
@@ -516,8 +519,25 @@ namespace lce::blocks::ids {
         }
     }
 
+    [[gnu::noinline]] ND static bool hasLightOpacity(c_int id) {
+        switch (id) {
+            case FLOWING_WATER_ID:
+            case STILL_WATER_ID:
+            case OAK_LEAVES_ID:
+            case COBWEB_ID:
+            case FARMLAND_ID:
+            case ICE_ID:
+            case ACACIA_LEAVES_ID:
+            case GRASS_PATH_ID:
+            case FROSTED_ICE_ID:
+                return true;
+            default:
+                return isFullBlock(id);
+        }
+    }
+
     [[gnu::noinline]] ND static bool isFullyOpaqueBlock(c_int id) {
-        switch(id) {
+        switch (id) {
             case OAK_LEAVES_ID:
             case TNT_ID:
             case GLOWSTONE_ID:
@@ -558,5 +578,4 @@ namespace lce::blocks::ids {
                 return isLiquidBlock(id);
         }
     }
-
 }
