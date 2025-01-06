@@ -519,6 +519,11 @@ namespace lce::blocks::ids {
         }
     }
 
+    ND static bool blocksMovement(c_int id) {
+        if (id == COBWEB_ID) return false;
+        return isSolidBlock(id);
+    }
+
     [[gnu::noinline]] ND static bool hasLightOpacity(c_int id) {
         switch (id) {
             case FLOWING_WATER_ID:
