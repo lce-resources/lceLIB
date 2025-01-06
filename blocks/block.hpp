@@ -38,6 +38,9 @@ namespace lce::blocks {
 
     public:
 
+        /// id, dataTag
+        Block(c_u16 id, u8 dataTag) : id(id), dataTag(dataTag) {}
+
         /// id, dataTag, identifier
         Block(c_u16 id, u8 dataTag, std::string identifier)
             : id(id), dataTag(dataTag), mapColor(MapColor::NONE),
@@ -62,6 +65,10 @@ namespace lce::blocks {
         MU ND lce::items::Item const* getItem() const { return item; }
         MU ND MapColor getMapColor() const { return mapColor; }
         MU ND uint8_t getDataTag() const { return dataTag; }
+
+        MU ND Block getStateFromMeta(int meta) const {
+            return {id, static_cast<uint8_t>(meta)};
+        }
     };
 
 
