@@ -4,6 +4,7 @@
 
 #include "block.hpp"
 #include "lce/processor.hpp"
+
 namespace lce::blocks {
     struct BlocksInit {
         MU static const Block AIR;

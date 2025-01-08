@@ -567,6 +567,16 @@ namespace lce::blocks::ids {
         return id == OAK_LEAVES_ID || id == ACACIA_LEAVES_ID;
     }
 
+    ND static bool isAirOrLeavesBlock(c_int id) {
+        return id == AIR_ID || id == OAK_LEAVES_ID || id == ACACIA_LEAVES_ID;
+    }
+
+    /// return GRASS_ID || DIRT_ID || FARMLAND_ID
+    ND static bool isGrassOrDirtOrFarmland(c_int id) {
+        return id == GRASS_ID || id == DIRT_ID || id == FARMLAND_ID;
+    }
+
+
     ND static bool isReplaceableBlock(c_int id) {
         switch (id) {
             case AIR_ID:

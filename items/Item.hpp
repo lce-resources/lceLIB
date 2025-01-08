@@ -2,7 +2,6 @@
 
 #include <string>
 #include <utility>
-#include <vector>
 #ifdef INCLUDE_QT
 #include <QDebug>
 #endif
