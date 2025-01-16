@@ -65,6 +65,7 @@ namespace lce::blocks {
         MU ND MapColor getMapColor() const { return mapColor; }
         MU ND uint8_t getDataTag() const { return dataTag; }
 
+        MU ND Block getStateFromMeta(c_u32 meta) const { return {id, static_cast<uint8_t>(meta)}; }
         MU ND Block getStateFromMeta(c_int meta) const { return {id, static_cast<uint8_t>(meta)}; }
     };
 }
