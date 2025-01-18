@@ -129,9 +129,9 @@ namespace lce::blocks::states {
     class Button {
         static int getMetaFromFacing(const enumFacing facing) {
             switch (facing) {
-                case enumFacing::DOWN:
-                    return 5;
                 case enumFacing::UP:
+                    return 5;
+                case enumFacing::DOWN:
                     return 0;
                 case enumFacing::NORTH:
                     return 4;
@@ -160,11 +160,11 @@ namespace lce::blocks::states {
                 default:
                 case enumFacing::NORTH:
                     return 0;
-                case enumFacing::SOUTH:
-                    return 1;
-                case enumFacing::WEST:
-                    return 2;
                 case enumFacing::EAST:
+                    return 1;
+                case enumFacing::SOUTH:
+                    return 2;
+                case enumFacing::WEST:
                     return 3;
             }
         }
@@ -217,9 +217,9 @@ namespace lce::blocks::states {
                     return 1;
                 case enumFacing::WEST:
                     return 2;
-                case enumFacing::NORTH:
-                    return 3;
                 case enumFacing::SOUTH:
+                    return 3;
+                case enumFacing::NORTH:
                     return 4;
             }
         }
