@@ -160,11 +160,11 @@ namespace lce::blocks::states {
                 default:
                 case enumFacing::NORTH:
                     return 0;
-                case enumFacing::EAST:
-                    return 1;
                 case enumFacing::SOUTH:
-                    return 2;
+                    return 1;
                 case enumFacing::WEST:
+                    return 2;
+                case enumFacing::EAST:
                     return 3;
             }
         }
@@ -188,15 +188,15 @@ namespace lce::blocks::states {
     class DoorLower {
         static int getMetaFromFacing(const enumFacing facing) {
             switch (facing) {
+                default:
+                case enumFacing::NORTH:
+                    return 0;
                 case enumFacing::SOUTH:
                     return 1;
                 case enumFacing::WEST:
                     return 2;
-                case enumFacing::NORTH:
-                    return 3;
                 case enumFacing::EAST:
-                default:
-                    return 0;
+                    return 3;
             }
         }
 
