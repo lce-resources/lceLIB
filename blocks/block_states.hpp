@@ -9,12 +9,6 @@ template <class T>
 
 namespace lce::blocks::states {
 
-    enum class Axis : u8 {
-        Y = 0,
-        X = 1,
-        Z = 2
-    };
-
     enum class Half : u8 {
         Lower = 0,
         Upper = 1
@@ -75,8 +69,12 @@ namespace lce::blocks::states {
 
     class Log {
     public:
-        static i32 withProperty(const Axis axis = Axis::Y) {
+        static i32 withProperty(const EnumAxis axis = EnumAxis::Y) {
             return cast(axis) << 2;
+        }
+
+        static i32 withProperty(const u8 variantData, const EnumAxis axis = EnumAxis::Y) {
+            return cast(axis) << 2 | variantData;
         }
     };
 
@@ -293,6 +291,34 @@ namespace lce::blocks::states {
     };
 
 
+    class EndPortalFrame {
+        static int getMetaFromFacing(const enumFacing facing) {
+            switch (facing) {
+                default:
+                case enumFacing::SOUTH:
+                    return 0;
+                case enumFacing::WEST:
+                    return 1;
+                case enumFacing::NORTH:
+                    return 2;
+                case enumFacing::EAST:
+                    return 3;
+            }
+        }
+
+    public:
+        static i32 withProperty(const enumFacing facing, const bool eye) {
+            return cast(eye) << 2 | getMetaFromFacing(facing);
+        }
+
+        static i32 withProperty(const enumFacing facing = enumFacing::NORTH) {
+            return getMetaFromFacing(facing);
+        }
+
+        static i32 withProperty(int facingData, const bool eye) {
+            return cast(eye) << 2 | facingData;
+        }
+    };
 
 
 
