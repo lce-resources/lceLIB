@@ -216,12 +216,12 @@ namespace lce::blocks {
         }
     }
 
-    ND static bool blocksMovement(c_int id) {
+    MU ND static bool blocksMovement(c_int id) {
         if (id == COBWEB_ID) return false;
         return isSolidBlock(id);
     }
 
-    [[gnu::noinline]] ND static bool hasLightOpacity(c_int id) {
+    [[gnu::noinline]] MU ND static bool hasLightOpacity(c_int id) {
         switch (id) {
             case FLOWING_WATER_ID:
             case STILL_WATER_ID:
@@ -264,7 +264,7 @@ namespace lce::blocks {
         return id == OAK_LEAVES_ID || id == ACACIA_LEAVES_ID;
     }
 
-    ND static bool isAirOrLeavesBlock(c_int id) {
+    MU ND static bool isAirOrLeavesBlock(c_int id) {
         return id == AIR_ID || id == OAK_LEAVES_ID || id == ACACIA_LEAVES_ID;
     }
 
