@@ -217,7 +217,7 @@ namespace lce::blocks {
     }
 
     MU ND static bool blocksMovement(c_int id) {
-        if (id == COBWEB_ID) return false;
+        if (id == COBWEB_ID) { return false; }
         return isSolidBlock(id);
     }
 
