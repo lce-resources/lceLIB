@@ -1,6 +1,8 @@
 #pragma once
-#include "LegacyCubiomes/utils/enums.hpp"
+
 #include "block.hpp"
+
+#include "lce/enums.hpp"
 
 
 template <class T>
@@ -81,36 +83,39 @@ namespace lce::blocks::states {
 
     class Stairs {
     public:
-        static int getMetaFromFacing(const enumFacing facing) {
+        static int getMetaFromFacing(const EnumFacing facing) {
             switch (facing) {
-                case enumFacing::NORTH:
+                case EnumFacing::NORTH:
                     return 3;
-                case enumFacing::SOUTH:
+                case EnumFacing::SOUTH:
                     return 2;
-                case enumFacing::WEST:
+                case EnumFacing::WEST:
                     return 1;
-                case enumFacing::EAST:
+                case EnumFacing::EAST:
                 default:
                     return 0;
             }
         }
 
-        static i32 withProperty(const enumFacing facing = enumFacing::SOUTH, const Half half = Half::Lower) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::SOUTH,
+                const Half half = Half::Lower) {
             return cast(half) << 3 | getMetaFromFacing(facing);
         }
     };
 
 
     class Vine {
-        static int getMetaFromFacing(const enumFacing facing) {
+        static int getMetaFromFacing(
+                const EnumFacing facing) {
             switch (facing) {
-                case enumFacing::SOUTH:
+                case EnumFacing::SOUTH:
                     return 1;
-                case enumFacing::WEST:
+                case EnumFacing::WEST:
                     return 2;
-                case enumFacing::NORTH:
+                case EnumFacing::NORTH:
                     return 4;
-                case enumFacing::EAST:
+                case EnumFacing::EAST:
                     return 8;
                 default:
                     return 0;
@@ -118,26 +123,28 @@ namespace lce::blocks::states {
         }
 
     public:
-        static i32 withProperty(const enumFacing facing) {
+        static i32 withProperty(
+                const EnumFacing facing) {
             return getMetaFromFacing(facing);
         }
     };
 
 
     class Button {
-        static int getMetaFromFacing(const enumFacing facing) {
+        static int getMetaFromFacing(
+                const EnumFacing facing) {
             switch (facing) {
-                case enumFacing::UP:
+                case EnumFacing::UP:
                     return 5;
-                case enumFacing::DOWN:
+                case EnumFacing::DOWN:
                     return 0;
-                case enumFacing::NORTH:
+                case EnumFacing::NORTH:
                     return 4;
-                case enumFacing::SOUTH:
+                case EnumFacing::SOUTH:
                     return 3;
-                case enumFacing::WEST:
+                case EnumFacing::WEST:
                     return 2;
-                case enumFacing::EAST:
+                case EnumFacing::EAST:
                     return 1;
                 default:
                     return 0;
@@ -145,7 +152,9 @@ namespace lce::blocks::states {
         }
     public:
 
-        static i32 withProperty(const enumFacing facing = enumFacing::DOWN, const Powered powered = Powered::False) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::DOWN,
+                const Powered powered = Powered::False) {
             return cast(powered) << 3 | getMetaFromFacing(facing);
         }
     };
@@ -153,22 +162,24 @@ namespace lce::blocks::states {
     class Ladder {
         /// HorizontalFacing5
         /// north, south, west, east
-        static int getMetaFromFacing(const enumFacing facing) {
+        static int getMetaFromFacing(
+                const EnumFacing facing) {
             switch (facing) {
                 default:
-                case enumFacing::NORTH:
+                case EnumFacing::NORTH:
                     return 0;
-                case enumFacing::SOUTH:
+                case EnumFacing::SOUTH:
                     return 1;
-                case enumFacing::WEST:
+                case EnumFacing::WEST:
                     return 2;
-                case enumFacing::EAST:
+                case EnumFacing::EAST:
                     return 3;
             }
         }
 
     public:
-        static i32 withProperty(const enumFacing facing = enumFacing::NORTH) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::NORTH) {
             return getMetaFromFacing(facing);
         }
     };
@@ -177,53 +188,60 @@ namespace lce::blocks::states {
 
     class DoorUpper {
     public:
-        static i32 withProperty(const Hinge hinge = Hinge::Val0, const Powered powered = Powered::False) {
+        static i32 withProperty(
+                const Hinge hinge = Hinge::Val0,
+                const Powered powered = Powered::False) {
             return 1 << 3 | cast(powered) << 1 | cast(hinge);
         }
     };
 
 
     class DoorLower {
-        static int getMetaFromFacing(const enumFacing facing) {
+        static int getMetaFromFacing(
+                const EnumFacing facing) {
             switch (facing) {
                 default:
-                case enumFacing::NORTH:
+                case EnumFacing::NORTH:
                     return 0;
-                case enumFacing::SOUTH:
+                case EnumFacing::SOUTH:
                     return 1;
-                case enumFacing::WEST:
+                case EnumFacing::WEST:
                     return 2;
-                case enumFacing::EAST:
+                case EnumFacing::EAST:
                     return 3;
             }
         }
 
     public:
-        static i32 withProperty(const enumFacing facing = enumFacing::EAST, const Open open = Open::False) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::EAST,
+                const Open open = Open::False) {
             return 0 << 3 | cast(open) << 2 | getMetaFromFacing(facing);
         }
     };
 
 
     class Torch {
-        static int getMetaFromFacing(const enumFacing facing) {
+        static int getMetaFromFacing(
+                const EnumFacing facing) {
             switch (facing) {
-                case enumFacing::UP:
+                case EnumFacing::UP:
                 default:
                     return 0;
-                case enumFacing::EAST:
+                case EnumFacing::EAST:
                     return 1;
-                case enumFacing::WEST:
+                case EnumFacing::WEST:
                     return 2;
-                case enumFacing::SOUTH:
+                case EnumFacing::SOUTH:
                     return 3;
-                case enumFacing::NORTH:
+                case EnumFacing::NORTH:
                     return 4;
             }
         }
 
     public:
-        static i32 withProperty(const enumFacing facing = enumFacing::DOWN) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::DOWN) {
             return getMetaFromFacing(facing);
         }
     };
@@ -231,29 +249,34 @@ namespace lce::blocks::states {
 
     class TrapDoor {
     public:
-        static i32 withProperty(const enumFacing facing = enumFacing::NORTH, const Half half = Half::Lower, const Open open = Open::False) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::NORTH,
+                const Half half = Half::Lower, const Open open = Open::False) {
             return cast(half) << 3 | cast(open) << 2 | cast(facing) >> 1;
         }
     };
 
 
     class FenceGate {
-        static int getMetaFromFacing(const enumFacing facing) {
+        static int getMetaFromFacing(
+                const EnumFacing facing) {
             switch (facing) {
                 default:
-                case enumFacing::SOUTH:
+                case EnumFacing::SOUTH:
                     return 0;
-                case enumFacing::WEST:
+                case EnumFacing::WEST:
                     return 1;
-                case enumFacing::NORTH:
+                case EnumFacing::NORTH:
                     return 2;
-                case enumFacing::EAST:
+                case EnumFacing::EAST:
                     return 3;
             }
         }
     public:
 
-        static i32 withProperty(const enumFacing facing = enumFacing::SOUTH, const Open open = Open::False, const Powered powered = Powered::False) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::SOUTH,
+                const Open open = Open::False, const Powered powered = Powered::False) {
             return cast(powered) << 3 | cast(open) << 2 | getMetaFromFacing(facing);
         }
     };
@@ -261,7 +284,9 @@ namespace lce::blocks::states {
 
     class Piston {
     public:
-        static i32 withProperty(const enumFacing facing = enumFacing::UP, const PistonExtended extended = PistonExtended::False) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::UP,
+                const PistonExtended extended = PistonExtended::False) {
             return cast(extended) << 3 | cast(facing);
         }
     };
@@ -269,7 +294,9 @@ namespace lce::blocks::states {
 
     class PistonHead {
     public:
-        static i32 withProperty(const enumFacing facing = enumFacing::UP, const PistonHeadType type = PistonHeadType::False) {
+        static i32 withProperty(
+                const EnumFacing facing = EnumFacing::UP,
+                const PistonHeadType type = PistonHeadType::False) {
             return cast(type) << 3 | cast(facing);
         }
     };
@@ -277,7 +304,8 @@ namespace lce::blocks::states {
 
     class Rail {
     public:
-        static i32 withProperty(const RailShape shape) {
+        static i32 withProperty(
+                const RailShape shape) {
             return cast(shape);
         }
     };
@@ -285,33 +313,36 @@ namespace lce::blocks::states {
 
     class PoweredRail {
     public:
-        static i32 withProperty(const PoweredRailShape shape, const Powered powered = Powered::False) {
+        static i32 withProperty(
+                const PoweredRailShape shape,
+                const Powered powered = Powered::False) {
             return cast(powered) << 3 | cast(shape);
         }
     };
 
 
     class EndPortalFrame {
-        static int getMetaFromFacing(const enumFacing facing) {
+        static int getMetaFromFacing(
+                const EnumFacing facing) {
             switch (facing) {
                 default:
-                case enumFacing::SOUTH:
+                case EnumFacing::SOUTH:
                     return 0;
-                case enumFacing::WEST:
+                case EnumFacing::WEST:
                     return 1;
-                case enumFacing::NORTH:
+                case EnumFacing::NORTH:
                     return 2;
-                case enumFacing::EAST:
+                case EnumFacing::EAST:
                     return 3;
             }
         }
 
     public:
-        static i32 withProperty(const enumFacing facing, const bool eye) {
+        static i32 withProperty(const EnumFacing facing, const bool eye) {
             return cast(eye) << 2 | getMetaFromFacing(facing);
         }
 
-        static i32 withProperty(const enumFacing facing = enumFacing::NORTH) {
+        static i32 withProperty(const EnumFacing facing = EnumFacing::NORTH) {
             return getMetaFromFacing(facing);
         }
 

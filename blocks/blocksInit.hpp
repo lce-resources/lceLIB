@@ -5,7 +5,7 @@
 #include "block.hpp"
 #include "lce/processor.hpp"
 
-namespace lce::blocks {
+namespace lce {
     struct BlocksInit {
         MU static const Block AIR;
         MU static const Block STONE;

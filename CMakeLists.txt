@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(lceLib)
+project(LIB_lce)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -12,14 +12,14 @@ file(GLOB_RECURSE LCE_SOURCES
         "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
 )
 
-add_library(lceLib STATIC ${LCE_SOURCES})
+add_library(LIB_lce STATIC ${LCE_SOURCES})
 
 
-target_include_directories(lceLib
+target_include_directories(LIB_lce
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
 )
 
 
-target_compile_options(lceLib PUBLIC -mavx2 -mpopcnt)
+target_compile_options(LIB_lce PUBLIC -mavx2 -mpopcnt)
 add_definitions(-DDEV_MODE)
