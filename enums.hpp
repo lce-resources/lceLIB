@@ -45,6 +45,9 @@ namespace lce {
     };
 
 
+
+
+
     enum class FILETYPE : uint8_t {
         NONE,             // NONE
         STRUCTURE,        // data/
@@ -68,180 +71,62 @@ namespace lce {
     };
 
 
-    [[maybe_unused]] static std::string consoleToStr(const CONSOLE console) {
-        switch (console) {
-            case CONSOLE::XBOX360:
-                return "xbox360";
-            case CONSOLE::PS3:
-                return "ps3";
-            case CONSOLE::RPCS3:
-                return "rpcs3";
-            case CONSOLE::WIIU:
-                return "wiiu";
-            case CONSOLE::VITA:
-                return "vita";
-            case CONSOLE::SWITCH:
-                return "switch";
-            case CONSOLE::PS4:
-                return "ps4";
-            case CONSOLE::XBOX1:
-                return "xbox1";
-            case CONSOLE::NONE:
-            default:
-                return "NONE";
-        }
-    }
+    [[maybe_unused]] extern std::string consoleToStr(CONSOLE console);
 
+    [[maybe_unused]] extern const char* consoleToCStr(CONSOLE console);
 
-    [[maybe_unused]] static const char* consoleToCStr(const CONSOLE console) {
-        static std::string str;
-        str = consoleToStr(console);
-        return str.c_str();
-    }
+    [[maybe_unused]] extern bool isConsoleNewGen(CONSOLE console);
 
+    [[maybe_unused]] extern CONSOLE strToConsole(const std::string& inputStr);
 
-    [[maybe_unused]] static bool isConsoleNewGen(const CONSOLE console) {
-        return console == CONSOLE::PS4 ||
-               console == CONSOLE::SWITCH ||
-               console == CONSOLE::XBOX1;
-    }
+    [[maybe_unused]] extern lce::DIMENSION intToDim(char number);
 
+    [[maybe_unused]] extern bool consoleIsBigEndian(CONSOLE console);
 
-    [[maybe_unused]] static CONSOLE strToConsole(const std::string& inputStr) {
-        std::string str = inputStr;
-        std::transform(str.begin(), str.end(), str.begin(),
-                       [](unsigned char c){ return std::tolower(c); });
+    [[maybe_unused]] extern int getChunkWorldBounds(WORLDSIZE worldSize);
 
-        if (str == "xbox360") {
-            return CONSOLE::XBOX360;
-        } else if (str == "ps3" || str == "playstation3") {
-            return CONSOLE::PS3;
-        } else if (str == "rpcs3") {
-            return CONSOLE::RPCS3;
-        } else if (str == "wiiu") {
-            return CONSOLE::WIIU;
-        } else if (str == "vita" || str == "psvita") {
-            return CONSOLE::VITA;
-        } else if (str == "switch") {
-            return CONSOLE::SWITCH;
-        } else if (str == "ps4" || str == "playstation4") {
-            return CONSOLE::PS4;
-        } else if (str == "xbox1" || str == "xboxone") {
-            return CONSOLE::XBOX1;
-        } else {
-            return CONSOLE::NONE;
-        }
-    }
+    [[maybe_unused]] extern std::string worldSizeToString(WORLDSIZE worldSize);
 
+    [[maybe_unused]] extern std::string biomeScaleToString(BIOMESCALE biomeScale);
 
-    [[maybe_unused]] static lce::DIMENSION intToDim(const char number) {
-        switch(number) {
-            case 0:
-                return lce::DIMENSION::NETHER;
-            case 1:
-                return lce::DIMENSION::OVERWORLD;
-            case 2:
-                return lce::DIMENSION::END;
-            default:
-                return lce::DIMENSION::NONE;
-        }
-    }
-
-
-    [[maybe_unused]] static bool consoleIsBigEndian(const CONSOLE console) {
-        switch (console) {
-            case CONSOLE::NONE:
-            case CONSOLE::XBOX360:
-            case CONSOLE::PS3:
-            case CONSOLE::RPCS3:
-            case CONSOLE::WIIU:
-            default:
-                return true;
-            case CONSOLE::VITA:
-            case CONSOLE::PS4:
-            case CONSOLE::SWITCH:
-                return false;
-        }
-    }
-
-
-    [[maybe_unused]] static int getChunkWorldBounds(const WORLDSIZE worldSize) {
-        switch (worldSize) {
-            case WORLDSIZE::CLASSIC:
-            default:
-                return 27;
-            case WORLDSIZE::SMALL:
-                return 32;
-            case WORLDSIZE::MEDIUM:
-                return 96;
-            case WORLDSIZE::LARGE:
-                return 160;
-        }
-    }
-
-
-    [[maybe_unused]] static std::string worldSizeToString(const WORLDSIZE worldSize) {
-        switch (worldSize) {
-            case WORLDSIZE::CLASSIC:
-            default:
-                return "CLASSIC";
-            case WORLDSIZE::SMALL:
-                return "SMALL";
-            case WORLDSIZE::MEDIUM:
-                return "MEDIUM";
-            case WORLDSIZE::LARGE:
-                return "LARGE";
-        }
-    }
-
-
-    [[maybe_unused]] static std::string biomeScaleToString(const BIOMESCALE biomeScale) {
-        switch (biomeScale) {
-            case BIOMESCALE::SMALL:
-                return "SMALL";
-            case BIOMESCALE::MEDIUM:
-                return "MEDIUM";
-            case BIOMESCALE::LARGE:
-                return "LARGE";
-            default:
-                return "NONE";
-        }
-    }
-
-
-    [[maybe_unused]] static std::string fileTypeToString(const FILETYPE type) {
-        switch (type) {
-            case FILETYPE::STRUCTURE:
-                return "STRUCTURE";
-            case FILETYPE::VILLAGE:
-                return "VILLAGE";
-            case FILETYPE::DATA_MAPPING:
-                return "DATA_MAPPING";
-            case FILETYPE::MAP:
-                return "MAP";
-            case FILETYPE::REGION_NETHER:
-                return "REGION_NETHER";
-            case FILETYPE::REGION_OVERWORLD:
-                return "REGION_OVERWORLD";
-            case FILETYPE::REGION_END:
-                return "REGION_END";
-            case FILETYPE::PLAYER:
-                return "PLAYER";
-            case FILETYPE::LEVEL:
-                return "LEVEL";
-            case FILETYPE::GRF:
-                return "GRF";
-            case FILETYPE::ENTITY_NETHER:
-                return "ENTITY_NETHER";
-            case FILETYPE::ENTITY_OVERWORLD:
-                return "ENTITY_OVERWORLD";
-            case FILETYPE::ENTITY_END:
-                return "ENTITY_END";
-            case FILETYPE::NONE:
-            default:
-                return "NONE";
-        }
-    }
-
-
+    [[maybe_unused]] extern std::string fileTypeToString(FILETYPE type);
 }
+
+enum class EnumAxis : int8_t {
+    Y = 0,
+    X = 1,
+    Z = 2,
+};
+
+enum class EnumFacing : int8_t {
+    DOWN = 0,
+    UP = 1,
+    NORTH = 2,
+    SOUTH = 3,
+    WEST = 4,
+    EAST = 5,
+};
+
+static constexpr EnumFacing FACING_HORIZONTAL[4] = {
+        EnumFacing::NORTH,
+        EnumFacing::EAST,
+        EnumFacing::SOUTH,
+        EnumFacing::WEST,
+};
+
+static constexpr EnumFacing FACING_VERTICAL[2] = {
+        EnumFacing::UP,
+        EnumFacing::DOWN,
+};
+
+[[maybe_unused]] extern std::string facingToString(EnumFacing facing);
+
+[[maybe_unused]] extern EnumAxis getAxis(EnumFacing facing);
+
+[[maybe_unused]] extern EnumFacing getOppositeFacing(EnumFacing facing);
+
+[[maybe_unused]] extern int getFrontOffsetX(EnumFacing facing);
+
+[[maybe_unused]] extern int getFrontOffsetY(EnumFacing facing);
+
+[[maybe_unused]] extern int getFrontOffsetZ(EnumFacing facing);
