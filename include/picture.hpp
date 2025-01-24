@@ -5,8 +5,8 @@
 #include <iostream>
 #include <string>
 
-#include "include/lce/include/picture.hpp"
-#include "include/lce/processor.hpp"
+#include "lce/include/picture.hpp"
+#include "lce/processor.hpp"
 
 
 class Picture {

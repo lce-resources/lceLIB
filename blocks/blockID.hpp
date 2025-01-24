@@ -1,6 +1,6 @@
 #pragma once
 
-#include "include/lce/processor.hpp"
+#include "lce/processor.hpp"
 
 #include <cstdint>
 

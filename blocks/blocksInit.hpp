@@ -3,7 +3,7 @@
 #include <string>
 
 #include "block.hpp"
-#include "include/lce/processor.hpp"
+#include "lce/processor.hpp"
 
 namespace lce {
     struct BlocksInit {

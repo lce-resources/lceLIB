@@ -1,7 +1,7 @@
 #pragma once
 
-#include "include/lce/include/RegistryNamespaced.hpp"
-#include "include/lce/include/picture.hpp"
+#include "lce/include/RegistryNamespaced.hpp"
+#include "lce/include/picture.hpp"
 
 
 namespace lce::registry {

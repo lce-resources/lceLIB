@@ -8,7 +8,7 @@
 #include <utility>
 #include <vector>
 
-#include "include/lce/processor.hpp"
+#include "lce/processor.hpp"
 
 
 template<typename T>

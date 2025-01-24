@@ -7,8 +7,8 @@
 #include <QDebug>
 #endif
 
-#include "include/lce/processor.hpp"
-#include "include/lce/items/enums.hpp"
+#include "lce/processor.hpp"
+#include "lce/items/enums.hpp"
 
 
 namespace lce {

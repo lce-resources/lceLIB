@@ -1,6 +1,6 @@
 #pragma once
 
-#include "include/lce/blocks/blockID.hpp"
-#include "include/lce/blocks/blocksInit.hpp"
-#include "include/lce/items/item_ids.hpp"
-#include "include/lce/items/items.hpp"
+#include "lce/blocks/blockID.hpp"
+#include "lce/blocks/blocksInit.hpp"
+#include "lce/items/item_ids.hpp"
+#include "lce/items/items.hpp"
