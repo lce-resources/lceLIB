@@ -1,10 +1,10 @@
-#include "lce/include/picture.hpp"
+#include "include/lce/include/picture.hpp"
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "lce/include/stb_image.h"
-#include "lce/include/stb_image_write.h"
+#include "include/lce/include/stb_image.h"
+#include "include/lce/include/stb_image_write.h"
 
 
 static void resizeBilinear(const uint8_t* src, uint8_t* dst, unsigned int srcWidth, unsigned int srcHeight, unsigned int dstWidth, unsigned int dstHeight, unsigned int channels) {

@@ -7,10 +7,10 @@
 #include <QDebug>
 #endif
 
-#include "lce/processor.hpp"
+#include "include/lce/processor.hpp"
 
-#include "lce/blocks/mapcolors.hpp"
-#include "lce/items/Item.hpp"
+#include "include/lce/blocks/mapcolors.hpp"
+#include "include/lce/items/Item.hpp"
 
 
 namespace lce {

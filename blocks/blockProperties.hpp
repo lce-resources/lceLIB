@@ -1,7 +1,7 @@
 #pragma once
 
-#include "lce/blocks/blockID.hpp"
-#include "lce/processor.hpp"
+#include "include/lce/blocks/blockID.hpp"
+#include "include/lce/processor.hpp"
 
 
 namespace lce::blocks {

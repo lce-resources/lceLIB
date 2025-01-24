@@ -1,7 +1,7 @@
 #pragma once
 
-#include "lce/processor.hpp"
-#include "lce/items/types.hpp"
+#include "include/lce/processor.hpp"
+#include "include/lce/items/types.hpp"
 
 
 namespace lce::items {

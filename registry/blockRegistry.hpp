@@ -1,8 +1,8 @@
 #pragma once
 
-#include "lce/blocks/block.hpp"
-#include "lce/blocks/blocksInit.hpp"
-#include "lce/include/RegistryNamespaced.hpp"
+#include "include/lce/blocks/block.hpp"
+#include "include/lce/blocks/blocksInit.hpp"
+#include "include/lce/include/RegistryNamespaced.hpp"
 
 
 namespace lce::registry {

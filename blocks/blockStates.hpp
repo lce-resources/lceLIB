@@ -2,7 +2,7 @@
 
 #include "block.hpp"
 
-#include "lce/enums.hpp"
+#include "include/lce/enums.hpp"
 
 
 template <class T>
