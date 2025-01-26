@@ -34,6 +34,9 @@ bool lce::isConsoleNewGen(const lce::CONSOLE console) {
            console == CONSOLE::SWITCH ||
            console == CONSOLE::XBOX1;
 }
+bool lce::isXbox(const lce::CONSOLE console) {
+    return console == CONSOLE::XBOX360 || console == CONSOLE::XBOX1;
+}
 lce::CONSOLE lce::strToConsole(const std::string& inputStr) {
     std::string str = inputStr;
     std::transform(str.begin(), str.end(), str.begin(),

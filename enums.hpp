@@ -77,6 +77,8 @@ namespace lce {
 
     [[maybe_unused]] extern bool isConsoleNewGen(CONSOLE console);
 
+    [[maybe_unused]] extern bool isXbox(CONSOLE console);
+
     [[maybe_unused]] extern CONSOLE strToConsole(const std::string& inputStr);
 
     [[maybe_unused]] extern lce::DIMENSION intToDim(char number);
