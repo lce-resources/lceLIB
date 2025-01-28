@@ -1,27 +1,43 @@
 #pragma once
 
-#include <string>
 #include <utility>
-#include <vector>
+
 #ifdef INCLUDE_QT
 #include <QDebug>
 #endif
 
 #include "lce/processor.hpp"
 #include "lce/blocks/mapcolors.hpp"
-#include "lce/items/Item.hpp"
 
 
 namespace lce {
 
 
-    class Block {
-        c_u16 id{};
-        MU c_u8 dataTag;
-        const blocks::MapColor mapColor{};
+    class BlockState {
+    public:
+        u16 id;         // block ID
+        u8 dataTag;    // block data value
 
-        const std::string identifier;
-        const Item* item{};
+        constexpr BlockState(c_u16 id, c_u8 dataTag) : id(id), dataTag(dataTag) {}
+
+        // Accessors
+        MU ND constexpr u16 getID()      const { return id; }
+        MU ND constexpr u8  getDataTag() const { return dataTag; }
+
+        // Equality checks ID & dataTag
+        constexpr bool operator==(const BlockState &other) const {
+            return id == other.id && dataTag == other.dataTag;
+        }
+
+        MU ND BlockState getStateFromMeta(c_u32 meta) const { return {id, static_cast<uint8_t>(meta)}; }
+        MU ND BlockState getStateFromMeta(c_int meta) const { return {id, static_cast<uint8_t>(meta)}; }
+    };
+
+
+    class Block : BlockState {
+        blocks::MapColor mapColor;  // optional map color
+        const char*     name;       // block name (string literal)
+
         /*
          c_int lightOpacity;
          c_bool translucent;
@@ -34,35 +50,40 @@ namespace lce {
          */
 
     public:
+        // 1) Minimal constructor: (id, dataTag)
+        constexpr Block(c_u16 blockID, c_u8 data)
+            : BlockState(blockID, data)
+            , mapColor(blocks::MapColor::NONE)
+            , name("") {
+            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
+        }
 
-        /// id, dataTag
-        Block(c_u16 id, c_u8 dataTag) : id(id), dataTag(dataTag) {}
+        // 2) (id, dataTag, name)
+        constexpr Block(c_u16 blockID, c_u8 data, const char* blockName)
+            : BlockState(blockID, data)
+            , mapColor(blocks::MapColor::NONE)
+            , name(blockName) {
+            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
+        }
 
-        /// id, dataTag, identifier
-        Block(c_u16 id, c_u8 dataTag, std::string identifier)
-            : id(id), dataTag(dataTag), mapColor(blocks::MapColor::NONE),
-              identifier(std::move(identifier)) {}
+        Block(const Block&) = delete;
+        Block& operator=(const Block&) = delete;
 
-        /// id, dataTag, identifier, item
-        Block(c_u16 id, c_u8 dataTag, std::string identifier, const Item* item)
-            : id(id), dataTag(dataTag), identifier(std::move(identifier)), item(item) {}
+        // Accessors
+        MU ND constexpr u16              getID()       const { return id; }
+        MU ND constexpr u8               getDataTag()  const { return dataTag; }
+        MU ND constexpr const char*      getName()     const { return name; }
+        MU ND constexpr blocks::MapColor getMapColor() const { return mapColor; }
+        MU ND constexpr BlockState       getState()    const { return {id, dataTag}; }
 
-        /// id, dataTag, identifier, item, mapColor
-        Block(c_u16 id, c_u8 dataTag, std::string identifier,
-              const Item* item, const blocks::MapColor mapColor) : id(id), dataTag(dataTag),
-                 mapColor(mapColor), identifier(std::move(identifier)), item(item) {}
-
-        bool operator==(const Block &other) const {
+        // Equality checks ID & dataTag
+        constexpr bool operator==(const BlockState &other) const {
             return id == other.id && dataTag == other.dataTag;
         }
 
-        MU ND uint16_t getID() const { return id; }
-        MU ND std::string getName() const { return identifier; }
-        MU ND Item const* getItem() const { return item; }
-        MU ND blocks::MapColor getMapColor() const { return mapColor; }
-        MU ND uint8_t getDataTag() const { return dataTag; }
-
-        MU ND Block getStateFromMeta(c_u32 meta) const { return {id, static_cast<uint8_t>(meta)}; }
-        MU ND Block getStateFromMeta(c_int meta) const { return {id, static_cast<uint8_t>(meta)}; }
+        MU ND BlockState getStateFromMeta(c_u32 meta) const { return {id, static_cast<uint8_t>(meta)}; }
+        MU ND BlockState getStateFromMeta(c_int meta) const { return {id, static_cast<uint8_t>(meta)}; }
     };
+
+
 }
