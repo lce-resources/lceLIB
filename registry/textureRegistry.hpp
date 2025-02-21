@@ -20,8 +20,8 @@ namespace lce::registry {
         void setUpTextures();
 
     public:
-        MU ND Picture const* getBlockFromID(int id);
-        MU ND Picture const* getBlockFromName(const std::string& name);
+        MU ND Picture const* getBlockFromID(int id) const;
+        MU ND Picture const* getBlockFromName(const std::string& name) const;
 
         MU void setup();
         MU void deallocate();

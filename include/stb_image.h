@@ -128,7 +128,7 @@ RECENT REVISION HISTORY:
 
 #ifndef STBI_INCLUDE_STB_IMAGE_H
 #define STBI_INCLUDE_STB_IMAGE_H
-
+#include <string.h>
 // DOCUMENTATION
 //
 // Limitations:
@@ -1219,6 +1219,7 @@ static stbi__uint16 *stbi__convert_8_to_16(stbi_uc *orig, int w, int h, int chan
    return enlarged;
 }
 
+
 static void stbi__vertical_flip(void *image, int w, int h, int bytes_per_pixel)
 {
    int row;
@@ -1233,8 +1234,8 @@ static void stbi__vertical_flip(void *image, int w, int h, int bytes_per_pixel)
       size_t bytes_left = bytes_per_row;
       while (bytes_left) {
          size_t bytes_copy = (bytes_left < sizeof(temp)) ? bytes_left : sizeof(temp);
-         std::memcpy(temp, row0, bytes_copy);
-         std::memcpy(row0, row1, bytes_copy);
+         memcpy(temp, row0, bytes_copy);
+         memcpy(row0, row1, bytes_copy);
          std::memcpy(row1, temp, bytes_copy);
          row0 += bytes_copy;
          row1 += bytes_copy;

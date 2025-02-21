@@ -14,12 +14,15 @@ file(GLOB_RECURSE LCE_SOURCES
 
 add_library(LIB_lce STATIC ${LCE_SOURCES})
 
+# target_precompile_headers(LIB_lce PRIVATE
+#         ${CMAKE_CURRENT_SOURCE_DIR}/processor.hpp
+# )
 
 target_include_directories(LIB_lce
         PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
 )
 
-
+# -include ${CMAKE_CURRENT_SOURCE_DIR}/processor.hpp
 target_compile_options(LIB_lce PUBLIC -mavx2 -mpopcnt)
 add_definitions(-DDEV_MODE)

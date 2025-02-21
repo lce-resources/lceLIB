@@ -1,7 +1,5 @@
 #pragma once
 
-#include "block.hpp"
-
 #include "lce/enums.hpp"
 
 
@@ -346,11 +344,9 @@ namespace lce::blocks::states {
             return getMetaFromFacing(facing);
         }
 
-        static i32 withProperty(int facingData, const bool eye) {
+        static i32 withProperty(const int facingData, const bool eye) {
             return cast(eye) << 2 | facingData;
         }
     };
-
-
 
 }

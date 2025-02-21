@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <unordered_map>
@@ -20,7 +19,7 @@ class RegistryNamespaced {
         std::string name;
         const T* object;
 
-        ResourceLocation(int id, std::string name, const T* object)
+        ResourceLocation(const int id, std::string name, const T* object)
             : id(id), name(std::move(name)), object(object) {}
 
         ~ResourceLocation() = default;
@@ -64,11 +63,11 @@ public:
         clear();
     }
 
-    void setName(std::string nameIn) {
+    void setName(std::string nameIn) const {
         myName = std::move(nameIn);
     }
 
-    std::string getName() {
+    std::string getName() const {
         return myName;
     }
 
@@ -85,14 +84,14 @@ public:
     }
 
     T const* getObjFromId(int id) const {
-        if (idRegistry.count(id) == 0) {
+        if (!idRegistry.contains(id)) {
             return nullptr;
         }
         return idRegistry.at(id)->object;
     }
 
     T const* getObjFromName(const std::string& identifier) const {
-        if (nameRegistry.count(identifier) == 0) {
+        if (!nameRegistry.contains(identifier)) {
             return nullptr;
         }
         return nameRegistry.at(identifier)->object;
@@ -109,7 +108,7 @@ public:
 
     MU ND int size() const { return allValues.size(); }
 
-    void clear(bool alsoDeleteObjPtrs = false) {
+    void clear(const bool alsoDeleteObjPtrs = false) {
         myName = "";
 
         for (size_t i = 0; i < allValues.size(); i++) {
