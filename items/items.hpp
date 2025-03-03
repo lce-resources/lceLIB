@@ -587,30 +587,30 @@ namespace lce::items {
     MU static constexpr auto WHEAT = Item(296, 0, "Wheat", "wheat");
     MU static constexpr auto BREAD = Item(297, 0, "Bread", "bread");
 
-    MU static constexpr auto LEATHER_HELMET = Armor(298, "Leather Helmet", "leather_helmet", EntityEquipSlot::HEAD, ARMOR_LEATHER);
-    MU static constexpr auto LEATHER_TUNIC = Armor(299, "Leather Tunic", "leather_chestplate", EntityEquipSlot::CHEST, ARMOR_LEATHER);
-    MU static constexpr auto LEATHER_PANTS = Armor(300, "Leather Pants", "leather_leggings", EntityEquipSlot::LEGS, ARMOR_LEATHER);
-    MU static constexpr auto LEATHER_BOOTS = Armor(301, "Leather Boots", "leather_boots", EntityEquipSlot::FEET, ARMOR_LEATHER);
+    MU static constexpr auto LEATHER_HELMET = Armor(298, "Leather Helmet", "leather_helmet", ItemEquipSlot::HEAD, ARMOR_LEATHER);
+    MU static constexpr auto LEATHER_TUNIC = Armor(299, "Leather Tunic", "leather_chestplate", ItemEquipSlot::CHEST, ARMOR_LEATHER);
+    MU static constexpr auto LEATHER_PANTS = Armor(300, "Leather Pants", "leather_leggings", ItemEquipSlot::LEGS, ARMOR_LEATHER);
+    MU static constexpr auto LEATHER_BOOTS = Armor(301, "Leather Boots", "leather_boots", ItemEquipSlot::FEET, ARMOR_LEATHER);
 
-    MU static constexpr auto CHAINMAIL_HELMET = Armor(302, "Chainmail Helmet", "chainmail_helmet", EntityEquipSlot::HEAD, ARMOR_CHAIN);
-    MU static constexpr auto CHAINMAIL_CHESTPLATE = Armor(303, "Chainmail Chestplate", "chainmail_chestplate",                                     EntityEquipSlot::CHEST, ARMOR_CHAIN);
-    MU static constexpr auto CHAINMAIL_LEGGINGS = Armor(304, "Chainmail Leggings", "chainmail_leggings", EntityEquipSlot::LEGS, ARMOR_CHAIN);
-    MU static constexpr auto CHAINMAIL_BOOTS = Armor(305, "Chainmail Boots", "chainmail_boots", EntityEquipSlot::FEET, ARMOR_CHAIN);
+    MU static constexpr auto CHAINMAIL_HELMET = Armor(302, "Chainmail Helmet", "chainmail_helmet", ItemEquipSlot::HEAD, ARMOR_CHAIN);
+    MU static constexpr auto CHAINMAIL_CHESTPLATE = Armor(303, "Chainmail Chestplate", "chainmail_chestplate",                                     ItemEquipSlot::CHEST, ARMOR_CHAIN);
+    MU static constexpr auto CHAINMAIL_LEGGINGS = Armor(304, "Chainmail Leggings", "chainmail_leggings", ItemEquipSlot::LEGS, ARMOR_CHAIN);
+    MU static constexpr auto CHAINMAIL_BOOTS = Armor(305, "Chainmail Boots", "chainmail_boots", ItemEquipSlot::FEET, ARMOR_CHAIN);
 
-    MU static constexpr auto IRON_HELMET = Armor(306, "Iron Helmet", "iron_helmet", EntityEquipSlot::HEAD, ARMOR_IRON);
-    MU static constexpr auto IRON_CHESTPLATE = Armor(307, "Iron Chestplate", "iron_chestplate", EntityEquipSlot::CHEST, ARMOR_IRON);
-    MU static constexpr auto IRON_LEGGINGS = Armor(308, "Iron Leggings", "iron_leggings", EntityEquipSlot::LEGS, ARMOR_IRON);
-    MU static constexpr auto IRON_BOOTS = Armor(309, "Iron Boots", "iron_boots", EntityEquipSlot::FEET, ARMOR_IRON);
+    MU static constexpr auto IRON_HELMET = Armor(306, "Iron Helmet", "iron_helmet", ItemEquipSlot::HEAD, ARMOR_IRON);
+    MU static constexpr auto IRON_CHESTPLATE = Armor(307, "Iron Chestplate", "iron_chestplate", ItemEquipSlot::CHEST, ARMOR_IRON);
+    MU static constexpr auto IRON_LEGGINGS = Armor(308, "Iron Leggings", "iron_leggings", ItemEquipSlot::LEGS, ARMOR_IRON);
+    MU static constexpr auto IRON_BOOTS = Armor(309, "Iron Boots", "iron_boots", ItemEquipSlot::FEET, ARMOR_IRON);
 
-    MU static constexpr auto DIAMOND_HELMET = Armor(310, "Diamond Helmet", "diamond_helmet", EntityEquipSlot::HEAD, ARMOR_DIAMOND);
-    MU static constexpr auto DIAMOND_CHESTPLATE = Armor(311, "Diamond Chestplate", "diamond_chestplate", EntityEquipSlot::CHEST,                                   ARMOR_DIAMOND);
-    MU static constexpr auto DIAMOND_LEGGINGS = Armor(312, "Diamond Leggings", "diamond_leggings", EntityEquipSlot::LEGS, ARMOR_DIAMOND);
-    MU static constexpr auto DIAMOND_BOOTS = Armor(313, "Diamond Boots", "diamond_boots", EntityEquipSlot::FEET, ARMOR_DIAMOND);
+    MU static constexpr auto DIAMOND_HELMET = Armor(310, "Diamond Helmet", "diamond_helmet", ItemEquipSlot::HEAD, ARMOR_DIAMOND);
+    MU static constexpr auto DIAMOND_CHESTPLATE = Armor(311, "Diamond Chestplate", "diamond_chestplate", ItemEquipSlot::CHEST,                                   ARMOR_DIAMOND);
+    MU static constexpr auto DIAMOND_LEGGINGS = Armor(312, "Diamond Leggings", "diamond_leggings", ItemEquipSlot::LEGS, ARMOR_DIAMOND);
+    MU static constexpr auto DIAMOND_BOOTS = Armor(313, "Diamond Boots", "diamond_boots", ItemEquipSlot::FEET, ARMOR_DIAMOND);
 
-    MU static constexpr auto GOLDEN_HELMET = Armor(314, "Golden Helmet", "golden_helmet", EntityEquipSlot::HEAD, ARMOR_GOLD);
-    MU static constexpr auto GOLDEN_CHESTPLATE = Armor(315, "Golden Chestplate", "golden_chestplate", EntityEquipSlot::CHEST, ARMOR_GOLD);
-    MU static constexpr auto GOLDEN_LEGGINGS = Armor(316, "Golden Leggings", "golden_leggings", EntityEquipSlot::LEGS, ARMOR_GOLD);
-    MU static constexpr auto GOLDEN_BOOTS = Armor(317, "Golden Boots", "golden_boots", EntityEquipSlot::FEET, ARMOR_GOLD);
+    MU static constexpr auto GOLDEN_HELMET = Armor(314, "Golden Helmet", "golden_helmet", ItemEquipSlot::HEAD, ARMOR_GOLD);
+    MU static constexpr auto GOLDEN_CHESTPLATE = Armor(315, "Golden Chestplate", "golden_chestplate", ItemEquipSlot::CHEST, ARMOR_GOLD);
+    MU static constexpr auto GOLDEN_LEGGINGS = Armor(316, "Golden Leggings", "golden_leggings", ItemEquipSlot::LEGS, ARMOR_GOLD);
+    MU static constexpr auto GOLDEN_BOOTS = Armor(317, "Golden Boots", "golden_boots", ItemEquipSlot::FEET, ARMOR_GOLD);
 
     MU static constexpr auto FLINT = Item(318, 0, "Flint", "flint");
     MU static constexpr auto RAW_PORKCHOP = Item(319, 0, "Raw Porkchop", "porkchop");
@@ -785,12 +785,12 @@ namespace lce::items {
     MU static constexpr auto EMPTY_MAP = Item(395, 0, "Empty Map", "map");
     MU static constexpr auto GOLDEN_CARROT = Item(396, 0, "Golden Carrot", "golden_carrot");
 
-    MU static constexpr auto SKELETON_SKULL = Skull(397, 0, "Skeleton Skull", "skull");
-    MU static constexpr auto WITHER_SKELETON_SKULL = Skull(397, 1, "Wither Skeleton Skull", "skull");
-    MU static constexpr auto ZOMBIE_HEAD = Skull(397, 2, "Zombie Head", "skull");
-    MU static constexpr auto PLAYER_HEAD = Skull(397, 3, "Player Head", "skull");
-    MU static constexpr auto CREEPER_HEAD = Skull(397, 4, "Creeper Head", "skull");
-    MU static constexpr auto DRAGON_HEAD = Skull(397, 5, "Dragon Head", "skull");
+    MU static constexpr auto SKELETON_SKULL = Item(397, 0,  ItemType::ItemSkull, "Skeleton Skull", "skull");
+    MU static constexpr auto WITHER_SKELETON_SKULL = Item(397, 1,  ItemType::ItemSkull, "Wither Skeleton Skull", "skull");
+    MU static constexpr auto ZOMBIE_HEAD = Item(397, 2,  ItemType::ItemSkull, "Zombie Head", "skull");
+    MU static constexpr auto PLAYER_HEAD = Item(397, 3,  ItemType::ItemSkull, "Player Head", "skull");
+    MU static constexpr auto CREEPER_HEAD = Item(397, 4,  ItemType::ItemSkull, "Creeper Head", "skull");
+    MU static constexpr auto DRAGON_HEAD = Item(397, 5,  ItemType::ItemSkull, "Dragon Head", "skull");
 
     MU static constexpr auto CARROT_ON_A_STICK = Item(398, 0, "Carrot on a Stick", "carrot_on_a_stick");
     MU static constexpr auto NETHER_STAR = Item(399, 0, "Nether Star", "nether_star");
@@ -865,7 +865,7 @@ namespace lce::items {
     MU static constexpr auto IRON_NUGGET = Item(452, 0, "Iron Nugget", "iron_nugget");
     MU static constexpr auto KNOWLEDGE_BOOK = Item(453, 0, "Knowledge Book", "knowledge_book");
 
-    MU static constexpr auto TRIDENT = Trident(546, 0, "Trident", "trident");
+    MU static constexpr auto TRIDENT = Item(546, 0, ItemType::ItemTrident, "Trident", "trident", true);
 
     MU static constexpr auto HEART_OF_THE_SEA = Item(571, 0, "Heart of the Sea", "heart_of_the_sea");
     MU static constexpr auto NAUTILUS_CORE = HEART_OF_THE_SEA;
