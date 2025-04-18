@@ -1,6 +1,5 @@
 #pragma once
 
-#include <algorithm>
 #include <cstdint>
 #include <string>
 
@@ -81,7 +80,7 @@ namespace lce {
 
     [[maybe_unused]] extern CONSOLE strToConsole(const std::string& inputStr);
 
-    [[maybe_unused]] extern lce::DIMENSION intToDim(char number);
+    [[maybe_unused]] extern DIMENSION intToDim(char number);
 
     [[maybe_unused]] extern bool consoleIsBigEndian(CONSOLE console);
 

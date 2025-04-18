@@ -1,129 +1,157 @@
 #pragma once
 
-#include <ostream>
-
 #ifdef INCLUDE_QT
 #include <QDebug>
 #endif
-
+#include <ostream>
 #include "lce/processor.hpp"
 #include "lce/items/enums.hpp"
 
 namespace lce {
+
     using namespace items;
 
     class ItemState {
     public:
         u16 id;
         u8 data;
-        ItemType itemType : 4;
-        ItemEquipSlot armorType : 4;
+        u8 typeAndArmor;
         u8 enchantability;
         bool damageable;
+        u8 myItemCount = 0;
+        u8 myContainerIndex = 0;
         // I can fit 7 more bits
 
-
         constexpr ItemState(c_u16 id, c_u8 dataTag,
-             const ItemType itemType, const ItemEquipSlot armorType, c_bool damageable, c_u8 enchantability)
-            : id(id), data(dataTag), itemType(itemType), armorType(armorType),
-                enchantability(enchantability), damageable(damageable) {}
+             const ItemType itemType, const ItemEquipSlot armorType, c_bool damageable, c_u8 enchantability) noexcept
+            : id(id), data(dataTag), enchantability(enchantability), damageable(damageable) {
+            typeAndArmor = (u8)itemType << 4 | (u8)armorType;
+        }
 
-        constexpr ItemState(c_u16 id, c_u8 dataTag)
+        constexpr ItemState(c_u16 id, c_u8 dataTag) noexcept
             : ItemState(id, dataTag, ItemType::NONE, ItemEquipSlot::NONE, false, 1) {}
 
-        constexpr ItemState() : ItemState(0, 0, ItemType::ItemBlock, ItemEquipSlot::NONE, false, 1) {}
+        constexpr ItemState() noexcept : ItemState(0, 0, ItemType::ItemBlock, ItemEquipSlot::NONE, false, 1) {}
 
         // Accessors
-        MU ND constexpr u16  getID()         const { return id; }
-        MU ND constexpr u8   getDataTag()    const { return data; }
-        MU ND constexpr u8   getItemType()   const { return static_cast<u8>(itemType); }
-        MU ND constexpr u8   getArmorType()  const { return static_cast<u8>(armorType); }
-        MU ND constexpr bool isDamageable()  const { return damageable; }
-        MU ND constexpr i8   getCost()       const { return enchantability; }
+        MU ND constexpr u16           getID()         const noexcept { return id; }
+        MU ND constexpr u8            getDataTag()    const noexcept { return data; }
+        MU ND constexpr ItemType      getItemType()   const noexcept { return (ItemType)(typeAndArmor >> 4); }
+        MU ND constexpr ItemEquipSlot getArmorType()  const noexcept { return (ItemEquipSlot)(typeAndArmor & 0x0F); }
+        MU ND constexpr bool          isDamageable()  const noexcept { return damageable; }
+        MU ND constexpr u8            getCost()       const noexcept { return enchantability; }
+        MU ND constexpr i32           getCount()      const noexcept { return myItemCount; }
+        MU ND constexpr u32           getContainerIndex() const noexcept { return myContainerIndex; }
 
+        MU constexpr void setData(c_u8 dataIn) noexcept { data = dataIn; }
 
-        MU ND constexpr ItemState getStateFromMeta(c_u8 meta) const {
-            return {id, meta, itemType, armorType, damageable, enchantability}; }
+        MU constexpr void setItemCount(c_u8 itemCount) noexcept { myItemCount = itemCount; }
 
+        MU constexpr void setContainerIndex(c_u8 containerIndex) noexcept { myContainerIndex = containerIndex; }
+
+        MU ND constexpr ItemState getStateFromMeta(c_u8 meta) const noexcept {
+            ItemState theState = *this;
+            theState.data = meta;
+            return theState;
+        }
+
+        MU constexpr void setStateFromMeta(const u8 theData) { data = theData; }
 
         // Equality checks ID & dataTag
-        constexpr bool operator==(const ItemState &other) const {
+        constexpr bool operator==(const ItemState &other) const noexcept {
             return id == other.id && data == other.data;
+        }
+
+        constexpr bool operator<(const ItemState &other) const noexcept {
+            if (id != other.id) return id < other.id;
+            return data < other.data;
+        }
+
+        constexpr bool operator>(const ItemState &other) const noexcept {
+            if (id != other.id) return id > other.id;
+            return data > other.data;
+        }
+
+        friend std::ostream& operator<<(std::ostream& out, const ItemState& item) {
+            out << "ItemState("
+                << std::to_string(item.id)
+                << ", "
+                << std::to_string(item.data)
+                << ", "
+                << std::to_string(item.myItemCount)
+                << ")";
+            return out;
+        }
+
+        MU ItemState split(const i32 count) noexcept {
+            const i32 splitCount = std::min(count, static_cast<i32>(myItemCount));
+            ItemState splitItem(*this);
+            splitItem.myItemCount = splitCount;
+            myItemCount -= splitCount;
+            return splitItem;
         }
 
     };
 
 
-    class Item : ItemState {
+    class Item : public ItemState {
         const char* name;
         const char* identifier;
     public:
 
-        constexpr Item() : name(""), identifier("") {
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
-        }
+        consteval Item() noexcept : name(""), identifier("") {}
 
         // Full constructor
-        constexpr Item(c_u16 id, c_u8 dataTag, const ItemType type,
+        consteval Item(c_u16 id, c_u8 dataTag, const ItemType type,
                        const char* itemName, const char* identifier, c_bool damageable,
-                       const ItemEquipSlot armorType, c_i8 enchantability)
+                       const ItemEquipSlot armorType, c_u8 enchantability) noexcept
             : ItemState(id, dataTag, type, armorType, damageable, enchantability),
-            name(itemName), identifier(identifier) {
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
-        }
+            name(itemName), identifier(identifier) {}
 
         // Constructor (id, dataTag, type, name, identifier, damageable)
-        constexpr Item(c_u16 id, c_u8 dataTag, const ItemType type,
-                       const char* itemName, const char* identifier, c_bool damageable)
-            : Item(id, dataTag, type, itemName, identifier, damageable, ItemEquipSlot::NONE, 1) {
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
-        }
+        consteval Item(c_u16 id, c_u8 dataTag, const ItemType type,
+                       const char* itemName, const char* identifier, c_bool damageable) noexcept
+            : Item(id, dataTag, type, itemName, identifier, damageable, ItemEquipSlot::NONE, 1) {}
 
         // Constructor (id, dataTag, type, name, identifier, damageable, enchantability)
-        constexpr Item(c_u16 id, c_u8 dataTag, const ItemType type,
-                       const char* itemName, const char* identifier, c_bool damageable, c_u8 enchantability)
-            : Item(id, dataTag, type, itemName, identifier, damageable, ItemEquipSlot::NONE, enchantability) {
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
-        }
+        consteval Item(c_u16 id, c_u8 dataTag, const ItemType type,
+                       const char* itemName, const char* identifier, c_bool damageable, c_u8 enchantability) noexcept
+            : Item(id, dataTag, type, itemName, identifier, damageable, ItemEquipSlot::NONE, enchantability) {}
 
         // Constructor (id, dataTag, type, name, identifier, enchantability)
-        constexpr Item(c_u16 id, c_u8 dataTag, const ItemType type,
-                       const char* itemName, const char* identifier, c_u8 enchantability)
-            : Item(id, dataTag, type, itemName, identifier, false, ItemEquipSlot::NONE, enchantability) {
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
-        }
+        consteval Item(c_u16 id, c_u8 dataTag, const ItemType type,
+                       const char* itemName, const char* identifier, c_u8 enchantability) noexcept
+            : Item(id, dataTag, type, itemName, identifier, false, ItemEquipSlot::NONE, enchantability) {}
 
         // Constructor (id, dataTag, type, name, identifier, armorType, enchantability)
-        constexpr Item(c_u16 id, c_u8 dataTag, const ItemType type,
+        consteval Item(c_u16 id, c_u8 dataTag, const ItemType type,
                        const char* itemName, const char* identifier,
-                       const ItemEquipSlot armorType, c_u8 enchantability)
-            : Item(id, dataTag, type, itemName, identifier, false, armorType, enchantability) {
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
-        }
+                       const ItemEquipSlot armorType, c_u8 enchantability) noexcept
+            : Item(id, dataTag, type, itemName, identifier, false, armorType, enchantability) {}
 
         // Constructor (id, dataTag, name, identifier)
-        constexpr Item(c_u16 id, c_u8 dataTag, const char* itemName, const char* identifier)
-            : Item(id, dataTag, ItemType::ItemBlock, itemName, identifier, false, ItemEquipSlot::NONE, 1) {
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
-        }
+        consteval Item(c_u16 id, c_u8 dataTag, const char* itemName, const char* identifier) noexcept
+            : Item(id, dataTag, ItemType::ItemBlock, itemName, identifier, false, ItemEquipSlot::NONE, 1) {}
 
         // Constructor (id, dataTag, type, name, identifier)
-        constexpr Item(c_u16 id, c_u8 dataTag, const ItemType type,
-               const char* itemName, const char* identifier)
-            : Item(id, dataTag, type, itemName, identifier, false, ItemEquipSlot::NONE, 1) {
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
-        }
+        consteval Item(c_u16 id, c_u8 dataTag, const ItemType type,
+               const char* itemName, const char* identifier) noexcept
+            : Item(id, dataTag, type, itemName, identifier, false, ItemEquipSlot::NONE, 1) {}
 
 
         // Accessor functions
-        MU ND constexpr const char* getName()                   const { return name; }
-        MU ND constexpr const char* getIdentifier()             const { return identifier; }
-        MU ND constexpr ItemState   getState()                  const { return {id, data, itemType, armorType, damageable, enchantability}; }
-        MU ND constexpr ItemState   getStateFromMeta(c_u8 meta) const { return {id, meta, itemType, armorType, damageable, enchantability}; }
+        MU ND constexpr const char* getName()                   const noexcept { return name; }
+        MU ND constexpr const char* getIdentifier()             const noexcept { return identifier; }
+        MU ND constexpr ItemState   getState()                  const noexcept { return *this; }
+        MU ND constexpr ItemState   getStateFromMeta(c_u8 meta) const {
+            ItemState theState = getState();
+            theState.setData(meta);
+            return theState;
+        }
 
         // Equality checks ID & dataTag
-        constexpr bool operator==(const ItemState &other) const {
-            return id == other.id && data == other.data;
+        constexpr bool operator==(const ItemState &other) const noexcept {
+            return getID() == other.getID() && getDataTag() == other.getDataTag();
         }
 
         // Operator overloads

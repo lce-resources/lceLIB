@@ -4,7 +4,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include <cstring>
-#include <cstddef>
 #include <iostream>
 #include <string>
 
