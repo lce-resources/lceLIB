@@ -11,6 +11,7 @@
 ///=============================================================================
 
 #if __GNUC__
+#define RESTRICT __restrict__
 #define PREFETCH(PTR, RW, LOC) __builtin_prefetch(PTR, RW, LOC)
 #define EXPECT_FALSE(COND) (__builtin_expect((COND), 0)) // [unlikely]
 #define EXPECT_TRUE(COND) (__builtin_expect((COND), 1))  // [likely]
@@ -21,6 +22,10 @@
 #define EXPECT_TRUE(COND) (COND) [[likely]]
 #define ATTR(...)
 #endif
+
+#define DELETE_NEW_OPS \
+    void* operator new(std::size_t) = delete; \
+    void* operator new[](std::size_t) = delete
 
 #define ND [[nodiscard]]
 #define MU [[maybe_unused]]
@@ -74,7 +79,7 @@
 
 
 /// printf, but returns -1.
-MU static int printf_err(int return_code, const char* format, ...) {
+MU static int printf_err(const int return_code, const char* format, ...) {
     va_list args;
     va_start(args, format);
     vprintf(format, args);
