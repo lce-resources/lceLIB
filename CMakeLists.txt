@@ -4,6 +4,11 @@ project(LIB_lce)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -m32")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -m32")
+set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} -O3")
+set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
+
 # Gather all source files in lce
 file(GLOB_RECURSE LCE_SOURCES
         "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
@@ -13,6 +18,7 @@ file(GLOB_RECURSE LCE_SOURCES
 )
 
 add_library(LIB_lce STATIC ${LCE_SOURCES})
+target_compile_features(LIB_lce PRIVATE cxx_std_20)
 
 # target_precompile_headers(LIB_lce PRIVATE
 #         ${CMAKE_CURRENT_SOURCE_DIR}/processor.hpp
