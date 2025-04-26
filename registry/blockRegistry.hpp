@@ -18,7 +18,6 @@ namespace lce::registry {
 
         void addBlock(const Block* blockIn);
         void setUpBlocks();
-        MU void setup();
 
         Block const* p_getBlock(int id, int data) const;
         Block const* p_getBlockFromID(int id) const;
@@ -30,6 +29,7 @@ namespace lce::registry {
         }
 
     public:
+        MU void setup();
         MU static Block const* getBlock(int id, int data);
         MU static Block const* getBlockFromID(int id);
         MU static Block const* getBlockFromName(const std::string& name);

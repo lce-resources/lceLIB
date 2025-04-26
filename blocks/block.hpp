@@ -2,10 +2,6 @@
 
 #include <utility>
 
-#ifdef INCLUDE_QT
-#include <QDebug>
-#endif
-
 #include "lce/processor.hpp"
 #include "lce/blocks/mapcolors.hpp"
 

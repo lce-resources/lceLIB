@@ -18,7 +18,7 @@ namespace lce::registry {
                 return it->second;
             }
         }
-        return &ERROR;
+        return &ERROR_ITEM;
     }
 
     Item const* ItemRegistry::p_getItemFromID(const int id) {

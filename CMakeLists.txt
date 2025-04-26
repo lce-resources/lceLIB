@@ -13,6 +13,7 @@ file(GLOB_RECURSE LCE_SOURCES
 )
 
 add_library(LIB_lce STATIC ${LCE_SOURCES})
+target_compile_features(LIB_lce PRIVATE cxx_std_20)
 
 # target_precompile_headers(LIB_lce PRIVATE
 #         ${CMAKE_CURRENT_SOURCE_DIR}/processor.hpp
