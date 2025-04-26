@@ -76,6 +76,11 @@
 #define u64_vec_vec std::vector<u64_vec>
 
 
+enum class Endian {
+    Big,
+    Little,
+    Native = std::endian::native == std::endian::big ? Big : Little
+};
 
 
 /// printf, but returns -1.
