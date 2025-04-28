@@ -1,5 +1,6 @@
 #pragma once
 
+#include "processor.hpp"
 #include <cstdint>
 #include <string>
 
@@ -82,7 +83,7 @@ namespace lce {
 
     [[maybe_unused]] extern DIMENSION intToDim(char number);
 
-    [[maybe_unused]] extern bool consoleIsBigEndian(CONSOLE console);
+    [[maybe_unused]] extern Endian getConsoleEndian(const CONSOLE console);
 
     [[maybe_unused]] extern int getChunkWorldBounds(WORLDSIZE worldSize);
 

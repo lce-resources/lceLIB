@@ -76,7 +76,7 @@ namespace lce {
     }
 
 
-    bool consoleIsBigEndian(const CONSOLE console) {
+    Endian getConsoleEndian(const CONSOLE console) {
         switch (console) {
             case CONSOLE::NONE:
             case CONSOLE::XBOX360:
@@ -84,11 +84,11 @@ namespace lce {
             case CONSOLE::RPCS3:
             case CONSOLE::WIIU:
             default:
-                return true;
+                return Endian::Big;
             case CONSOLE::VITA:
             case CONSOLE::PS4:
             case CONSOLE::SWITCH:
-                return false;
+                return Endian::Little;
         }
     }
 
