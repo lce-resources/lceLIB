@@ -745,14 +745,14 @@ namespace lce {
         MU static constexpr auto POTION_OF_NIGHT_VISION = Item(373, 0, "Potion of Night Vision", "potion");
         MU static constexpr auto POTION_OF_POISON = Item(373, 0, "Potion of Poison", "potion");
         MU static constexpr auto POTION_OF_POISON_II = Item(373, 0, "Potion of Poison II", "potion");
-        MU static constexpr auto POTION_OF_REGENERATION = Item(373, 0, "Potion of Regeneration", "potion");
+        MU static constexpr auto POTION_OF_REGENERATION = Item(373, 1, "Potion of Regeneration", "potion");
         MU static constexpr auto POTION_OF_REGENERATION_II = Item(373, 0, "Potion of Regeneration II", "potion");
         MU static constexpr auto POTION_OF_SLOWNESS = Item(373, 0, "Potion of Slowness", "potion");
         MU static constexpr auto POTION_OF_STRENGTH = Item(373, 0, "Potion of Strength", "potion");
         MU static constexpr auto POTION_OF_STRENGTH_II = Item(373, 0, "Potion of Strength II", "potion");
         MU static constexpr auto POTION_OF_SWIFTNESS = Item(373, 0, "Potion of Swiftness", "potion");
         MU static constexpr auto POTION_OF_SWIFTNESS_II = Item(373, 0, "Potion of Swiftness II", "potion");
-        MU static constexpr auto POTION_OF_WATER_BREATHING = Item(373, 0, "Potion of Water Breathing", "potion");
+        MU static constexpr auto POTION_OF_WATER_BREATHING = Item(373, 2, "Potion of Water Breathing", "potion");
         MU static constexpr auto POTION_OF_WEAKNESS = Item(373, 0, "Potion of Weakness", "potion");
         MU static constexpr auto THICK_POTION = Item(373, 0, "Thick Potion", "potion");
         MU static constexpr auto UNCRAFTABLE_POTION = Item(373, 0, "Uncraftable Potion", "potion");
