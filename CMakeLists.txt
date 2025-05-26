@@ -1,10 +1,4 @@
-cmake_minimum_required(VERSION 3.24)
-project(LIB_lce)
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-# Gather all source files in lce
+# Gathers all lce sources
 file(GLOB_RECURSE LCE_SOURCES
         "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
@@ -12,18 +6,24 @@ file(GLOB_RECURSE LCE_SOURCES
         "${CMAKE_CURRENT_SOURCE_DIR}/*.h"
 )
 
-add_library(LIB_lce STATIC ${LCE_SOURCES})
-target_compile_features(LIB_lce PRIVATE cxx_std_20)
+# Propagate sources to parent scope
+set(LCE_SOURCES ${LCE_SOURCES} PARENT_SCOPE)
 
-# target_precompile_headers(LIB_lce PRIVATE
-#         ${CMAKE_CURRENT_SOURCE_DIR}/processor.hpp
-# )
+# Propagate include dir to parent
+set(LCE_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/.." PARENT_SCOPE)
 
-target_include_directories(LIB_lce
-        PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>
-)
+# Propagate compile options and definitions
+set(LCE_COMPILE_OPTIONS -mavx2 -mpopcnt PARENT_SCOPE)
+set(LCE_COMPILE_DEFINITIONS DEV_MODE PARENT_SCOPE)
 
-# -include ${CMAKE_CURRENT_SOURCE_DIR}/processor.hpp
-target_compile_options(LIB_lce PUBLIC -mavx2 -mpopcnt)
-add_definitions(-DDEV_MODE)
+# Precompiled header — propagate only if desired
+set(LCE_PCH "${CMAKE_CURRENT_SOURCE_DIR}/processor.hpp" PARENT_SCOPE)
+
+# Asset handling
+set(LCE_ASSETS_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/assets" PARENT_SCOPE)
+
+if (DEFINED CMAKE_RUNTIME_OUTPUT_DIRECTORY)
+    set(LCE_ASSETS_DEST_DIR "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets/lce" PARENT_SCOPE)
+else()
+    set(LCE_ASSETS_DEST_DIR "$<JOIN:$<TARGET_FILE_DIR:BatchConverter>,/assets/lce>" PARENT_SCOPE)
+endif()

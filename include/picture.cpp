@@ -7,138 +7,137 @@
 #include <iostream>
 #include <string>
 
-#include "lce/include/stb_image.h"
-#include "lce/include/stb_image_write.h"
+#include "lce/include/stb_image.hpp"
+#include "lce/include/stb_image_write.hpp"
 
 
-static void resizeBilinear(const uint8_t* src, uint8_t* dst, const unsigned int srcWidth, const unsigned int srcHeight,
-                           const unsigned int dstWidth, const unsigned int dstHeight, const unsigned int channels) {
-    const float xRatio = static_cast<float>(srcWidth) / static_cast<float>(dstWidth);
-    std::cerr << "test";
-    const float yRatio = static_cast<float>(srcHeight) / static_cast<float>(dstHeight);
-    for (unsigned int y = 0; y < dstHeight; y++) {
-        for (unsigned int x = 0; x < dstWidth; x++) {
-            const unsigned int xL = static_cast<int>(static_cast<float>(x) * xRatio);
-            const unsigned int yT = static_cast<int>(static_cast<float>(y) * yRatio);
-            const unsigned int xR = std::min(xL + 1, srcWidth - 1);
-            const unsigned int yB = std::min(yT + 1, srcHeight - 1);
+static void resizeBilinear(c_u8* src, u8* dst, c_u32 srcWidth, c_u32 srcHeight,
+                           c_u32 dstWidth, c_u32 dstHeight, c_u32 channels) {
+    c_float xRatio = static_cast<float>(srcWidth) / static_cast<float>(dstWidth);
+    c_float yRatio = static_cast<float>(srcHeight) / static_cast<float>(dstHeight);
+    for (u32 y = 0; y < dstHeight; y++) {
+        for (u32 x = 0; x < dstWidth; x++) {
+            c_u32 xL = static_cast<int>(static_cast<float>(x) * xRatio);
+            c_u32 yT = static_cast<int>(static_cast<float>(y) * yRatio);
+            c_u32 xR = std::min(xL + 1, srcWidth - 1);
+            c_u32 yB = std::min(yT + 1, srcHeight - 1);
 
-            const float xDiff = (static_cast<float>(x) * xRatio) - static_cast<float>(xL);
-            const float yDiff = (static_cast<float>(y) * yRatio) - static_cast<float>(yT);
+            c_float xDiff = (static_cast<float>(x) * xRatio) - static_cast<float>(xL);
+            c_float yDiff = (static_cast<float>(y) * yRatio) - static_cast<float>(yT);
 
-            for (unsigned int c = 0; c < channels; c++) {
-                const float topLeft = src[(yT * srcWidth + xL) * channels + c];
-                const float topRight = src[(yT * srcWidth + xR) * channels + c];
-                const float bottomLeft = src[(yB * srcWidth + xL) * channels + c];
-                const float bottomRight = src[(yB * srcWidth + xR) * channels + c];
+            for (u32 c = 0; c < channels; c++) {
+                c_float topLeft = src[(yT * srcWidth + xL) * channels + c];
+                c_float topRight = src[(yT * srcWidth + xR) * channels + c];
+                c_float bottomLeft = src[(yB * srcWidth + xL) * channels + c];
+                c_float bottomRight = src[(yB * srcWidth + xR) * channels + c];
 
-                const float top = topLeft + xDiff * (topRight - topLeft);
-                const float bottom = bottomLeft + xDiff * (bottomRight - bottomLeft);
-                const float value = top + yDiff * (bottom - top);
+                c_float top = topLeft + xDiff * (topRight - topLeft);
+                c_float bottom = bottomLeft + xDiff * (bottomRight - bottomLeft);
+                c_float value = top + yDiff * (bottom - top);
 
-                dst[(y * dstWidth + x) * channels + c] = static_cast<uint8_t>(value);
+                dst[(y * dstWidth + x) * channels + c] = static_cast<u8>(value);
             }
         }
     }
 }
 
 
-Picture::~Picture() { delete[] myData; }
+Picture::~Picture() { delete[] m_data; }
 
 
-void Picture::allocate(const uint32_t width, const uint32_t height, const uint32_t rgbSize) {
-    delete[] myData;
+void Picture::allocate(c_i32 width, c_i32 height, c_i32 channels) {
+    delete[] m_data;
 
-    myWidth = width;
-    myHeight = height;
-    myRGBSize = rgbSize;
-    myAllocatedSize = myWidth * myHeight * myRGBSize;
-    myData = new uint8_t[static_cast<size_t>(myAllocatedSize)];
+    m_width = width;
+    m_height = height;
+    m_channels = channels;
+    m_size = m_width * m_height * m_channels;
+    m_data = new u8[static_cast<size_t>(m_size)];
 
-    memset(myData, 0, myAllocatedSize);
+    memset(m_data, 0, m_size);
 }
 
 
-void Picture::allocate(const uint32_t rgbSize) {
-    delete[] myData;
-    myRGBSize = rgbSize;
-    myAllocatedSize = myWidth * myHeight * myRGBSize;
-    myData = new uint8_t[static_cast<size_t>(myAllocatedSize)];
+void Picture::allocate(c_i32 channels) {
+    delete[] m_data;
+    m_channels = channels;
+    m_size = m_width * m_height * m_channels;
+    m_data = new u8[static_cast<size_t>(m_size)];
 
-    memset(myData, 0, myAllocatedSize);
+    memset(m_data, 0, m_size);
 }
 
 
-Picture::Picture(const uint32_t width, const uint32_t height) : myWidth(width), myHeight(height) {
-    myData = nullptr;
+Picture::Picture(c_i32 width, c_i32 height) : m_width(width), m_height(height) {
+    m_data = nullptr;
     allocate(4);
 }
 
 
-Picture::Picture(const uint32_t width, const uint32_t height, const uint32_t rgbSize) : Picture(width, height) {
-    myData = nullptr;
-    allocate(rgbSize);
+Picture::Picture(c_i32 width, c_i32 height, c_i32 channels) : Picture(width, height) {
+    m_data = nullptr;
+    allocate(channels);
 }
 
 
-void Picture::drawPixel(const unsigned char* rgb, const uint32_t xIn, const uint32_t yIn) const {
-    std::memcpy(&myData[static_cast<size_t>(getIndex(xIn, yIn) * myRGBSize)], rgb, myRGBSize);
+MU void Picture::drawPixel(const unsigned char* rgb, c_i32 xIn, c_i32 yIn) const {
+    std::memcpy(&m_data[static_cast<size_t>(getIndex(xIn, yIn) * m_channels)], rgb, m_channels);
 }
 
 
-bool Picture::drawBox(const uint32_t startX, const uint32_t startY, const uint32_t endX, const uint32_t endY,
-                      const uint8_t red, const uint8_t green, const uint8_t blue) const {
+MU bool Picture::drawBox(c_i32 sX, c_i32 sY, c_i32 eX, c_i32 eY,
+                      c_u8 red, c_u8 green, c_u8 blue) const {
 
-    if (startX > myWidth || startY > myHeight) { return false; }
-    if (endX > myWidth || endY > myHeight) { return false; }
-    if (endX < startX || endY < startY) { return false; }
+    if (sX > m_width || sY > m_height) { return false; }
+    if (eX > m_width || eY > m_height) { return false; }
+    if (eX < sX || eY < sY) { return false; }
 
-    for (uint32_t xIter = startX; xIter < endX; xIter++) {
-        c_u32 index = getIndex(xIter, startY) * myRGBSize;
-        myData[index] = red;
-        myData[index + 1] = green;
-        myData[index + 2] = blue;
-        if (myRGBSize == 4) { myData[index + 3] = 255; }
+    for (i32 xIter = sX; xIter < eX; xIter++) {
+        c_u32 index = getIndex(xIter, sY) * m_channels;
+        m_data[index] = red;
+        m_data[index + 1] = green;
+        m_data[index + 2] = blue;
+        if (m_channels == 4) { m_data[index + 3] = 255; }
     }
 
-    c_u32 rowSize = (endX - startX) * myRGBSize;
-    c_u32 firstRowIndex = getIndex(startX, startY) * myRGBSize;
-    for (uint32_t yIter = startY + 1; yIter < endY; yIter++) {
-        c_u32 index = getIndex(startX, yIter) * myRGBSize;
-        std::memcpy(&myData[index], &myData[firstRowIndex], rowSize);
+    c_u32 rowSize = (eX - sX) * m_channels;
+    c_u32 firstRowIndex = getIndex(sX, sY) * m_channels;
+    for (i32 yIter = sY + 1; yIter < eY; yIter++) {
+        c_u32 index = getIndex(sX, yIter) * m_channels;
+        std::memcpy(&m_data[index], &m_data[firstRowIndex], rowSize);
     }
     return true;
 }
-void Picture::fillColor(const uint8_t red, const uint8_t green, const uint8_t blue) const {
-    for (uint32_t xIter = 0; xIter < myWidth; xIter++) {
-        c_u32 index = getIndex(xIter, 0) * myRGBSize;
-        myData[index] = red;
-        myData[index + 1] = green;
-        myData[index + 2] = blue;
-        if (myRGBSize == 4) { myData[index + 3] = 255; }
+void Picture::fillColor(c_u8 red, c_u8 green, c_u8 blue) const {
+    for (i32 xIter = 0; xIter < m_width; xIter++) {
+        c_i32 index = getIndex(xIter, 0) * m_channels;
+        m_data[index] = red;
+        m_data[index + 1] = green;
+        m_data[index + 2] = blue;
+        if (m_channels == 4) { m_data[index + 3] = 255; }
     }
 
-    c_u32 rowSize = (myWidth) *myRGBSize;
-    for (uint32_t yIter = 0; yIter < myHeight; yIter++) {
-        // c_u32 index = getIndex(0, yIter) * myRGBSize;
-        std::memcpy(&myData[rowSize * yIter], &myData[0], rowSize);
+    c_i32 rowSize = (m_width) *m_channels;
+    for (uint32_t yIter = 0; yIter < m_height; yIter++) {
+        // c_u32 index = getIndex(0, yIter) * m_channels;
+        std::memcpy(&m_data[rowSize * yIter], &m_data[0], rowSize);
     }
 }
 /**
 * IMPORTANT: both images will have the same RGB size!
 * @param picture
-* @param startX
-* @param startY
+* @param sX
+* @param sY
 */
-void Picture::getSubImage(Picture& picture, const uint32_t startX, const uint32_t startY) const {
-    if (!isValid() || startX > myWidth || startY > myHeight) { return; }
+void Picture::getSubImage(Picture& picture, c_i32 sX, c_i32 sY) const {
+    if (!isValid() || sX > m_width || sY > m_height) { return; }
 
-    picture.allocate(myRGBSize);
-    c_u32 rowSize = picture.myWidth * myRGBSize;
-    for (uint32_t yIter = 0; yIter < picture.myHeight; yIter++) {
-        c_u32 indexIn = (startX + (startY + yIter) * myWidth) * myRGBSize;
-        c_u32 indexOut = yIter * picture.myWidth * picture.myRGBSize;
-        std::memcpy(&picture.myData[indexOut], &this->myData[indexIn], rowSize);
+    picture.allocate(m_channels);
+    c_i32 rowSize = picture.m_width * m_channels;
+    for (i32 yIter = 0; yIter < picture.m_height; yIter++) {
+        c_i32 indexIn = (sX + (sY + yIter) * m_width) * m_channels;
+        c_i32 indexOut = yIter * picture.m_width * picture.m_channels;
+        std::memcpy(&picture.m_data[indexOut], &m_data[indexIn], rowSize);
     }
 }
 
@@ -146,47 +145,46 @@ void Picture::getSubImage(Picture& picture, const uint32_t startX, const uint32_
 /**
  * IMPORTANT: both images must have the same size for RGB!
  * @param picToPlace
- * @param startX
- * @param startY
+ * @param sX
+ * @param sY
  */
-void Picture::placeSubImage(Picture const* picToPlace, const uint32_t startX, const uint32_t startY) const {
-    if (!isValid() || startX >= myWidth || startY >= myHeight) { return; }
+MU void Picture::placeSubImage(Picture const* picToPlace, c_i32 sX, c_i32 sY) const {
+    if (!isValid() || sX >= m_width || sY >= m_height) { return; }
 
-    c_u32 widthInput = std::min(picToPlace->myWidth, myWidth - startX);
-    c_u32 heightInput = std::min(picToPlace->myHeight, myHeight - startY);
-    c_u32 rowSizeInput = widthInput * myRGBSize;
+    c_i32 widthInput = std::min(picToPlace->m_width, m_width - sX);
+    c_i32 heightInput = std::min(picToPlace->m_height, m_height - sY);
+    c_i32 rowSizeInput = widthInput * m_channels;
 
-    for (uint32_t yIter = 0; yIter < heightInput; yIter++) {
-        c_u32 indexOut = ((startY + yIter) * this->myWidth + startX) * myRGBSize;
-        c_u32 indexIn = (yIter * picToPlace->myWidth) * myRGBSize;
+    for (i32 yIter = 0; yIter < heightInput; yIter++) {
+        c_i32 indexOut = ((sY + yIter) * m_width + sX) * m_channels;
+        c_i32 indexIn = (yIter * picToPlace->m_width) * m_channels;
 
-        std::memcpy(&this->myData[indexOut], &picToPlace->myData[indexIn], rowSizeInput);
+        std::memcpy(&m_data[indexOut], &picToPlace->m_data[indexIn], rowSizeInput);
     }
 }
 
 
-void Picture::placeAndStretchSubImage(Picture const* picToPlace, c_u32 startX, c_u32 startY,
-                                      c_u32 targetWidth, c_u32 targetHeight) const {
-    if (!isValid() || startX >= myWidth || startY >= myHeight || !picToPlace->isValid()) {
+void Picture::placeAndStretchSubImage(Picture const* picToPlace, c_i32 sX, c_i32 sY, c_i32 tX, c_i32 tY) const {
+    if (!isValid() || sX >= m_width || sY >= m_height || !picToPlace->isValid()) {
         return;
     }
 
-    // Allocate memory for the resized subimage
-    auto* resizedSubImage = new uint8_t[targetWidth * targetHeight * myRGBSize];
-    resizeBilinear(picToPlace->myData, resizedSubImage, picToPlace->myWidth,
-                   picToPlace->myHeight, targetWidth, targetHeight, myRGBSize);
+    // Allocate memory for the resized sub-image
+    auto* resizedSubImage = new u8[tX * tY * m_channels];
+    resizeBilinear(picToPlace->m_data, resizedSubImage, picToPlace->m_width,
+                   picToPlace->m_height, tX, tY, m_channels);
 
     // Calculate bounds for placement
-    c_u32 endX = std::min(startX + targetWidth, myWidth);
-    c_u32 endY = std::min(startY + targetHeight, myHeight);
-    c_u32 widthInput = endX - startX;
-    c_u32 heightInput = endY - startY;
+    c_i32 eX = std::min(sX + tX, m_width);
+    c_i32 eY = std::min(sY + tY, m_height);
+    c_i32 widthInput = eX - sX;
+    c_i32 heightInput = eY - sY;
 
-    // Place the resized subimage into the main image
-    for (u32 yIter = 0; yIter < heightInput; yIter++) {
-        c_u32 indexOut = ((startY + yIter) * this->myWidth + startX) * myRGBSize;
-        c_u32 indexIn = (yIter * targetWidth) * myRGBSize;
-        std::memcpy(&this->myData[indexOut], &resizedSubImage[indexIn], widthInput * myRGBSize);
+    // Place the resized sub-image into the main image
+    for (i32 yIter = 0; yIter < heightInput; yIter++) {
+        c_i32 indexOut = ((sY + yIter) * this->m_width + sX) * m_channels;
+        c_i32 indexIn = (yIter * tX) * m_channels;
+        std::memcpy(&this->m_data[indexOut], &resizedSubImage[indexIn], widthInput * m_channels);
     }
 
     delete[] resizedSubImage;
@@ -195,20 +193,17 @@ void Picture::placeAndStretchSubImage(Picture const* picToPlace, c_u32 startX, c
 
 
 void Picture::loadFromFile(const char* filename) {
-    int x,y,n;
-    delete[] myData;
-    myData = stbi_load(filename, &x, &y, &n, 0);
-    myWidth = x;
-    myHeight = y;
-    myRGBSize = n;
+    delete[] m_data;
+    m_data = stbi_load(filename, &m_width, &m_height, &m_channels, 0);
+    m_size = m_width * m_height * m_channels;
 }
 
 
 void Picture::saveWithName(const std::string& filename) const {
     stbi_write_png(filename.c_str(),
-                   static_cast<int>(myWidth),
-                   static_cast<int>(myHeight),
-                   static_cast<int>(myRGBSize),
-                   myData,
+                   m_width,
+                   m_height,
+                   m_channels,
+                   m_data,
                    0);
 }

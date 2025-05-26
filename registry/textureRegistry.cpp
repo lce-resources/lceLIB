@@ -26,8 +26,8 @@ namespace lce::registry {
         textureRegistry.setName("BLOCK_TEXTURES");
 
         blockPicture.loadFromFile(BLOCK_TEXTURE_FILE.c_str());
-        if (blockPicture.myWidth != BLOCK_TEXTURE_WIDTH
-            || blockPicture.myHeight != BLOCK_TEXTURE_HEIGHT) {
+        if (blockPicture.m_width != BLOCK_TEXTURE_WIDTH
+            || blockPicture.m_height != BLOCK_TEXTURE_HEIGHT) {
             throw std::runtime_error("failed to load " + BLOCK_TEXTURE_FILE);
         }
         setUpTextures();

@@ -1,4 +1,5 @@
 #include "enums.hpp"
+#include "processor.hpp"
 
 #include <algorithm>
 
@@ -147,12 +148,12 @@ namespace lce {
                 return "DATA_MAPPING";
             case FILETYPE::MAP:
                 return "MAP";
-            case FILETYPE::REGION_NETHER:
-                return "REGION_NETHER";
-            case FILETYPE::REGION_OVERWORLD:
-                return "REGION_OVERWORLD";
-            case FILETYPE::REGION_END:
-                return "REGION_END";
+            case FILETYPE::OLD_REGION_NETHER:
+                return "OLD_REGION_NETHER";
+            case FILETYPE::OLD_REGION_OVERWORLD:
+                return "OLD_REGION_OVERWORLD";
+            case FILETYPE::OLD_REGION_END:
+                return "OLD_REGION_END";
             case FILETYPE::PLAYER:
                 return "PLAYER";
             case FILETYPE::LEVEL:

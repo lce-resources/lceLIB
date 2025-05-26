@@ -1,10 +1,41 @@
 #pragma once
 
-#include <cstdarg>
 #include <cstdint>
 #include <cstdlib>
+#include <cstdarg>
+#include <cstdio>
+
+#include <fstream>
+#include <iostream>
+
+#include <unordered_map>
+#include <unordered_set>
+#include <list>
 #include <vector>
+#include <map>
+#include <array>
+#include <set>
+#include <span>
+
 #include <string>
+#include <string_view>
+#include <cstring>
+
+#include <stdexcept>
+#include <algorithm>
+#include <utility>
+#include <memory>
+
+#include <cassert>
+#include <functional>
+#include <optional>
+#include <variant>
+
+#include "enums.hpp"
+
+
+
+
 
 ///=============================================================================
 ///                      Compiler and Platform Features
@@ -21,6 +52,14 @@
 #define EXPECT_FALSE(COND) (COND) [[unlikely]]
 #define EXPECT_TRUE(COND) (COND) [[likely]]
 #define ATTR(...)
+#endif
+
+#if defined(_MSC_VER)
+#define FORCEINLINE __forceinline
+#elif defined(__GNUC__) || defined(__clang__)
+#define FORCEINLINE inline __attribute__((always_inline))
+#else
+#define FORCEINLINE inline
 #endif
 
 #define DELETE_NEW_OPS \
@@ -74,13 +113,6 @@
 #define u16_vec_vec std::vector<u16_vec>
 #define u32_vec_vec std::vector<u32_vec>
 #define u64_vec_vec std::vector<u64_vec>
-
-
-enum class Endian {
-    Big,
-    Little,
-    Native = std::endian::native == std::endian::big ? Big : Little
-};
 
 
 /// printf, but returns -1.
