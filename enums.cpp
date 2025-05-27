@@ -36,16 +36,6 @@ namespace lce {
     }
 
 
-    bool isConsoleNewGen(const CONSOLE console) {
-        return console == CONSOLE::PS4 ||
-               console == CONSOLE::SWITCH ||
-               console == CONSOLE::XBOX1;
-    }
-    bool isXbox(const CONSOLE console) {
-        return console == CONSOLE::XBOX360 || console == CONSOLE::XBOX1;
-    }
-
-
     CONSOLE strToConsole(const std::string &inputStr) {
         std::string str = inputStr;
         std::ranges::transform(str, str.begin(),
@@ -89,8 +79,20 @@ namespace lce {
             case CONSOLE::VITA:
             case CONSOLE::PS4:
             case CONSOLE::SWITCH:
+            case CONSOLE::XBOX1:
+            case CONSOLE::WINDURANGO:
                 return Endian::Little;
         }
+    }
+
+    bool isConsoleNewGen(const CONSOLE console) {
+        return console == CONSOLE::PS4 ||
+               console == CONSOLE::SWITCH ||
+               console == CONSOLE::XBOX1 ||
+               console == CONSOLE::WINDURANGO;
+    }
+    bool isXbox(const CONSOLE console) {
+        return console == CONSOLE::XBOX360 || console == CONSOLE::XBOX1;
     }
 
 

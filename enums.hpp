@@ -24,6 +24,7 @@ namespace lce {
         PS4 = 6,
         WIIU = 7,
         SWITCH = 8,
+        WINDURANGO = 9,
     };
 
 
