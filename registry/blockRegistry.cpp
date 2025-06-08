@@ -28,21 +28,21 @@ namespace lce::registry {
         return REGISTRY.getObjFromName(name);
     }
 
-    Block const* BlockRegistry::getBlock(const int id, const int data) {
+    MU Block const* BlockRegistry::getBlock(const int id, const int data) {
         return getInstance().p_getBlock(id, data);
     }
 
-    Block const* BlockRegistry::getBlockFromID(const int id) {
+    MU Block const* BlockRegistry::getBlockFromID(const int id) {
         return getInstance().p_getBlockFromID(id);
     }
 
-    Block const* BlockRegistry::getBlockFromName(const std::string& name) {
+    MU Block const* BlockRegistry::getBlockFromName(const std::string& name) {
         return getInstance().p_getBlockFromName(name);
     }
 
 
     void BlockRegistry::addBlock(const Block* blockIn) {
-        REGISTRY.registerValue(blockIn->getID(), blockIn->getName(), blockIn);
+        REGISTRY.registerValue(blockIn->getID(), blockIn->getName(), blockIn->getName(), blockIn);
         idToBlock.emplace(blockIn->getID(), blockIn);
     }
 

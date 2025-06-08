@@ -9,11 +9,12 @@ class RegistryNamespaced {
     class ResourceLocation {
     public:
         int id;
+        std::string identifier;
         std::string name;
         const T* object;
 
-        ResourceLocation(const int id, std::string name, const T* object)
-            : id(id), name(std::move(name)), object(object) {}
+        ResourceLocation(const int id, std::string identifier, std::string name, const T* object)
+            : id(id), identifier(std::move(identifier)), name(std::move(name)), object(object) {}
 
         ~ResourceLocation() = default;
 
@@ -33,6 +34,7 @@ class RegistryNamespaced {
     std::vector<ResourceLocation*> allValues;
     std::unordered_map<int, ResourceLocation*> idRegistry;
     std::unordered_map<std::string, ResourceLocation*> nameRegistry;
+    std::unordered_map<std::string, ResourceLocation*> identifierRegistry;
     /*
     /// function to get a reference to the static idRegistry map
     static std::unordered_map<int, ResourceLocation*>& getIdRegistry() {
@@ -64,16 +66,17 @@ public:
         return myName;
     }
 
-    void registerValue(size_t id, const std::string& identifier, const T* object) {
+    void registerValue(size_t id, const std::string& identifier, const std::string& name, const T* object) {
         if (object == nullptr) {
             throw std::invalid_argument("Object cannot be null.");
         }
 
-        auto* pResourceLocation = new ResourceLocation(id, identifier, object);
+        auto* pResourceLocation = new ResourceLocation(id, identifier, name, object);
 
         allValues.push_back(pResourceLocation);
         idRegistry[id] = pResourceLocation;
-        nameRegistry[identifier] = pResourceLocation;
+        identifierRegistry[identifier] = pResourceLocation;
+        nameRegistry[name] = pResourceLocation;
     }
 
     T const* getObjFromId(int id) const {
@@ -81,6 +84,13 @@ public:
             return nullptr;
         }
         return idRegistry.at(id)->object;
+    }
+
+    T const* getObjFromIdentifier(const std::string& identifier) const {
+        if (!identifierRegistry.contains(identifier)) {
+            return nullptr;
+        }
+        return identifierRegistry.at(identifier)->object;
     }
 
     T const* getObjFromName(const std::string& identifier) const {

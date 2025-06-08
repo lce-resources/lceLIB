@@ -47,7 +47,7 @@ namespace lce::registry {
         static constexpr uint32_t CELL = 16;
         const auto tempPic = new Picture(CELL, CELL);
         blockPicture.getSubImage(*tempPic, CELL * theX, CELL * theY);
-        textureRegistry.registerValue(theID, theIdentifier, tempPic);
+        textureRegistry.registerValue(theID, theIdentifier, theIdentifier, tempPic);
     }
 
 

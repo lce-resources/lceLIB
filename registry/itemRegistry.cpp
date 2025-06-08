@@ -5,11 +5,22 @@
 
 namespace lce::registry {
 
+
     bool ItemRegistry::isSetup = false;
 
     std::unordered_multimap<int, const Item*> ItemRegistry::idToItem = {};
 
     RegistryNamespaced<Item> ItemRegistry::REGISTRY = {};
+
+    MU ItemRegistry ItemRegistry::s_instance;
+
+    ItemRegistry::ItemRegistry() {
+        setup();
+    }
+
+    Item const* ItemRegistry::p_getItemFromIdentifier(const std::string& identifier) {
+        return REGISTRY.getObjFromIdentifier(identifier);
+    }
 
     Item const* ItemRegistry::p_getItem(const int id, const int data) {
         const auto [fst, snd] = idToItem.equal_range(id);
@@ -29,12 +40,16 @@ namespace lce::registry {
         return REGISTRY.getObjFromName(name);
     }
 
-    Item const* ItemRegistry::getItem(const int id, const int data) {
+    MU Item const* ItemRegistry::getItem(const int id, const int data) {
         return p_getItem(id, data);
     }
 
-    Item const* ItemRegistry::getItemFromID(const int id) {
+    MU Item const* ItemRegistry::getItemFromID(const int id) {
         return p_getItemFromID(id);
+    }
+
+    MU Item const* ItemRegistry::getItemFromIdentifier(const std::string& identifier) {
+        return p_getItemFromIdentifier(identifier);
     }
 
     Item const* ItemRegistry::getItemFromName(const std::string& name) {
@@ -43,7 +58,7 @@ namespace lce::registry {
 
 
     void ItemRegistry::addItem(const Item* itemIn) {
-        REGISTRY.registerValue(itemIn->getID(), itemIn->getName(), itemIn);
+        REGISTRY.registerValue(itemIn->getID(), itemIn->getIdentifier(), itemIn->getName(), itemIn);
         idToItem.emplace(itemIn->getID(), itemIn);
     }
 
@@ -479,6 +494,7 @@ namespace lce::registry {
         addItem(&PINK_GLAZED_TERRACOTTA);
         addItem(&GRAY_GLAZED_TERRACOTTA);
         addItem(&LIGHT_GRAY_GLAZED_TERRACOTTA);
+        addItem(&SILVER_GLAZED_TERRACOTTA);
         addItem(&CYAN_GLAZED_TERRACOTTA);
         addItem(&PURPLE_GLAZED_TERRACOTTA);
         addItem(&BLUE_GLAZED_TERRACOTTA);
@@ -812,7 +828,7 @@ namespace lce::registry {
         addItem(&TOTEM_OF_UNDYING);
         addItem(&SHULKER_SHELL);
         addItem(&IRON_NUGGET);
-        addItem(&KNOWLEDGE_BOOK);
+        addItem(&LEATHER_HORSE_ARMOR);
         addItem(&TRIDENT);
         addItem(&HEART_OF_THE_SEA);
         addItem(&NAUTILUS_CORE);
