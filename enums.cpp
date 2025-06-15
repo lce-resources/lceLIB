@@ -176,6 +176,41 @@ namespace lce {
 }
 
 
+lce::WORLDSIZE lce::strToWorldSize(const std::string& worldSize) {
+    if (worldSize == "CLASSIC") {
+        return WORLDSIZE::CLASSIC;
+    }
+    if (worldSize == "SMALL") {
+        return WORLDSIZE::SMALL;
+    }
+    if (worldSize == "MEDIUM") {
+        return WORLDSIZE::MEDIUM;
+    }
+    if (worldSize == "LARGE") {
+        return WORLDSIZE::LARGE;
+    }
+    return WORLDSIZE::CLASSIC;
+}
+
+
+
+
+lce::BIOMESCALE lce::strToBiomeScale(const std::string& biomeScale) {
+    if (biomeScale == "CLASSIC") {
+        return BIOMESCALE::SMALL;
+    }
+    if (biomeScale == "SMALL") {
+        return BIOMESCALE::MEDIUM;
+    }
+    if (biomeScale == "MEDIUM") {
+        return BIOMESCALE::LARGE;
+    }
+    return BIOMESCALE::SMALL;
+}
+
+
+
+
 std::string facingToString(const EnumFacing facing) {
     switch (facing) {
         case EnumFacing::NORTH:

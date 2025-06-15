@@ -107,6 +107,11 @@ namespace lce {
     [[maybe_unused]] extern std::string biomeScaleToString(BIOMESCALE biomeScale);
 
     [[maybe_unused]] extern std::string fileTypeToString(FILETYPE type);
+
+    [[maybe_unused]] extern WORLDSIZE strToWorldSize(const std::string& worldSize);
+
+    [[maybe_unused]] extern BIOMESCALE strToBiomeScale(const std::string& biomeScale);
+
 }
 
 enum class EnumAxis : int8_t {
