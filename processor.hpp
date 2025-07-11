@@ -54,12 +54,42 @@
 #define ATTR(...)
 #endif
 
+
+constexpr int ctz_constexpr(uint32_t x) noexcept {
+    int i = 0;
+    while ((x & 1u) == 0u && i < 32) {
+        x >>= 1u;
+        ++i;
+    }
+    return i;
+}
+
+
 #if defined(_MSC_VER)
-#define FORCEINLINE __forceinline
+    #define NOINLINE __declspec(noinline)
+    #define FORCEINLINE __forceinline
+    inline int CTZ(uint32_t x) noexcept {
+        if (std::is_constant_evaluated()) {
+            return ctz_constexpr(x);
+        } else {
+            unsigned long index;
+            _BitScanForward(&index, x);
+            return static_cast<int>(index);
+        }
+    }
 #elif defined(__GNUC__) || defined(__clang__)
-#define FORCEINLINE inline __attribute__((always_inline))
+    #define NOINLINE __attribute__((noinline))
+    #if !defined(FORCEINLINE)
+        #define FORCEINLINE inline __attribute__((always_inline))
+    #endif
+    constexpr int CTZ(uint32_t x) noexcept {
+        return std::is_constant_evaluated() ? ctz_constexpr(x) : __builtin_ctz(x);
+    }
 #else
-#define FORCEINLINE inline
+    #define FORCEINLINE inline
+    constexpr int CTZ(uint32_t x) noexcept {
+        return ctz_constexpr(x);
+    }
 #endif
 
 #define DELETE_NEW_OPS \
