@@ -196,13 +196,13 @@ lce::WORLDSIZE lce::strToWorldSize(const std::string& worldSize) {
 
 
 lce::BIOMESCALE lce::strToBiomeScale(const std::string& biomeScale) {
-    if (biomeScale == "CLASSIC") {
+    if (biomeScale == "SMALL") {
         return BIOMESCALE::SMALL;
     }
-    if (biomeScale == "SMALL") {
+    if (biomeScale == "MEDIUM") {
         return BIOMESCALE::MEDIUM;
     }
-    if (biomeScale == "MEDIUM") {
+    if (biomeScale == "LARGE") {
         return BIOMESCALE::LARGE;
     }
     return BIOMESCALE::SMALL;

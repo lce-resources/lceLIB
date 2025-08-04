@@ -51,7 +51,9 @@ namespace lce {
             : BlockState(blockID, data)
             , mapColor(blocks::MapColor::NONE)
             , name("") {
+#ifndef _MSC_VER
             static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
+#endif
         }
 
         // 2) (id, dataTag, name)
@@ -59,9 +61,10 @@ namespace lce {
             : BlockState(blockID, data)
             , mapColor(blocks::MapColor::NONE)
             , name(blockName) {
+#ifndef _MSC_VER
             static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
+#endif
         }
-
         Block(const Block&) = delete;
         Block& operator=(const Block&) = delete;
 
