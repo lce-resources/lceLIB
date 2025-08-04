@@ -1,5 +1,6 @@
 #pragma once
 
+#include <processor.hpp>
 #include "lce/enums.hpp"
 
 
