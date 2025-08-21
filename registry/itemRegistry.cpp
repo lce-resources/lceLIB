@@ -18,11 +18,7 @@ namespace lce::registry {
         setup();
     }
 
-    Item const* ItemRegistry::p_getItemFromIdentifier(const std::string& identifier) {
-        return REGISTRY.getObjFromIdentifier(identifier);
-    }
-
-    Item const* ItemRegistry::p_getItem(const int id, const int data) {
+    MU Item const* ItemRegistry::getItem(const int id, const int data) {
         const auto [fst, snd] = idToItem.equal_range(id);
         for (auto it = fst; it != snd; ++it) {
             if (it->second->getDataTag() == data) {
@@ -32,28 +28,16 @@ namespace lce::registry {
         return &ERROR_ITEM;
     }
 
-    Item const* ItemRegistry::p_getItemFromID(const int id) {
+    MU Item const* ItemRegistry::getItemFromID(const int id) {
         return REGISTRY.getObjFromId(id);
     }
 
-    Item const* ItemRegistry::p_getItemFromName(const std::string& name) {
-        return REGISTRY.getObjFromName(name);
-    }
-
-    MU Item const* ItemRegistry::getItem(const int id, const int data) {
-        return p_getItem(id, data);
-    }
-
-    MU Item const* ItemRegistry::getItemFromID(const int id) {
-        return p_getItemFromID(id);
-    }
-
     MU Item const* ItemRegistry::getItemFromIdentifier(const std::string& identifier) {
-        return p_getItemFromIdentifier(identifier);
+        return REGISTRY.getObjFromIdentifier(identifier);
     }
 
     Item const* ItemRegistry::getItemFromName(const std::string& name) {
-        return p_getItemFromName(name);
+        return REGISTRY.getObjFromName(name);
     }
 
 

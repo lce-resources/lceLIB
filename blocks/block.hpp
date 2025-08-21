@@ -2,8 +2,9 @@
 
 #include <utility>
 
-#include "lce/processor.hpp"
 #include "lce/blocks/mapcolors.hpp"
+#include "lce/processor.hpp"
+#include "lce/titleUpdate.hpp"
 
 
 namespace lce {
@@ -32,7 +33,8 @@ namespace lce {
 
     class Block : BlockState {
         blocks::MapColor mapColor;  // optional map color
-        const char*     name;       // block name (string literal)
+        const char*      name;      // block name (string literal)
+        const int        titleUpdate;
 
         /*
          c_int lightOpacity;
@@ -46,9 +48,10 @@ namespace lce {
          */
 
     public:
-        // 1) Minimal constructor: (id, dataTag)
-        constexpr Block(c_u16 blockID, c_u8 data)
+        // 1) Minimal constructor: (TU, id, dataTag)
+        constexpr Block(const TU titleUpdate, c_u16 blockID, c_u8 data)
             : BlockState(blockID, data)
+            , titleUpdate(titleUpdate.value())
             , mapColor(blocks::MapColor::NONE)
             , name("") {
 #ifndef _MSC_VER
@@ -56,9 +59,10 @@ namespace lce {
 #endif
         }
 
-        // 2) (id, dataTag, name)
-        constexpr Block(c_u16 blockID, c_u8 data, const char* blockName)
+        // 2) (TU, id, dataTag, name)
+        constexpr Block(const TU titleUpdate, c_u16 blockID, c_u8 data, const char* blockName)
             : BlockState(blockID, data)
+            , titleUpdate(titleUpdate.value())
             , mapColor(blocks::MapColor::NONE)
             , name(blockName) {
 #ifndef _MSC_VER
@@ -74,6 +78,7 @@ namespace lce {
         MU ND constexpr const char*      getName()     const { return name; }
         MU ND constexpr blocks::MapColor getMapColor() const { return mapColor; }
         MU ND constexpr BlockState       getState()    const { return {id, dataTag}; }
+        MU ND constexpr int              getTU()       const { return titleUpdate; }
 
         // Equality checks ID & dataTag
         constexpr bool operator==(const BlockState &other) const {

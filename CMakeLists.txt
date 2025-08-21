@@ -23,3 +23,4 @@ set(LCE_PCH               "${CMAKE_CURRENT_SOURCE_DIR}/processor.hpp" PARENT_SCO
 
 # only the *source* of the assets is inherent to the module
 set(LCE_ASSETS_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/assets" PARENT_SCOPE)
+set(LCE_ASSETS_DEST_DIR "${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/assets/lce" PARENT_SCOPE)

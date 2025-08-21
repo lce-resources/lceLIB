@@ -16,11 +16,6 @@ namespace lce::registry {
         static void setUpItems();
         MU static void setup();
 
-        static Item const* p_getItem(int id, int data);
-        static Item const* p_getItemFromID(int id);
-        static Item const* p_getItemFromName(const std::string& name);
-        static Item const* p_getItemFromIdentifier(const std::string& identifier);
-
         ItemRegistry();
     public:
 

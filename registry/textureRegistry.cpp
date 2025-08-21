@@ -25,7 +25,8 @@ namespace lce::registry {
 
         textureRegistry.setName("BLOCK_TEXTURES");
 
-        blockPicture.loadFromFile(BLOCK_TEXTURE_FILE.c_str());
+        std::string path = EXE_CURRENT_PATH + "/" + BLOCK_TEXTURE_FILE;
+        blockPicture.loadFromFile(path.c_str());
         if (blockPicture.m_width != BLOCK_TEXTURE_WIDTH
             || blockPicture.m_height != BLOCK_TEXTURE_HEIGHT) {
             throw std::runtime_error("failed to load " + BLOCK_TEXTURE_FILE);
@@ -96,7 +97,7 @@ namespace lce::registry {
         addBlock(GOLD_BLOCK_ID, BlocksInit::GOLD_BLOCK.getName(), 7, 1);
         addBlock(IRON_BLOCK_ID, BlocksInit::IRON_BLOCK.getName(), 6, 1);
         addBlock(DOUBLE_STONE_SLAB_ID, BlocksInit::DOUBLE_STONE_SLAB.getName(), 0, 0);
-        addBlock(STONE_SLAB_ID, BlocksInit::STONE_SLAB.getName(), 0, 0);
+        // addBlock(STONE_SLAB_ID, BlocksInit::STONE_SLAB.getName(), 0, 0);
         addBlock(BRICKS_ID, BlocksInit::BRICKS.getName(), 7, 0);
         addBlock(TNT_ID, BlocksInit::TNT.getName(), 8, 0); // (9,0), (10,0)
         addBlock(BOOKSHELF_ID, BlocksInit::BOOKSHELF.getName(), 3, 2);
@@ -138,13 +139,13 @@ namespace lce::registry {
         addBlock(SUGAR_CANES_ID, BlocksInit::SUGAR_CANES.getName(), 0, 0);
         addBlock(JUKEBOX_ID, BlocksInit::JUKEBOX.getName(), 0, 0);
         addBlock(OAK_FENCE_ID, BlocksInit::OAK_FENCE.getName(), 0, 0);
-        addBlock(CARVED_PUMPKIN_ID, BlocksInit::PUMPKIN.getName(), 0, 0);
+        // addBlock(CARVED_PUMPKIN_ID, BlocksInit::PUMPKIN.getName(), 0, 0);
         addBlock(NETHERRACK_ID, BlocksInit::NETHERRACK.getName(), 7, 6);
         addBlock(SOUL_SAND_ID, BlocksInit::SOUL_SAND.getName(), 8, 6);
         addBlock(GLOWSTONE_ID, BlocksInit::GLOWSTONE.getName(), 9, 6);
         addBlock(NETHER_PORTAL_ID, BlocksInit::NETHER_PORTAL.getName(), 0, 0);
         addBlock(JACK_O_LANTERN_ID, BlocksInit::JACK_O_LANTERN.getName(), 0, 0);
-        addBlock(CAKE_BLOCK_ID, BlocksInit::CAKE_BLOCK.getName(), 0, 0);
+        // addBlock(CAKE_BLOCK_ID, BlocksInit::CAKE_BLOCK.getName(), 0, 0);
         addBlock(OFF_REDSTONE_REPEATER_BLOCK_ID, BlocksInit::OFF_REDSTONE_REPEATER_BLOCK.getName(), 0, 0);
         addBlock(ON_REDSTONE_REPEATER_BLOCK_ID, BlocksInit::ON_REDSTONE_REPEATER_BLOCK.getName(), 0, 0);
         addBlock(STAINED_GLASS_ID, BlocksInit::WHITE_STAINED_GLASS.getName(), 0, 0);
@@ -178,7 +179,7 @@ namespace lce::registry {
         addBlock(INACTIVE_REDSTONE_LAMP_ID, BlocksInit::INACTIVE_REDSTONE_LAMP.getName(), 3, 13);
         addBlock(ACTIVE_REDSTONE_LAMP_ID, BlocksInit::ACTIVE_REDSTONE_LAMP.getName(), 4, 13);
         addBlock(DOUBLE_OAK_WOOD_SLAB_ID, BlocksInit::DOUBLE_OAK_WOOD_SLAB.getName(), 0, 0);
-        addBlock(OAK_WOOD_SLAB_ID, BlocksInit::OAK_WOOD_SLAB.getName(), 0, 0);
+        // addBlock(OAK_WOOD_SLAB_ID, BlocksInit::OAK_WOOD_SLAB.getName(), 0, 0);
         addBlock(COCOA_ID, BlocksInit::COCOA.getName(), 0, 0);
         addBlock(SANDSTONE_STAIRS_ID, BlocksInit::SANDSTONE_STAIRS.getName(), 0, 0);
         addBlock(EMERALD_ORE_ID, BlocksInit::EMERALD_ORE.getName(), 11, 10);
@@ -196,7 +197,7 @@ namespace lce::registry {
         addBlock(CARROTS_ID, BlocksInit::CARROTS.getName(), 11, 12); // (8-11,12)
         addBlock(POTATOES_ID, BlocksInit::POTATOES.getName(), 0, 0);
         addBlock(WOODEN_BUTTON_ID, BlocksInit::WOODEN_BUTTON.getName(), 0, 0);
-        addBlock(MOB_HEAD_ID, BlocksInit::MOB_HEAD.getName(), 0, 0);
+        // addBlock(MOB_HEAD_ID, BlocksInit::MOB_HEAD.getName(), 0, 0);
         addBlock(ANVIL_ID, BlocksInit::ANVIL.getName(), 0, 0);
         addBlock(TRAPPED_CHEST_ID, BlocksInit::TRAPPED_CHEST.getName(), 0, 0);
         addBlock(LIGHT_WEIGHTED_PRESSURE_PLATE_ID, BlocksInit::LIGHT_WEIGHTED_PRESSURE_PLATE.getName(), 0, 0);
@@ -234,7 +235,7 @@ namespace lce::registry {
         addBlock(RED_SANDSTONE_ID, BlocksInit::RED_SANDSTONE.getName(), 0, 0);
         addBlock(RED_SANDSTONE_STAIRS_ID, BlocksInit::RED_SANDSTONE_STAIRS.getName(), 0, 0);
         addBlock(DOUBLE_RED_SANDSTONE_SLAB_ID, BlocksInit::DOUBLE_RED_SANDSTONE_SLAB.getName(), 0, 0);
-        addBlock(RED_SANDSTONE_SLAB_ID, BlocksInit::RED_SANDSTONE_SLAB.getName(), 0, 0);
+        // addBlock(RED_SANDSTONE_SLAB_ID, BlocksInit::RED_SANDSTONE_SLAB.getName(), 0, 0);
         addBlock(SPRUCE_FENCE_GATE_ID, BlocksInit::SPRUCE_FENCE_GATE.getName(), 0, 0);
         addBlock(BIRCH_FENCE_GATE_ID, BlocksInit::BIRCH_FENCE_GATE.getName(), 0, 0);
         addBlock(JUNGLE_FENCE_GATE_ID, BlocksInit::JUNGLE_FENCE_GATE.getName(), 0, 0);
@@ -256,8 +257,8 @@ namespace lce::registry {
         addBlock(PURPUR_BLOCK_ID, BlocksInit::PURPUR_BLOCK.getName(), 0, 0);
         addBlock(PURPUR_PILLAR_ID, BlocksInit::PURPUR_PILLAR.getName(), 0, 0);
         addBlock(PURPUR_STAIRS_ID, BlocksInit::PURPUR_STAIRS.getName(), 0, 0);
-        addBlock(PURPUR_DOUBLE_SLAB_ID, BlocksInit::PURPUR_DOUBLE_SLAB.getName(), 0, 0);
-        addBlock(PURPUR_SLAB_ID, BlocksInit::PURPUR_SLAB.getName(), 0, 0);
+        // addBlock(PURPUR_DOUBLE_SLAB_ID, BlocksInit::PURPUR_DOUBLE_SLAB.getName(), 0, 0);
+        // addBlock(PURPUR_SLAB_ID, BlocksInit::PURPUR_SLAB.getName(), 0, 0);
         addBlock(END_STONE_BRICKS_ID, BlocksInit::END_STONE_BRICKS.getName(), 8, 23);
         addBlock(BEETROOT_BLOCK_ID, BlocksInit::BEETROOT_BLOCK.getName(), 0, 0);
         addBlock(GRASS_PATH_ID, BlocksInit::GRASS_PATH.getName(), 0, 0);
@@ -334,7 +335,7 @@ namespace lce::registry {
         addBlock(STRIPPED_BIRCH_LOG_ID, BlocksInit::STRIPPED_BIRCH_LOG.getName(), 0, 0);
         addBlock(STRIPPED_JUNGLE_LOG_ID, BlocksInit::STRIPPED_JUNGLE_LOG.getName(), 0, 0);
         addBlock(STRIPPED_ACACIA_LOG_ID, BlocksInit::STRIPPED_ACACIA_LOG.getName(), 0, 0);
-        addBlock(STRIPPED_DARK_0AK_LOG_ID, BlocksInit::STRIPPED_DARK_0AK_LOG.getName(), 0, 0);
+        addBlock(STRIPPED_DARK_0AK_LOG_ID, BlocksInit::STRIPPED_DARK_OAK_LOG.getName(), 0, 0);
         addBlock(STRIPPED_OAK_LOG_ID, BlocksInit::STRIPPED_OAK_LOG.getName(), 0, 0);
         addBlock(ACACIA_PRESSURE_PLATE_ID, BlocksInit::ACACIA_PRESSURE_PLATE.getName(), 0, 0);
         addBlock(BIRCH_PRESSURE_PLATE_ID, BlocksInit::BIRCH_PRESSURE_PLATE.getName(), 0, 0);
@@ -347,8 +348,8 @@ namespace lce::registry {
         addBlock(JUNGLE_BUTTON_ID, BlocksInit::JUNGLE_BUTTON.getName(), 0, 0);
         addBlock(SPRUCE_BUTTON_ID, BlocksInit::SPRUCE_BUTTON.getName(), 0, 0);
         addBlock(DOUBLE_PRISMARINE_SLAB_ID, BlocksInit::DOUBLE_PRISMARINE_SLAB.getName(), 0, 0);
-        addBlock(PRISMARINE_SLAB_ID, BlocksInit::PRISMARINE_SLAB.getName(), 0, 0);
-        addBlock(SPRUCE_WOOD_2_ID, BlocksInit::SPRUCE_WOOD_2.getName(), 0, 0);
+        // addBlock(PRISMARINE_SLAB_ID, BlocksInit::PRISMARINE_SLAB.getName(), 0, 0);
+        // addBlock(SPRUCE_WOOD_2_ID, BlocksInit::SPRUCE_WOOD_2.getName(), 0, 0);
         addBlock(BIRCH_WOOD_2_ID, BlocksInit::BIRCH_WOOD_2.getName(), 0, 0);
         addBlock(JUNGLE_WOOD_2_ID, BlocksInit::JUNGLE_WOOD_2.getName(), 0, 0);
         addBlock(ACACIA_WOOD_2_ID, BlocksInit::ACACIA_WOOD_2.getName(), 0, 0);

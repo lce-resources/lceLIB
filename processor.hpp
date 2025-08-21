@@ -144,6 +144,7 @@ constexpr int ctz_constexpr(uint32_t x) noexcept {
 #define u32_vec_vec std::vector<u32_vec>
 #define u64_vec_vec std::vector<u64_vec>
 
+extern std::string EXE_CURRENT_PATH;
 
 /// printf, but returns -1.
 MU static int printf_err(const int return_code, const char* format, ...) {

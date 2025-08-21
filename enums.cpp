@@ -22,6 +22,8 @@ namespace lce {
                 return "ps4";
             case CONSOLE::XBOX1:
                 return "xbox1";
+            case CONSOLE::WINDURANGO:
+                return "windurango";
             case CONSOLE::NONE:
             default:
                 return "NONE";
@@ -49,6 +51,7 @@ namespace lce {
         if (str == "switch") { return CONSOLE::SWITCH; }
         if (str == "ps4" || str == "playstation4") { return CONSOLE::PS4; }
         if (str == "xbox1" || str == "xboxone") { return CONSOLE::XBOX1; }
+        if (str == "windurango") { return CONSOLE::WINDURANGO; }
         return CONSOLE::NONE;
     }
 
