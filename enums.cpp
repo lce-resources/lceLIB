@@ -4,58 +4,6 @@
 #include <algorithm>
 
 namespace lce {
-    std::string consoleToStr(const CONSOLE console) {
-        switch (console) {
-            case CONSOLE::XBOX360:
-                return "xbox360";
-            case CONSOLE::PS3:
-                return "ps3";
-            case CONSOLE::RPCS3:
-                return "rpcs3";
-            case CONSOLE::WIIU:
-                return "wiiu";
-            case CONSOLE::VITA:
-                return "vita";
-            case CONSOLE::SWITCH:
-                return "switch";
-            case CONSOLE::PS4:
-                return "ps4";
-            case CONSOLE::XBOX1:
-                return "xbox1";
-            case CONSOLE::WINDURANGO:
-                return "windurango";
-            case CONSOLE::NONE:
-            default:
-                return "NONE";
-        }
-    }
-
-
-    const char * consoleToCStr(const CONSOLE console) {
-        static std::string str;
-        str = consoleToStr(console);
-        return str.c_str();
-    }
-
-
-    CONSOLE strToConsole(const std::string &inputStr) {
-        std::string str = inputStr;
-        std::ranges::transform(str, str.begin(),
-                               [](const unsigned char c) { return std::tolower(c); });
-
-        if (str == "xbox360") { return CONSOLE::XBOX360; }
-        if (str == "ps3" || str == "playstation3") { return CONSOLE::PS3; }
-        if (str == "rpcs3") { return CONSOLE::RPCS3; }
-        if (str == "wiiu") { return CONSOLE::WIIU; }
-        if (str == "vita" || str == "psvita") { return CONSOLE::VITA; }
-        if (str == "switch") { return CONSOLE::SWITCH; }
-        if (str == "ps4" || str == "playstation4") { return CONSOLE::PS4; }
-        if (str == "xbox1" || str == "xboxone") { return CONSOLE::XBOX1; }
-        if (str == "windurango") { return CONSOLE::WINDURANGO; }
-        return CONSOLE::NONE;
-    }
-
-
     DIMENSION intToDim(const char number) {
         switch (number) {
             case 0:
@@ -67,35 +15,6 @@ namespace lce {
             default:
                 return DIMENSION::NONE;
         }
-    }
-
-
-    Endian getConsoleEndian(const CONSOLE console) {
-        switch (console) {
-            case CONSOLE::NONE:
-            case CONSOLE::XBOX360:
-            case CONSOLE::PS3:
-            case CONSOLE::RPCS3:
-            case CONSOLE::WIIU:
-            default:
-                return Endian::Big;
-            case CONSOLE::VITA:
-            case CONSOLE::PS4:
-            case CONSOLE::SWITCH:
-            case CONSOLE::XBOX1:
-            case CONSOLE::WINDURANGO:
-                return Endian::Little;
-        }
-    }
-
-    bool isConsoleNewGen(const CONSOLE console) {
-        return console == CONSOLE::PS4 ||
-               console == CONSOLE::SWITCH ||
-               console == CONSOLE::XBOX1 ||
-               console == CONSOLE::WINDURANGO;
-    }
-    bool isXbox(const CONSOLE console) {
-        return console == CONSOLE::XBOX360 || console == CONSOLE::XBOX1;
     }
 
 

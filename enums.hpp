@@ -5,28 +5,12 @@
 #include <cstdint>
 #include <string>
 
-
-enum class Endian {
-    Big,
-    Little,
-    Native = std::endian::native == std::endian::big ? Big : Little
-};
+#include "enums2.hpp"
 
 
 namespace lce {
 
-    enum class CONSOLE : int8_t {
-        NONE = 0,
-        XBOX360 = 1,
-        XBOX1 = 2,
-        PS3 = 3,
-        RPCS3 = 4,
-        VITA = 5,
-        PS4 = 6,
-        WIIU = 7,
-        SWITCH = 8,
-        WINDURANGO = 9,
-    };
+
 
 
     enum class DIMENSION : int8_t {
@@ -86,20 +70,7 @@ namespace lce {
         // PS_KEYSTONE,
     };
 
-
-    [[maybe_unused]] extern std::string consoleToStr(CONSOLE console);
-
-    [[maybe_unused]] extern const char* consoleToCStr(CONSOLE console);
-
-    [[maybe_unused]] extern bool isConsoleNewGen(CONSOLE console);
-
-    [[maybe_unused]] extern bool isXbox(CONSOLE console);
-
-    [[maybe_unused]] extern CONSOLE strToConsole(const std::string& inputStr);
-
     [[maybe_unused]] extern DIMENSION intToDim(char number);
-
-    [[maybe_unused]] extern Endian getConsoleEndian(CONSOLE console);
 
     [[maybe_unused]] extern int getChunkWorldBounds(WORLDSIZE worldSize);
 
