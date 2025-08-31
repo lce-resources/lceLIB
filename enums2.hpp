@@ -29,6 +29,10 @@ namespace lce {
         SHADPS4 = 10,
     };
 
+    [[maybe_unused]] static constexpr bool is_console_none(CONSOLE console) {
+        return console == CONSOLE::NONE;
+    }
+
     [[maybe_unused]] static constexpr bool is_xbox360_family(CONSOLE console) {
         return console == CONSOLE::XBOX360;
     }
@@ -68,6 +72,7 @@ namespace lce {
             case CONSOLE::VITA: return "vita";
             case CONSOLE::SWITCH: return "switch";
             case CONSOLE::PS4: return "ps4";
+            case CONSOLE::SHADPS4: return "shadps4";
             case CONSOLE::XBOX1: return "xbox1";
             case CONSOLE::WINDURANGO: return "windurango";
             case CONSOLE::NONE:
@@ -95,6 +100,7 @@ namespace lce {
         if (str == "vita" || str == "psvita") { return CONSOLE::VITA; }
         if (str == "switch") { return CONSOLE::SWITCH; }
         if (str == "ps4" || str == "playstation4") { return CONSOLE::PS4; }
+        if (str == "shadps4") { return CONSOLE::SHADPS4; }
         if (str == "xbox1" || str == "xboxone") { return CONSOLE::XBOX1; }
         if (str == "windurango") { return CONSOLE::WINDURANGO; }
         return CONSOLE::NONE;
@@ -118,8 +124,7 @@ namespace lce {
             return Endian::Little;
         }
 
-        // should never be reached
-        return Endian::Big;
+        throw std::runtime_error("\"getConsoleEndian\" encountered an unhandled case!");
     }
 
     [[maybe_unused]] static constexpr bool isConsoleNewGen(const CONSOLE console) {
