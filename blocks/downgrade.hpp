@@ -5,6 +5,8 @@
 #include "lce/registry/blockRegistry.hpp"
 #include <array>
 #include <unordered_map>
+#include <mutex>
+#include <memory>
 
 // You should already have something like this (compile-time pairs):
 // namespace lce::compat { inline constexpr auto DOWNGRADES = build_downgrades(); }
@@ -582,6 +584,20 @@ namespace lce::compat {
             make_pair_checked<BI::JUNGLE_BUTTON, BI::WOODEN_BUTTON>(),
             make_pair_checked<BI::SPRUCE_BUTTON, BI::WOODEN_BUTTON>(),
 
+            make_pair_checked<BI::OAK_WOOD_Y, BI::OAK_WOOD>(),
+            make_pair_checked<BI::SPRUCE_WOOD_Y, BI::SPRUCE_WOOD>(),
+            make_pair_checked<BI::BIRCH_WOOD_Y, BI::BIRCH_WOOD>(),
+            make_pair_checked<BI::JUNGLE_WOOD_Y, BI::JUNGLE_WOOD>(),
+            make_pair_checked<BI::ACACIA_WOOD_Y, BI::ACACIA_WOOD>(),
+            make_pair_checked<BI::DARK_OAK_WOOD_Y, BI::DARK_OAK_WOOD>(),
+
+            make_pair_checked<BI::OAK_WOOD_Y2, BI::OAK_WOOD>(),
+            make_pair_checked<BI::SPRUCE_WOOD_Y2, BI::SPRUCE_WOOD>(),
+            make_pair_checked<BI::BIRCH_WOOD_Y2, BI::BIRCH_WOOD>(),
+            make_pair_checked<BI::JUNGLE_WOOD_Y2, BI::JUNGLE_WOOD>(),
+            make_pair_checked<BI::ACACIA_WOOD_Y2, BI::ACACIA_WOOD>(),
+            make_pair_checked<BI::DARK_OAK_WOOD_Y2, BI::DARK_OAK_WOOD>(),
+
 
 
         
@@ -817,6 +833,45 @@ namespace lce::compat {
         using FM = FinalMap;
         const auto idx = FM::Enc(s.getID() * FM::STATES_PER_ID + (s.getDataTag() & 0x0F));
         return unpack(fm.map[idx]);
+    }
+
+    inline std::shared_ptr<const FinalMap> get_final_map_cached(int targetTU) {
+        // single, process-wide cache
+        static std::mutex m;
+        static std::unordered_map<int, std::shared_ptr<const FinalMap>> cache;
+
+        // fast path
+        {
+            std::scoped_lock lk(m);
+            auto it = cache.find(targetTU);
+            if (it != cache.end()) return it->second;
+        }
+
+        // build outside lock to reduce contention
+        auto built = std::make_shared<FinalMap>(build_final_map_for_TU(targetTU));
+
+        // publish (handle benign races)
+        {
+            std::scoped_lock lk(m);
+            auto [it, inserted] = cache.emplace(targetTU, built);
+            if (!inserted) return it->second;
+        }
+        return built;
+    }
+
+    // Convenience: reference view (keeps a shared_ptr alive for the duration of the call site)
+    inline const FinalMap& final_map(int targetTU) {
+        static thread_local std::shared_ptr<const FinalMap> hold;
+        hold = get_final_map_cached(targetTU);
+        return *hold;
+    }
+
+    // Optional: clear cache (useful for tests/tools)
+    inline void clear_final_map_cache() {
+        static std::mutex m;
+        static std::unordered_map<int, std::shared_ptr<const FinalMap>> cache;
+        std::scoped_lock lk(m);
+        cache.clear();
     }
 
 } // namespace lce::compat

@@ -701,6 +701,13 @@ namespace lce {
         DEFINE JUNGLE_WOOD_Y = Block(TU69, 313, 3, "_43");
         DEFINE ACACIA_WOOD_Y = Block(TU69, 313, 4, "_43");
         DEFINE DARK_OAK_WOOD_Y = Block(TU69, 313, 5, "_43");
+
+        DEFINE OAK_WOOD_Y2 = Block(TU69, 313, 8, "_43");
+        DEFINE SPRUCE_WOOD_Y2 = Block(TU69, 313, 9, "_43");
+        DEFINE BIRCH_WOOD_Y2 = Block(TU69, 313, 10, "_43");
+        DEFINE JUNGLE_WOOD_Y2 = Block(TU69, 313, 11, "_43");
+        DEFINE ACACIA_WOOD_Y2 = Block(TU69, 313, 12, "_43");
+        DEFINE DARK_OAK_WOOD_Y2 = Block(TU69, 313, 13, "_43");
         
         DEFINE STRIPPED_OAK_WOOD_Y = Block(TU69, 313, 0, "_43");
         DEFINE STRIPPED_SPRUCE_WOOD_Y = Block(TU69, 313, 1, "_43");

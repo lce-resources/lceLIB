@@ -27,6 +27,8 @@ namespace lce {
         SWITCH = 8,
         WINDURANGO = 9,
         SHADPS4 = 10,
+        NEWGENMCS = 11,
+        NEWGENMCS_BIG = 12,
     };
 
     [[maybe_unused]] static constexpr bool is_console_none(CONSOLE console) {
@@ -61,6 +63,12 @@ namespace lce {
         return console == CONSOLE::SWITCH;
     }
 
+    [[maybe_unused]] static constexpr bool is_newgen_family(CONSOLE console) {
+        return console == lce::CONSOLE::NEWGENMCS ||
+               console == lce::CONSOLE::NEWGENMCS_BIG || is_ps4_family(console) ||
+               is_switch_family(console) || is_xbox1_family(console);
+    }
+
 
 
     static std::string consoleToStr(const CONSOLE console) {
@@ -75,6 +83,8 @@ namespace lce {
             case CONSOLE::SHADPS4: return "shadps4";
             case CONSOLE::XBOX1: return "xbox1";
             case CONSOLE::WINDURANGO: return "windurango";
+            case CONSOLE::NEWGENMCS: return "newgenmcs";
+            case CONSOLE::NEWGENMCS_BIG: return "newgenmcs_big";
             case CONSOLE::NONE:
             default: return "NONE";
         }
@@ -103,6 +113,8 @@ namespace lce {
         if (str == "shadps4") { return CONSOLE::SHADPS4; }
         if (str == "xbox1" || str == "xboxone") { return CONSOLE::XBOX1; }
         if (str == "windurango") { return CONSOLE::WINDURANGO; }
+        if (str == "newgenmcs") { return CONSOLE::NEWGENMCS; }
+        if (str == "newgenmcs_big") { return CONSOLE::NEWGENMCS_BIG; }
         return CONSOLE::NONE;
     }
 
@@ -112,11 +124,15 @@ namespace lce {
             throw std::runtime_error("CONSOLE::NONE should not be passed to \"getConsoleEndian\"");
         }
 
-        if (is_xbox360_family(console) ||
+        // it is important to not switch the order of the "if + else",
+        // because the "is_newgen_family" contains "NEWGENMCS_BIG".
+        if (console == lce::CONSOLE::NEWGENMCS_BIG ||
+            is_xbox360_family(console) ||
             is_ps3_family(console) ||
             is_wiiu_family(console)) {
             return Endian::Big;
         } else if (
+                is_newgen_family(console) ||
                 is_psvita_family(console) ||
                 is_ps4_family(console) ||
                 is_switch_family(console) ||
@@ -128,7 +144,8 @@ namespace lce {
     }
 
     [[maybe_unused]] static constexpr bool isConsoleNewGen(const CONSOLE console) {
-        return is_ps4_family(console) ||
+        return is_newgen_family(console) ||
+               is_ps4_family(console) ||
                is_switch_family(console) ||
                is_xbox1_family(console);
     }
