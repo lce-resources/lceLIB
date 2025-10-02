@@ -8,13 +8,10 @@
 
 namespace lce {
 
-
-
     template<const Block& newer, const Block& older>
     consteval void make_pair_checked() {
         static_assert(older.getTU() < newer.getTU(), "TU must strictly decrease");
     }
-
 
     struct BlocksInit {
 #define DEFINE MU static constexpr auto

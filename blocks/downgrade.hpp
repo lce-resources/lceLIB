@@ -8,7 +8,6 @@
 #include <mutex>
 #include <memory>
 
-// You should already have something like this (compile-time pairs):
 // namespace lce::compat { inline constexpr auto DOWNGRADES = build_downgrades(); }
 
 namespace lce::compat {
