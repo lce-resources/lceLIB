@@ -25,7 +25,7 @@ namespace lce::registry {
 
         textureRegistry.setName("BLOCK_TEXTURES");
 
-        std::string path = EXE_CURRENT_PATH + "/" + BLOCK_TEXTURE_FILE;
+        std::string path = BLOCK_TEXTURE_FILE;
         blockPicture.loadFromFile(path.c_str());
         if (blockPicture.m_width != BLOCK_TEXTURE_WIDTH
             || blockPicture.m_height != BLOCK_TEXTURE_HEIGHT) {
