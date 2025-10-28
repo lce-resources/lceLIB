@@ -16,8 +16,8 @@ namespace lce::blocks::states {
     };
 
     enum class Hinge : u8 {
-        Val0 = 0,
-        Val1 = 1,
+        Left = 0,
+        Right = 1,
     };
 
     enum class Powered : u8 {
@@ -82,8 +82,12 @@ namespace lce::blocks::states {
 
     class Stairs {
     public:
+        /// reverse facing index but for horizontal only
+        /// east, west, south, north, up, down
         static int getMetaFromFacing(const EnumFacing facing) {
             switch (facing) {
+                case EnumFacing::UP:
+                case EnumFacing::DOWN:
                 case EnumFacing::NORTH:
                     return 3;
                 case EnumFacing::SOUTH:
@@ -130,10 +134,12 @@ namespace lce::blocks::states {
 
 
     class Button {
+        /// custom 6-way facing
         static int getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 case EnumFacing::UP:
+                default:
                     return 5;
                 case EnumFacing::DOWN:
                     return 0;
@@ -145,8 +151,6 @@ namespace lce::blocks::states {
                     return 2;
                 case EnumFacing::EAST:
                     return 1;
-                default:
-                    return 0;
             }
         }
     public:
@@ -159,20 +163,22 @@ namespace lce::blocks::states {
     };
 
     class Ladder {
-        /// HorizontalFacing5
-        /// north, south, west, east
+        /// facing index but for horizontal only
+        /// down, up, north, south, west, east
         static int getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 default:
+                case EnumFacing::DOWN:
+                case EnumFacing::UP:
                 case EnumFacing::NORTH:
-                    return 0;
-                case EnumFacing::SOUTH:
-                    return 1;
-                case EnumFacing::WEST:
                     return 2;
-                case EnumFacing::EAST:
+                case EnumFacing::SOUTH:
                     return 3;
+                case EnumFacing::WEST:
+                    return 4;
+                case EnumFacing::EAST:
+                    return 5;
             }
         }
 
@@ -188,7 +194,7 @@ namespace lce::blocks::states {
     class DoorUpper {
     public:
         static i32 withProperty(
-                const Hinge hinge = Hinge::Val0,
+                const Hinge hinge = Hinge::Left,
                 const Powered powered = Powered::False) {
             return 1 << 3 | cast(powered) << 1 | cast(hinge);
         }
@@ -196,18 +202,19 @@ namespace lce::blocks::states {
 
 
     class DoorLower {
+        /// horizontal facing index rotated cw
         static int getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 default:
                 case EnumFacing::NORTH:
-                    return 0;
+                    return 3;
                 case EnumFacing::SOUTH:
                     return 1;
                 case EnumFacing::WEST:
                     return 2;
                 case EnumFacing::EAST:
-                    return 3;
+                    return 0;
             }
         }
 
@@ -215,18 +222,20 @@ namespace lce::blocks::states {
         static i32 withProperty(
                 const EnumFacing facing = EnumFacing::EAST,
                 const Open open = Open::False) {
-            return 0 << 3 | cast(open) << 2 | getMetaFromFacing(facing);
+            return (0 << 3) | (cast(open) << 2) | getMetaFromFacing(facing);
         }
     };
 
 
     class Torch {
+        /// custom 5-way facing
         static int getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
-                case EnumFacing::UP:
                 default:
-                    return 0;
+                case EnumFacing::UP:
+                case EnumFacing::DOWN:
+                    return 5;
                 case EnumFacing::EAST:
                     return 1;
                 case EnumFacing::WEST:
@@ -321,6 +330,7 @@ namespace lce::blocks::states {
 
 
     class EndPortalFrame {
+        /// horizontal facing index
         static int getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
