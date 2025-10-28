@@ -65,16 +65,51 @@ constexpr int ctz_constexpr(uint32_t x) noexcept {
 }
 
 
+constexpr int ctzll_constexpr(uint64_t x) noexcept {
+    int i = 0;
+    while ((x & 1u) == 0u && i < 64) {
+        x >>= 1u;
+        ++i;
+    }
+    return i;
+}
+
+
 #if defined(_MSC_VER)
     #define NOINLINE __declspec(noinline)
     #define FORCEINLINE __forceinline
-    inline int CTZ(uint32_t x) noexcept {
+    inline constexpr int CTZ(uint32_t x) noexcept {
         if (std::is_constant_evaluated()) {
             return ctz_constexpr(x);
         } else {
             unsigned long index;
             _BitScanForward(&index, x);
             return static_cast<int>(index);
+        }
+    }
+
+    // 64-bit overload
+    inline constexpr int CTZLL(uint64_t x) noexcept {
+        if (std::is_constant_evaluated()) {
+            return ctzll_constexpr(x);
+        } else {
+            unsigned long index;
+        #if defined(_M_X64) || defined(_M_AMD64) || defined(_M_ARM64)
+            // If x == 0, _BitScanForward64 is undefined; guard if needed.
+            _BitScanForward64(&index, x);
+            return static_cast<int>(index);
+        #else
+            // 32-bit target: emulate with two 32-bit scans
+            uint32_t lo = static_cast<uint32_t>(x);
+            if (lo) {
+                _BitScanForward(&index, lo);
+                return static_cast<int>(index);
+            }
+            uint32_t hi = static_cast<uint32_t>(x >> 32);
+            // If hi == 0 too, x was 0; decide on your policy (e.g., return 64).
+            _BitScanForward(&index, hi);
+            return static_cast<int>(index + 32);
+        #endif
         }
     }
 #elif defined(__GNUC__) || defined(__clang__)
@@ -85,11 +120,14 @@ constexpr int ctz_constexpr(uint32_t x) noexcept {
     constexpr int CTZ(uint32_t x) noexcept {
         return std::is_constant_evaluated() ? ctz_constexpr(x) : __builtin_ctz(x);
     }
+
+    constexpr int CTZLL(uint64_t x) noexcept {
+        return std::is_constant_evaluated() ? ctzll_constexpr(x) : __builtin_ctzll(x);
+    }
 #else
     #define FORCEINLINE inline
-    constexpr int CTZ(uint32_t x) noexcept {
-        return ctz_constexpr(x);
-    }
+    constexpr int CTZ(uint32_t x) noexcept { return ctz_constexpr(x); }
+    constexpr int CTZLL(uint64_t x) noexcept { return ctzll_constexpr(x); }
 #endif
 
 #define DELETE_NEW_OPS \
