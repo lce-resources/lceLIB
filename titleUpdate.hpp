@@ -3,7 +3,7 @@
 #include "processor.hpp"
 
 
-static auto parseLabel(std::string_view s) -> std::pair<int, int> {
+MU static auto parseLabel(std::string_view s) -> std::pair<int, int> {
     int cat = 2;    // default = “other”
     size_t pos = 0; // position where the digits start
 

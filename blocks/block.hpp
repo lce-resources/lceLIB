@@ -32,9 +32,9 @@ namespace lce {
 
 
     class Block : BlockState {
-        blocks::MapColor mapColor;  // optional map color
-        const char*      name;      // block name (string literal)
-        const int        titleUpdate;
+        MU blocks::MapColor mapColor{};  // optional map color
+        const char*         name = nullptr; // block name (string literal)
+        MU const int        titleUpdate{};
 
         /*
          c_int lightOpacity;
@@ -49,11 +49,11 @@ namespace lce {
 
     public:
         // 1) Minimal constructor: (TU, id, dataTag)
-        constexpr Block(const TU titleUpdate, c_u16 blockID, c_u8 data)
+        MU constexpr Block(const TU titleUpdate, c_u16 blockID, c_u8 data)
             : BlockState(blockID, data)
-            , titleUpdate(titleUpdate.value())
             , mapColor(blocks::MapColor::NONE)
-            , name("") {
+            , name("")
+            , titleUpdate(titleUpdate.value()) {
 #ifndef _MSC_VER
             static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
 #endif
@@ -62,9 +62,9 @@ namespace lce {
         // 2) (TU, id, dataTag, name)
         constexpr Block(const TU titleUpdate, c_u16 blockID, c_u8 data, const char* blockName)
             : BlockState(blockID, data)
-            , titleUpdate(titleUpdate.value())
             , mapColor(blocks::MapColor::NONE)
-            , name(blockName) {
+            , name(blockName)
+            , titleUpdate(titleUpdate.value()) {
 #ifndef _MSC_VER
             static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
 #endif

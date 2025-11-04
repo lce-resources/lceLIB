@@ -154,7 +154,7 @@ namespace lce {
         return is_xbox360_family(console) || is_xbox1_family(console);
     }
 
-    static bool isXbox(const CONSOLE console) { return is_any_xbox(console); }
+    [[maybe_unused]] static bool isXbox(const CONSOLE console) { return is_any_xbox(console); }
 
 
 }
