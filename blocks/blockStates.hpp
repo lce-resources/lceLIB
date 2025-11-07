@@ -5,7 +5,7 @@
 
 
 template <class T>
-    static i32 cast(const T value) { return static_cast<i32>(value); }
+    static constexpr i32 cast(const T value) { return static_cast<i32>(value); }
 
 
 namespace lce::blocks::states {
@@ -70,11 +70,11 @@ namespace lce::blocks::states {
 
     class Log {
     public:
-        static i32 withProperty(const EnumAxis axis = EnumAxis::Y) {
+        static constexpr i32 withProperty(const EnumAxis axis = EnumAxis::Y) {
             return cast(axis) << 2;
         }
 
-        static i32 withProperty(const u8 variantData, const EnumAxis axis = EnumAxis::Y) {
+        static constexpr i32 withProperty(const u8 variantData, const EnumAxis axis = EnumAxis::Y) {
             return cast(axis) << 2 | variantData;
         }
     };
@@ -84,7 +84,7 @@ namespace lce::blocks::states {
     public:
         /// reverse facing index but for horizontal only
         /// east, west, south, north, up, down
-        static int getMetaFromFacing(const EnumFacing facing) {
+        static constexpr i32 getMetaFromFacing(const EnumFacing facing) {
             switch (facing) {
                 case EnumFacing::UP:
                 case EnumFacing::DOWN:
@@ -100,7 +100,7 @@ namespace lce::blocks::states {
             }
         }
 
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::SOUTH,
                 const Half half = Half::Lower) {
             return cast(half) << 3 | getMetaFromFacing(facing);
@@ -109,7 +109,7 @@ namespace lce::blocks::states {
 
 
     class Vine {
-        static int getMetaFromFacing(
+        static constexpr i32 getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 case EnumFacing::SOUTH:
@@ -126,7 +126,7 @@ namespace lce::blocks::states {
         }
 
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing) {
             return getMetaFromFacing(facing);
         }
@@ -135,7 +135,7 @@ namespace lce::blocks::states {
 
     class Button {
         /// custom 6-way facing
-        static int getMetaFromFacing(
+        static constexpr i32 getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 case EnumFacing::UP:
@@ -155,7 +155,7 @@ namespace lce::blocks::states {
         }
     public:
 
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::DOWN,
                 const Powered powered = Powered::False) {
             return cast(powered) << 3 | getMetaFromFacing(facing);
@@ -165,7 +165,7 @@ namespace lce::blocks::states {
     class Ladder {
         /// facing index but for horizontal only
         /// down, up, north, south, west, east
-        static int getMetaFromFacing(
+        static constexpr i32 getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 default:
@@ -183,7 +183,7 @@ namespace lce::blocks::states {
         }
 
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::NORTH) {
             return getMetaFromFacing(facing);
         }
@@ -193,7 +193,7 @@ namespace lce::blocks::states {
 
     class DoorUpper {
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const Hinge hinge = Hinge::Left,
                 const Powered powered = Powered::False) {
             return 1 << 3 | cast(powered) << 1 | cast(hinge);
@@ -203,7 +203,7 @@ namespace lce::blocks::states {
 
     class DoorLower {
         /// horizontal facing index rotated cw
-        static int getMetaFromFacing(
+        static constexpr i32 getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 default:
@@ -219,7 +219,7 @@ namespace lce::blocks::states {
         }
 
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::EAST,
                 const Open open = Open::False) {
             return (0 << 3) | (cast(open) << 2) | getMetaFromFacing(facing);
@@ -229,7 +229,7 @@ namespace lce::blocks::states {
 
     class Torch {
         /// custom 5-way facing
-        static int getMetaFromFacing(
+        static constexpr i32 getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 default:
@@ -248,7 +248,7 @@ namespace lce::blocks::states {
         }
 
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::DOWN) {
             return getMetaFromFacing(facing);
         }
@@ -257,7 +257,7 @@ namespace lce::blocks::states {
 
     class TrapDoor {
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::NORTH,
                 const Half half = Half::Lower, const Open open = Open::False) {
             return cast(half) << 3 | cast(open) << 2 | cast(facing) >> 1;
@@ -266,7 +266,7 @@ namespace lce::blocks::states {
 
 
     class FenceGate {
-        static int getMetaFromFacing(
+        static constexpr i32 getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 default:
@@ -282,7 +282,7 @@ namespace lce::blocks::states {
         }
     public:
 
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::SOUTH,
                 const Open open = Open::False, const Powered powered = Powered::False) {
             return cast(powered) << 3 | cast(open) << 2 | getMetaFromFacing(facing);
@@ -292,7 +292,7 @@ namespace lce::blocks::states {
 
     class Piston {
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::UP,
                 const PistonExtended extended = PistonExtended::False) {
             return cast(extended) << 3 | cast(facing);
@@ -302,7 +302,7 @@ namespace lce::blocks::states {
 
     class PistonHead {
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const EnumFacing facing = EnumFacing::UP,
                 const PistonHeadType type = PistonHeadType::False) {
             return cast(type) << 3 | cast(facing);
@@ -312,7 +312,7 @@ namespace lce::blocks::states {
 
     class Rail {
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const RailShape shape) {
             return cast(shape);
         }
@@ -321,7 +321,7 @@ namespace lce::blocks::states {
 
     class PoweredRail {
     public:
-        static i32 withProperty(
+        static constexpr i32 withProperty(
                 const PoweredRailShape shape,
                 const Powered powered = Powered::False) {
             return cast(powered) << 3 | cast(shape);
@@ -331,7 +331,7 @@ namespace lce::blocks::states {
 
     class EndPortalFrame {
         /// horizontal facing index
-        static int getMetaFromFacing(
+        static constexpr i32 getMetaFromFacing(
                 const EnumFacing facing) {
             switch (facing) {
                 default:
@@ -347,15 +347,15 @@ namespace lce::blocks::states {
         }
 
     public:
-        static i32 withProperty(const EnumFacing facing, const bool eye) {
+        static constexpr i32 withProperty(const EnumFacing facing, const bool eye) {
             return cast(eye) << 2 | getMetaFromFacing(facing);
         }
 
-        static i32 withProperty(const EnumFacing facing = EnumFacing::NORTH) {
+        static constexpr i32 withProperty(const EnumFacing facing = EnumFacing::NORTH) {
             return getMetaFromFacing(facing);
         }
 
-        static i32 withProperty(const int facingData, const bool eye) {
+        static constexpr i32 withProperty(const int facingData, const bool eye) {
             return cast(eye) << 2 | facingData;
         }
     };

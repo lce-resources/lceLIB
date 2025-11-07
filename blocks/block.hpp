@@ -73,20 +73,21 @@ namespace lce {
         Block& operator=(const Block&) = delete;
 
         // Accessors
-        MU ND constexpr u16              getID()       const { return id; }
-        MU ND constexpr u8               getDataTag()  const { return dataTag; }
-        MU ND constexpr const char*      getName()     const { return name; }
-        MU ND constexpr blocks::MapColor getMapColor() const { return mapColor; }
-        MU ND constexpr BlockState       getState()    const { return {id, dataTag}; }
-        MU ND constexpr int              getTU()       const { return titleUpdate; }
+        MU ND constexpr u16              getID()           const { return id; }
+        MU ND constexpr u8               getDataTag()      const { return dataTag; }
+        MU ND constexpr const char*      getName()         const { return name; }
+        MU ND constexpr blocks::MapColor getMapColor()     const { return mapColor; }
+        MU ND constexpr BlockState       getState()        const { return {id, dataTag}; }
+        MU ND constexpr BlockState       getDefaultState() const { return {id, dataTag}; }
+        MU ND constexpr int              getTU()           const { return titleUpdate; }
 
         // Equality checks ID & dataTag
         constexpr bool operator==(const BlockState &other) const {
             return id == other.id && dataTag == other.dataTag;
         }
 
-        MU ND BlockState getStateFromMeta(c_u32 meta) const { return {id, static_cast<uint8_t>(meta)}; }
-        MU ND BlockState getStateFromMeta(c_int meta) const { return {id, static_cast<uint8_t>(meta)}; }
+        MU ND constexpr BlockState getStateFromMeta(c_u32 meta) const { return {id, static_cast<uint8_t>(meta)}; }
+        MU ND constexpr BlockState getStateFromMeta(c_int meta) const { return {id, static_cast<uint8_t>(meta)}; }
     };
 
 
