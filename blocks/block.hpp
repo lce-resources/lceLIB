@@ -55,7 +55,9 @@ namespace lce {
             , name("")
             , titleUpdate(titleUpdate.value()) {
 #ifndef _MSC_VER
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
+            if !consteval {
+                assert(false && "Block must be constructed in a constexpr context!");
+            }
 #endif
         }
 
@@ -66,7 +68,9 @@ namespace lce {
             , name(blockName)
             , titleUpdate(titleUpdate.value()) {
 #ifndef _MSC_VER
-            static_assert(std::is_constant_evaluated(), "Block must be constructed in a constexpr context!");
+            if !consteval {
+                assert(false && "Block must be constructed in a constexpr context!");
+            }
 #endif
         }
         Block(const Block&) = delete;
