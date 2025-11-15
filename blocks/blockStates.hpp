@@ -120,6 +120,8 @@ namespace lce::blocks::states {
                     return 4;
                 case EnumFacing::EAST:
                     return 8;
+                case EnumFacing::UP:
+                case EnumFacing::DOWN:
                 default:
                     return 0;
             }
@@ -207,6 +209,8 @@ namespace lce::blocks::states {
                 const EnumFacing facing) {
             switch (facing) {
                 default:
+                case EnumFacing::UP:
+                case EnumFacing::DOWN:
                 case EnumFacing::NORTH:
                     return 3;
                 case EnumFacing::SOUTH:
@@ -270,6 +274,8 @@ namespace lce::blocks::states {
                 const EnumFacing facing) {
             switch (facing) {
                 default:
+                case EnumFacing::UP:
+                case EnumFacing::DOWN:
                 case EnumFacing::SOUTH:
                     return 0;
                 case EnumFacing::WEST:
@@ -335,6 +341,8 @@ namespace lce::blocks::states {
                 const EnumFacing facing) {
             switch (facing) {
                 default:
+                case EnumFacing::UP:
+                case EnumFacing::DOWN:
                 case EnumFacing::SOUTH:
                     return 0;
                 case EnumFacing::WEST:

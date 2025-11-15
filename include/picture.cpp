@@ -219,11 +219,11 @@ void Picture::fillColor(c_u8 red, c_u8 green, c_u8 blue) const {
     }
 }
 /**
-* IMPORTANT: both images will have the same RGB size!
-* @param picture
-* @param sX
-* @param sY
-*/
+ * IMPORTANT: both images will have the same RGB size!
+ * @param picture .
+ * @param sX .
+ * @param sY .
+ */
 void Picture::getSubImage(Picture& picture, c_i32 sX, c_i32 sY) const {
     if (!isValid() || sX > m_width || sY > m_height) { return; }
 
@@ -239,9 +239,9 @@ void Picture::getSubImage(Picture& picture, c_i32 sX, c_i32 sY) const {
 
 /**
  * IMPORTANT: both images must have the same size for RGB!
- * @param picToPlace
- * @param sX
- * @param sY
+ * @param picToPlace .
+ * @param sX .
+ * @param sY .
  */
 MU void Picture::placeSubImage(Picture const* picToPlace, c_i32 sX, c_i32 sY) const {
     if (!isValid() || sX >= m_width || sY >= m_height) { return; }

@@ -7,8 +7,8 @@
 
 
 enum class Endian {
-    Big,
-    Little,
+    Big = 0,
+    Little = 1,
     Native = std::endian::native == std::endian::big ? Big : Little
 };
 
@@ -86,7 +86,7 @@ namespace lce {
             case CONSOLE::NEWGENMCS: return "newgenmcs";
             case CONSOLE::NEWGENMCS_BIG: return "newgenmcs_big";
             case CONSOLE::NONE:
-            default: return "NONE";
+                return "NONE";
         }
     }
 

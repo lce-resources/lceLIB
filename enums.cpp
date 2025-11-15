@@ -6,59 +6,45 @@
 namespace lce {
     DIMENSION intToDim(const char number) {
         switch (number) {
-            case 0:
-                return DIMENSION::NETHER;
-            case 1:
-                return DIMENSION::OVERWORLD;
-            case 2:
-                return DIMENSION::END;
-            default:
-                return DIMENSION::NONE;
+            case 0: return DIMENSION::NETHER;
+            case 1: return DIMENSION::OVERWORLD;
+            case 2: return DIMENSION::END;
+            default:return DIMENSION::NONE;
         }
     }
 
 
     int getChunkWorldBounds(const WORLDSIZE worldSize) {
         switch (worldSize) {
-            case WORLDSIZE::CLASSIC:
-            default:
-                return 27;
-            case WORLDSIZE::SMALL:
-                return 32;
-            case WORLDSIZE::MEDIUM:
-                return 96;
-            case WORLDSIZE::LARGE:
-                return 160;
+            case WORLDSIZE::INF:
+            case WORLDSIZE::CLASSIC: return 27;
+            case WORLDSIZE::SMALL:   return 32;
+            case WORLDSIZE::MEDIUM:  return 96;
+            case WORLDSIZE::LARGE:   return 160;
         }
+        std::unreachable();
     }
 
 
     std::string worldSizeToString(const WORLDSIZE worldSize) {
         switch (worldSize) {
-            case WORLDSIZE::CLASSIC:
-            default:
-                return "CLASSIC";
-            case WORLDSIZE::SMALL:
-                return "SMALL";
-            case WORLDSIZE::MEDIUM:
-                return "MEDIUM";
-            case WORLDSIZE::LARGE:
-                return "LARGE";
+            case WORLDSIZE::CLASSIC: return "CLASSIC";
+            case WORLDSIZE::SMALL:   return "SMALL";
+            case WORLDSIZE::MEDIUM:  return "MEDIUM";
+            case WORLDSIZE::LARGE:   return "LARGE";
+            case WORLDSIZE::INF:     return "INFINITY";
         }
+        std::unreachable();
     }
 
 
     std::string biomeScaleToString(const BIOMESCALE biomeScale) {
         switch (biomeScale) {
-            case BIOMESCALE::SMALL:
-                return "SMALL";
-            case BIOMESCALE::MEDIUM:
-                return "MEDIUM";
-            case BIOMESCALE::LARGE:
-                return "LARGE";
-            default:
-                return "NONE";
+            case BIOMESCALE::SMALL:  return "SMALL";
+            case BIOMESCALE::MEDIUM: return "MEDIUM";
+            case BIOMESCALE::LARGE:  return "LARGE";
         }
+        std::unreachable();
     }
 
 

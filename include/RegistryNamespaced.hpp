@@ -8,19 +8,19 @@ class RegistryNamespaced {
 
     class ResourceLocation {
     public:
-        int id;
-        std::string identifier;
-        std::string name;
-        const T* object;
+        int m_id;
+        std::string m_identifier;
+        std::string m_name;
+        const T* m_object;
 
         ResourceLocation(const int id, std::string identifier, std::string name, const T* object)
-            : id(id), identifier(std::move(identifier)), name(std::move(name)), object(object) {}
+            : m_id(id), m_identifier(std::move(identifier)), m_name(std::move(name)), m_object(object) {}
 
         ~ResourceLocation() = default;
 
         MU ND std::string toString() const {
-            std::string str = "ResourceLocation{" + std::to_string(id) + ", \"" + name + "\", ";
-            if (object == nullptr) {
+            std::string str = "ResourceLocation{" + std::to_string(m_id) + ", \"" + m_name + "\", ";
+            if (m_object == nullptr) {
                 str += "nullptr";
             } else {
                 str += "obj";
@@ -83,21 +83,21 @@ public:
         if (!idRegistry.contains(id)) {
             return nullptr;
         }
-        return idRegistry.at(id)->object;
+        return idRegistry.at(id)->m_object;
     }
 
     T const* getObjFromIdentifier(const std::string& identifier) const {
         if (!identifierRegistry.contains(identifier)) {
             return nullptr;
         }
-        return identifierRegistry.at(identifier)->object;
+        return identifierRegistry.at(identifier)->m_object;
     }
 
     T const* getObjFromName(const std::string& identifier) const {
         if (!nameRegistry.contains(identifier)) {
             return nullptr;
         }
-        return nameRegistry.at(identifier)->object;
+        return nameRegistry.at(identifier)->m_object;
     }
 
     T const* operator[](int index) const {
@@ -117,9 +117,9 @@ public:
         for (size_t i = 0; i < allValues.size(); i++) {
             if (allValues[i] != NULL && allValues[i] != nullptr) {
                 if (alsoDeleteObjPtrs) {
-                    delete allValues[i]->object;
+                    delete allValues[i]->m_object;
                 }
-                allValues[i]->object = nullptr;
+                allValues[i]->m_object = nullptr;
                 delete allValues[i];
                 allValues[i] = nullptr;
             }
