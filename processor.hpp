@@ -183,10 +183,27 @@ constexpr int ctzll_constexpr(uint64_t x) noexcept {
 #define u64_vec_vec std::vector<u64_vec>
 
 /// printf, but returns -1.
-MU static int printf_err(const int return_code, const char* format, ...) {
-    va_list args;
-    va_start(args, format);
-    vprintf(format, args);
-    va_end(args);
+#include <cstdarg>
+#include <cstdio>
+#include <vector>
+#include <iostream>
+
+// return_code kept, prints formatted message to stderr
+
+template<typename... Args>
+MU static int printf_err(int return_code, std::format_string<Args...> fmt, Args&&... args) {
+    // produce the formatted string using std::format (type-safe)
+    const std::string s = std::vformat(fmt.get(), std::make_format_args(std::forward<Args>(args)...));
+
+    // write exactly the formatted bytes to stderr
+    const char* data = s.data();
+    size_t to_write = s.size();
+    while (to_write > 0) {
+        const size_t n = std::fwrite(data, 1, to_write, stderr);
+        if (n == 0) break; // actual write error; you can inspect errno
+        data += n;
+        to_write -= n;
+    }
+
     return return_code;
 }
