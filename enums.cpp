@@ -1,64 +1,48 @@
 #include "enums.hpp"
 #include "processor.hpp"
 
-#include <algorithm>
-
 namespace lce {
     DIMENSION intToDim(const char number) {
         switch (number) {
-            case 0:
-                return DIMENSION::NETHER;
-            case 1:
-                return DIMENSION::OVERWORLD;
-            case 2:
-                return DIMENSION::END;
-            default:
-                return DIMENSION::NONE;
+            case 0: return DIMENSION::NETHER;
+            case 1: return DIMENSION::OVERWORLD;
+            case 2: return DIMENSION::END;
+            default:return DIMENSION::NONE;
         }
     }
 
 
     int getChunkWorldBounds(const WORLDSIZE worldSize) {
         switch (worldSize) {
-            case WORLDSIZE::CLASSIC:
-            default:
-                return 27;
-            case WORLDSIZE::SMALL:
-                return 32;
-            case WORLDSIZE::MEDIUM:
-                return 96;
-            case WORLDSIZE::LARGE:
-                return 160;
+            case WORLDSIZE::INF:
+            case WORLDSIZE::CLASSIC: return 27;
+            case WORLDSIZE::SMALL:   return 32;
+            case WORLDSIZE::MEDIUM:  return 96;
+            case WORLDSIZE::LARGE:   return 160;
         }
+        std::unreachable();
     }
 
 
     std::string worldSizeToString(const WORLDSIZE worldSize) {
         switch (worldSize) {
-            case WORLDSIZE::CLASSIC:
-            default:
-                return "CLASSIC";
-            case WORLDSIZE::SMALL:
-                return "SMALL";
-            case WORLDSIZE::MEDIUM:
-                return "MEDIUM";
-            case WORLDSIZE::LARGE:
-                return "LARGE";
+            case WORLDSIZE::CLASSIC: return "CLASSIC";
+            case WORLDSIZE::SMALL:   return "SMALL";
+            case WORLDSIZE::MEDIUM:  return "MEDIUM";
+            case WORLDSIZE::LARGE:   return "LARGE";
+            case WORLDSIZE::INF:     return "INFINITY";
         }
+        std::unreachable();
     }
 
 
     std::string biomeScaleToString(const BIOMESCALE biomeScale) {
         switch (biomeScale) {
-            case BIOMESCALE::SMALL:
-                return "SMALL";
-            case BIOMESCALE::MEDIUM:
-                return "MEDIUM";
-            case BIOMESCALE::LARGE:
-                return "LARGE";
-            default:
-                return "NONE";
+            case BIOMESCALE::SMALL:  return "SMALL";
+            case BIOMESCALE::MEDIUM: return "MEDIUM";
+            case BIOMESCALE::LARGE:  return "LARGE";
         }
+        std::unreachable();
     }
 
 
@@ -90,6 +74,18 @@ namespace lce {
                 return "ENTITY_OVERWORLD";
             case FILETYPE::ENTITY_END:
                 return "ENTITY_END";
+            case FILETYPE::OLD_REGION_ANY:
+                return "OLD_REGION_ANY";
+            case FILETYPE::NEW_REGION_NETHER:
+                return "NEW_REGION_NETHER";
+            case FILETYPE::NEW_REGION_OVERWORLD:
+                return "NEW_REGION_OVERWORLD";
+            case FILETYPE::NEW_REGION_END:
+                return "NEW_REGION_END";
+            case FILETYPE::NEW_REGION_ANY:
+                return "NEW_REGION_ANY";
+            case FILETYPE::ENTITY_ANY:
+                return "ENTITY_ANY";
             case FILETYPE::NONE:
             default:
                 return "NONE";
@@ -194,8 +190,13 @@ int getFrontOffsetY(const EnumFacing facing) {
             return -1;
         case EnumFacing::UP:
             return 1;
-        default:
+        case EnumFacing::NORTH:
+        case EnumFacing::SOUTH:
+        case EnumFacing::WEST:
+        case EnumFacing::EAST:
             return 0;
+        default:
+            std::unreachable();
     }
 }
 
@@ -206,8 +207,13 @@ int getFrontOffsetX(const EnumFacing facing) {
             return -1;
         case EnumFacing::EAST:
             return 1;
-        default:
+        case EnumFacing::NORTH:
+        case EnumFacing::SOUTH:
+        case EnumFacing::UP:
+        case EnumFacing::DOWN:
             return 0;
+        default:
+            std::unreachable();
     }
 }
 
@@ -218,7 +224,12 @@ int getFrontOffsetZ(const EnumFacing facing) {
             return -1;
         case EnumFacing::SOUTH:
             return 1;
-        default:
+        case EnumFacing::UP:
+        case EnumFacing::DOWN:
+        case EnumFacing::EAST:
+        case EnumFacing::WEST:
             return 0;
+        default:
+            std::unreachable();
     }
 }
