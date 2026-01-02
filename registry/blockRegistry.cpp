@@ -28,7 +28,11 @@ namespace lce::registry {
     }
 
     MU Block const* BlockRegistry::getBlockFromName(const std::string& name) {
-        return REGISTRY.getObjFromName(name);
+        std::string blockName = name;
+        if EXPECT_FALSE(name.starts_with("minecraft:")) {
+            blockName = name.substr(10);
+        }
+       return REGISTRY.getObjFromName(blockName);
     }
 
     MU Block const* BlockRegistry::getBlockExact(const int id, const int data) {

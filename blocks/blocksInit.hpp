@@ -297,7 +297,7 @@ namespace lce {
 
 
         DEFINE COBBLESTONE_WALL = Block(TU14, 139, 0, "cobblestone_wall");
-        DEFINE MOSSY_COBBLESTONE_WALL = Block(TU14, 139, 1, "cobblestone_wall");
+        DEFINE MOSSY_COBBLESTONE_WALL = Block(TU14, 139, 1, "mossy_cobblestone_wall");
         DEFINE BRICK_WALL = Block(TU88, 139, 2, "brick_wall");
         DEFINE STONE_BRICK_WALL = Block(TU88, 139, 3, "stone_brick_wall");
         DEFINE MOSSY_STONE_BRICK_WALL = Block(TU88, 139, 4, "mossy_stone_brick_wall");

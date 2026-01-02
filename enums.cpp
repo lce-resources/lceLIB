@@ -165,6 +165,11 @@ EnumAxis getAxis(const EnumFacing facing) {
 }
 
 
+int getIndexFacing(const EnumFacing facing) {
+    return static_cast<int>(facing);
+}
+
+
 EnumFacing getOppositeFacing(const EnumFacing facing) {
     switch (facing) {
         default:
@@ -180,6 +185,53 @@ EnumFacing getOppositeFacing(const EnumFacing facing) {
             return EnumFacing::EAST;
         case EnumFacing::EAST:
             return EnumFacing::WEST;
+    }
+}
+
+
+
+EnumFacing rotateY(EnumFacing facing) {
+    switch (facing) {
+        case EnumFacing::NORTH:
+            return EnumFacing::EAST;
+        case EnumFacing::EAST:
+            return EnumFacing::SOUTH;
+        case EnumFacing::SOUTH:
+            return EnumFacing::WEST;
+        case EnumFacing::WEST:
+            return EnumFacing::NORTH;
+        case EnumFacing::UP:
+            return EnumFacing::UP;
+        case EnumFacing::DOWN:
+            return EnumFacing::DOWN;
+        default:
+            std::unreachable();
+    }
+}
+
+
+EnumFacing rotateYCCW(EnumFacing facing) {
+    switch (facing)
+    {
+        case EnumFacing::NORTH:
+            return EnumFacing::WEST;
+
+        case EnumFacing::EAST:
+            return EnumFacing::NORTH;
+
+        case EnumFacing::SOUTH:
+            return EnumFacing::EAST;
+
+        case EnumFacing::WEST:
+            return EnumFacing::SOUTH;
+
+        case EnumFacing::UP:
+            return EnumFacing::UP;
+        case EnumFacing::DOWN:
+            return EnumFacing::DOWN;
+
+        default:
+            std::unreachable();
     }
 }
 
@@ -232,4 +284,17 @@ int getFrontOffsetZ(const EnumFacing facing) {
         default:
             std::unreachable();
     }
+}
+
+EnumFacing getHorizontal(int index) {
+    if EXPECT_FALSE(index < 0 || index > 3) {
+        throw std::runtime_error("your code is bad");
+    }
+    return FACING_HORIZONTAL[index];
+}
+
+EnumFacing getFront(int index) {
+    int m = index % 6;
+    m = std::abs(m);
+    return FACING_VALUES[m];
 }

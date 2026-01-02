@@ -85,6 +85,7 @@ namespace lce {
             case CONSOLE::WINDURANGO: return "windurango";
             case CONSOLE::NEWGENMCS: return "newgenmcs";
             case CONSOLE::NEWGENMCS_BIG: return "newgenmcs_big";
+            default:
             case CONSOLE::NONE:
                 return "NONE";
         }
