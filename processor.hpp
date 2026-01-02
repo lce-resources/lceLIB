@@ -187,6 +187,7 @@ constexpr int ctzll_constexpr(uint64_t x) noexcept {
 #include <cstdio>
 #include <vector>
 #include <iostream>
+#include <format>
 
 // return_code kept, prints formatted message to stderr
 
