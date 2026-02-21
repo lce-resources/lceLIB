@@ -1,8 +1,4 @@
 
-
-
-
-
 file(GLOB_RECURSE LCE_SOURCES
         "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
         "${CMAKE_CURRENT_SOURCE_DIR}/*.c"
@@ -12,10 +8,12 @@ file(GLOB_RECURSE LCE_SOURCES
 set(LCE_SOURCES            "${LCE_SOURCES}"                       PARENT_SCOPE)
 set(LCE_INCLUDE_DIR        "${CMAKE_CURRENT_SOURCE_DIR}/.."       PARENT_SCOPE)
 
-if (MSVC)
-    set(LCE_COMPILE_OPTIONS "/arch:AVX2")
+if(EMSCRIPTEN)
+    set(LCE_COMPILE_OPTIONS "" PARENT_SCOPE)
+elseif (MSVC)
+    set(LCE_COMPILE_OPTIONS "/arch:AVX2" PARENT_SCOPE)
 else()
-    set(LCE_COMPILE_OPTIONS "-mavx2;-mpopcnt")
+    set(LCE_COMPILE_OPTIONS "-mavx2;-mpopcnt" PARENT_SCOPE)
 endif()
 
 set(LCE_COMPILE_DEFINITIONS "DEV_MODE"                            PARENT_SCOPE)
