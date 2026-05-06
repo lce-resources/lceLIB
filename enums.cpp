@@ -24,6 +24,18 @@ namespace lce {
     }
 
 
+    int getChunkNetherBounds(const WORLDSIZE worldSize) {
+        switch (worldSize) {
+            case WORLDSIZE::INF:
+            case WORLDSIZE::CLASSIC: return 9;
+            case WORLDSIZE::SMALL:   return 11;
+            case WORLDSIZE::MEDIUM:  return 16;
+            case WORLDSIZE::LARGE:   return 20;
+        }
+        std::unreachable();
+    }
+
+
     std::string worldSizeToString(const WORLDSIZE worldSize) {
         switch (worldSize) {
             case WORLDSIZE::CLASSIC: return "CLASSIC";
