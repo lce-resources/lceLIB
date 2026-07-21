@@ -74,6 +74,8 @@ namespace lce {
 
     [[maybe_unused]] extern int getChunkWorldBounds(WORLDSIZE worldSize);
 
+    [[maybe_unused]] extern int getChunkNetherBounds(WORLDSIZE worldSize);
+
     [[maybe_unused]] extern std::string worldSizeToString(WORLDSIZE worldSize);
 
     [[maybe_unused]] extern std::string biomeScaleToString(BIOMESCALE biomeScale);
@@ -101,6 +103,15 @@ enum class EnumFacing : int8_t {
     EAST = 5,
 };
 
+static constexpr EnumFacing FACING_VALUES[6] = {
+    EnumFacing::DOWN,
+    EnumFacing::UP,
+    EnumFacing::NORTH,
+    EnumFacing::SOUTH,
+    EnumFacing::WEST,
+    EnumFacing::EAST
+};
+
 static constexpr EnumFacing FACING_HORIZONTAL[4] = {
         EnumFacing::NORTH,
         EnumFacing::EAST,
@@ -113,14 +124,24 @@ static constexpr EnumFacing FACING_VERTICAL[2] = {
         EnumFacing::DOWN,
 };
 
+[[maybe_unused]] extern EnumFacing getHorizontal(int index);
+
 [[maybe_unused]] extern std::string facingToString(EnumFacing facing);
 
 [[maybe_unused]] extern EnumAxis getAxis(EnumFacing facing);
 
+[[maybe_unused]] extern int getIndexFacing(EnumFacing facing);
+
 [[maybe_unused]] extern EnumFacing getOppositeFacing(EnumFacing facing);
+
+[[maybe_unused]] extern EnumFacing rotateY(EnumFacing facing);
+
+[[maybe_unused]] extern EnumFacing rotateYCCW(EnumFacing facing);
 
 [[maybe_unused]] extern int getFrontOffsetX(EnumFacing facing);
 
 [[maybe_unused]] extern int getFrontOffsetY(EnumFacing facing);
 
 [[maybe_unused]] extern int getFrontOffsetZ(EnumFacing facing);
+
+[[maybe_unused]] extern EnumFacing getFront(int index);
