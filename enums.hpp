@@ -74,6 +74,8 @@ namespace lce {
 
     [[maybe_unused]] extern int getChunkWorldBounds(WORLDSIZE worldSize);
 
+    [[maybe_unused]] extern int getChunkNetherBounds(WORLDSIZE worldSize);
+
     [[maybe_unused]] extern std::string worldSizeToString(WORLDSIZE worldSize);
 
     [[maybe_unused]] extern std::string biomeScaleToString(BIOMESCALE biomeScale);
